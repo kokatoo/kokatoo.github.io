@@ -1,3 +1,8 @@
+.default-footer {
+    padding-bottom: 30px !important;
+    padding-top: 30px !important;
+}
+
 .highlight pre {
     overflow: hidden;
     border-left: 0;
