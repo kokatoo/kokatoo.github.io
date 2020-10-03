@@ -2,10 +2,32 @@
     overflow: hidden;
     border-left: 0;
 }
+
+.navbar {
+    padding: 10px !important;
+}
+
 .navbar-brand img {
     width: 50px;
     padding-right: 10px;
 }
 .brand {
     color: #999 !important;
+}
+
+.blog h2 {
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.blog h3 {
+    font-size: 20px;
+}
+
+.blog img {
+    width: auto;
+}
+
+.blog li {
+    list-style: hiragana
 }
