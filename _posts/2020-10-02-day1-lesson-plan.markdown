@@ -20,7 +20,7 @@ We will introduce them to the DrRacket programming environment or IDE. It is wid
 We will proceed to demo simple expression like:
 
 {% highlight racket %}
-(+ 1 1)
+(+ 1 1) 
 {% endhighlight %}
 
 in the REPL panel (see below).
@@ -35,7 +35,7 @@ First we will demo the power of Racket by running some simple programs.
 (scale
  50
  (color-list->bitmap
-  '(red orange yellow green cyan blue violet)
+  '(red orange yellow green cyan blue violet)   
   7
   1))
 {% endhighlight %}
@@ -46,7 +46,7 @@ First we will demo the power of Racket by running some simple programs.
 (let sierpinski ([n 8])
   (if (zero? n)
       (triangle 2 'solid 'red)
-      (let ([t (sierpinski (- n 1))])
+      (let ([t (sierpinski (- n 1))]) 
         (above t (beside t t)))))
 {% endhighlight %}
 
@@ -57,7 +57,7 @@ First we will demo the power of Racket by running some simple programs.
   (cond
     [(zero? n) (square 1 "solid" "black")]
     [else
-     (local [(define smaller (koch-curve (- n 1)))]
+     (local [(define smaller (koch-curve (- n 1)))] 
        (beside/align "bottom"
                      smaller
                      (rotate 60 smaller)
@@ -73,9 +73,32 @@ Next we will demo programs that the students will code themselves during the cou
 
 Simulate bouncing balls with different gravitational constant from the Sun to Pluto.
 
-![](/assets/img/demo4.png)
+![](/assets/img/gravity.gif)
 
 ### 3.2 Snake Game:
-![](/assets/img/demo5.png)
+![](/assets/img/snake.gif)
 
 ## 4. Function
+
+Give the students a revision of what defines a mathematical function and how it's different from the conventional function as we know in programming. Introduce implictly the concept of immutability vs state changes as we compared the differences between various programming languages and mathematical function. This is essentially giving the students a taste of the debate between functional programming vs imperative programming.
+
+We will show them how to code simple mathematical functions in Racket.
+
+{% highlight racket %}
+
+(define (area-triangle a b) 
+  (* 1/2 a b))
+
+(define (area-rect a b)
+  (* a b))
+
+(define (area-circle r)
+  (* pi (sqr r)))
+{% endhighlight %}
+
+Students will proceed to code the following formulas:
+- area of a cube
+- square function
+- Pythagorean formula
+- quadratic formula
+
