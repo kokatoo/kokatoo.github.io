@@ -57,7 +57,7 @@ First we will demo the power of Racket by running some simple programs.
   (cond
     [(zero? n) (square 1 "solid" "black")]
     [else
-     (local [(define smaller (koch-curve (- n 1)))]  
+     (local [(define smaller (koch-curve (- n 1)))]     
        (beside/align "bottom"
                      smaller
                      (rotate 60 smaller)
