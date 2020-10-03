@@ -1,0 +1,11 @@
+.highlight pre {
+    overflow: hidden;
+    border-left: 0;
+}
+.navbar-brand img {
+    width: 50px;
+    padding-right: 10px;
+}
+.brand {
+    color: #999 !important;
+}
