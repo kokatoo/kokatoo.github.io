@@ -103,7 +103,7 @@ Students will proceed to code the following formulas:
 - Pythagorean formula
 - quadratic formula
 
-Next we will impart to them by coding these functions, we can automate computation and compose functins to do wonderful things.
+Next we will impart to them by coding these functions, we can automate computation and compose functions to do wonderful things.
 
 ## 5. Writing Tests
 
