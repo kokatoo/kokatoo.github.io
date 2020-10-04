@@ -61,6 +61,7 @@ First we will demo the power of Racket by running some simple programs.
        (beside/align "bottom"
                      smaller
                      (rotate 60 smaller)
+                     
                      (rotate -60 smaller)
                      smaller))]))
 {% endhighlight %}
@@ -86,7 +87,7 @@ We will show them how to code simple mathematical functions in Racket.
 
 {% highlight racket %}
 
-(define (area-triangle a b) 
+(define (area-triangle a b)  
   (* 1/2 a b))
 
 (define (area-rect a b)
@@ -102,3 +103,49 @@ Students will proceed to code the following formulas:
 - Pythagorean formula
 - quadratic formula
 
+Next we will impart to them by coding these functions, we can automate computation and compose functins to do wonderful things.
+
+## 5. Writing Tests
+
+Test cases would be taught as a form of coming up with examples (ideally prior to actual coding) that you expect the function to produce. We will introduce various industry best practice of testing like TDD (Test Driven Development). 
+
+Using the mathematical functions we have written, we will proceed to ask the students to write tests for them. There are 3 basic unit test cases:
+
+- Happy Path
+- Unhappy Path
+- Boundary
+
+{% highlight racket %}
+(require rackunit)
+
+(check-equal? (area-triangle 2 3) 3)
+(check-equal? (area-triangle 0 0) 0)
+(check-equal? (area-triangle 2e10 3e10) 3e20)    
+
+(check-equal? (area-rect 2 3) 6)
+(check-equal? (area-circle 1) pi)
+{% endhighlight %}
+
+## 6. 2htdp/image Library
+
+2htdp/image is a image teachpack that provides a number of basic image construction functions and combining them to build more complex images. We will use them to a simple traffic light simulation. We will start off with a single circle follow by stacking 3 circles to create a static traffic light simulation.
+
+![](/assets/img/demo6.png)
+
+## 7. 2htdp/universe Library
+
+Next we introduce the big-bang function in 2htdp/universe library to animate the images. Basically we would like to change colors across time. I will proceed to demo an example of how to change the colors of a circle across time. The students will then be tasked to change the color of all circles with a challenge of a certain time interval. This will tie to the concept of rates and modulo they learned in their math class to coding. They will be exposed to keeping track of time state and how to abstract them into mathematical functions.
+
+![](/assets/img/one-traffic.gif)
+
+## 8. Finite State Machine (FSM)
+
+Finally we will introduce them the concept of FSM and conditionals. We will take the abs math function as an example to explain conditionals. In the traffic light example, there are only 3 states (Red, Yellow, Green). We will draw the state transition diagram (Red -> Green -> Yellow -> Green). They will be tasked to simulate a traffic light at fixed time interval.
+
+![](/assets/img/traffic.gif)
+
+Note that the time interval is fixed across all 3 states, but we know in real life yellow state is shorter than both red and green. In order to solve this problem, we will introduce the concept of structure to store more information to tackle this problem.
+
+![](/assets/img/full-traffic.gif)
+
+Before we end the first day, we will revisit the traffic light program and analyze what kind of coding improvements to mae the code more asethetic and maintainable if requirements were to be changed in the future.
