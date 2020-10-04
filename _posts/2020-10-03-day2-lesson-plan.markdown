@@ -71,7 +71,7 @@ We will start with a prime search algorithm and move on from there to prime fact
   (define (find-divisor n test-divisor)
     (cond [(> (sqr test-divisor) n) n]
           [(divides? test-divisor n) test-divisor]
-          [(= test-divisor 2) (find-divisor n (+ test-divisor 1))]   
+          [(= test-divisor 2) (find-divisor n (+ test-divisor 1))]    
           [else (find-divisor n (+ test-divisor 2))]))
 
   (define (divides? a b)
@@ -102,8 +102,7 @@ There is a faster way and easier way to compute the GCD which is to use Euclid's
 Next we will show them the relationship between GCD and LCM through a simple formula.
 
 {% highlight racket %}
-(define (lcm
-         a b)
+(define (lcm a b)
   (/ (* a b) (gcd a b)))   
 {% endhighlight %}
 
