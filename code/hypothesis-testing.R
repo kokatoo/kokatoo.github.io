@@ -8,6 +8,15 @@ gen_data <- function(fun, mu, sigma, n) {
   )
 }
 
+gen_beta_data <- function(shape1, shape2, n) {
+  sapply(
+    1:100,
+    function(i) {
+      rbeta(n, shape1, shape2)
+    }
+  )
+}
+
 plot_dist <- function(fun, mu, sigma) {
   x <- mu + seq(-4, 4, length = 100) * sigma
   probs <- fun(x, mean = mu, sd = sigma)
@@ -17,6 +26,7 @@ plot_dist <- function(fun, mu, sigma) {
 plot_sampling_dist <- function(data) {
   means <- apply(data, 2, mean)
   x <- seq(min(means), max(means), length = 100)
+  x <- seq(0, 1, length = 100)
   ts <- metRology::dt.scaled(x, mean = mean(means), sd = sd(means), df = n - 1)
   res <- hist(means,
     col = "red",
@@ -52,6 +62,13 @@ mu <- 100
 sigma <- 15
 n <- 25
 
+par(mfrow=c(1, 2))
+x <- seq(0, 1, length = 20)
+probs <- dbeta(x, 5, 1)
+plot(x, probs, type = "l", main = "Population Distribution")
+plot_sampling_dist(gen_beta_data(5, 1, n))
+
+
 data <- gen_data(rnorm, mu, sigma, n)
 plot_dist(dnorm, mu, sigma)
 sample <- data[, 80]
@@ -70,9 +87,11 @@ abline(v = tscore, col = "red")
 data <- gen_data(rnorm, mu, sigma, n)
 plot_tdist(n, "")
 abline(v = qt(0.95, df = n - 1), lwd = 3)
+sleep(3)
 for (i in seq_len(ncol(data))) {
   sample <- data[, i]
   tscore <- calc_t_score(sample, mu)
+  Sys.sleep(0.1)
   if (tscore > qt(0.95, df = n - 1)) {
     abline(v = tscore, col = "blue")
   }

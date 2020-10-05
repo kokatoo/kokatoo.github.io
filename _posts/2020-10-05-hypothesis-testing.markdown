@@ -2,7 +2,7 @@
 layout: post
 title: "Uncover Hypothesis Testing (Part 1)"
 date: 2020-10-05 02:30:06 +0800
-img : ht.png
+img : ht4.gif
 categories:
 ---
 
@@ -69,6 +69,14 @@ plot_sampling_dist(data)
 
 As we can see, the sampling distribution looks very normal (and it should be according to CLT). Note that the overlapping curve is a t-distribution with `df = n-1`.
 
+According to CLT, even if the underlying population is non-normal, the sampling distribution would still be normal. Let's try it on a few beta distributions.
+
+![](/assets/img/ht5.png)
+![](/assets/img/ht6.png)
+![](/assets/img/ht7.png)
+
+We can see the sampling distributions are all pretty gaussian, but especially less so for skewed distributions.
+
 Next let's regenerate the samples and randomly select a sample from `data` to do a t-test.
 
 {% highlight r %}
@@ -129,7 +137,7 @@ for (i in seq_len(ncol(data))) {
 }
 {% endhighlight %}
 
-![](/assets/img/ht4.png)
+![](/assets/img/ht4.gif)
 
 The black line represent the 95th percentile and on average you will have about 5 blue lines on the right.
 
