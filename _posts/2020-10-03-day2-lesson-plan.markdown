@@ -6,6 +6,8 @@ img : falling2.gif
 categories:
 ---
 
+In day 2 of the seminar, we will introduce list and recursion. We will demo Newton's Method for calculating square root and some fundamental Number Theory concepts like Prime Factorization, GCD and LCD. Students can test the LCD of blinking traffic lights and code it for themselves. Finally we will simulate bouncing balls.
+
 ## 1. List, Loop, and Recursion
 
 Introduce the list function and datatype and some basic functions to deal with list like car and cdr.
@@ -60,7 +62,7 @@ The students are not expected to learn this but it would be interesting to expos
 
 Get the students to recall what they learned about prime factorization in math class and how they would have coded it. Explain to them why they only have to search for factors up to the `(sqrt n)`. This involves a simple but beautiful mathematical proof.
 
-We will start with a prime search algorithm and move on from there to prime factors if there is enough time.
+We will start with a prime search algorithm and move on from there to prime factors if there is enough time. Note that this is their very first real algorithm.
 
 {% highlight racket %}
 (define (prime? n)

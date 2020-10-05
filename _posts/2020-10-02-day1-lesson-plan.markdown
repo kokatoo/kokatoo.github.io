@@ -6,6 +6,9 @@ img : snake.png
 categories:
 ---
 
+In day 1 lesson plan, we will introduce about coding and DrRacket. We will show demos and introduce to the 2htdp teaching packs. 
+Finally we will simulate a traffic light animation
+
 ## 1. Introduction
 We will start off the seminar by answering the following questions.
 
