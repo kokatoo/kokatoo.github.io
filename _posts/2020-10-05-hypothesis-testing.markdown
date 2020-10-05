@@ -75,7 +75,7 @@ According to CLT, even if the underlying population is non-normal, the sampling 
 ![](/assets/img/ht6.png)
 ![](/assets/img/ht7.png)
 
-We can see the sampling distributions are all pretty gaussian, but especially less so for skewed distributions.
+We can see the sampling distributions are all pretty gaussian.
 
 Next let's regenerate the samples and randomly select a sample from `data` to do a t-test.
 
@@ -141,4 +141,4 @@ for (i in seq_len(ncol(data))) {
 
 The black line represent the 95th percentile and on average you will have about 5 blue lines on the right.
 
-In Part 2, we will discuss about Power and Type I and Type II errors. Stay tuned!
+In Part 2, we will discuss about Power and Type I/II errors. Stay tuned!

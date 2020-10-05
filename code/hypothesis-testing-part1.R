@@ -1,4 +1,3 @@
-
 gen_data <- function(fun, mu, sigma, n) {
   sapply(
     1:100,
@@ -62,13 +61,6 @@ mu <- 100
 sigma <- 15
 n <- 25
 
-par(mfrow=c(1, 2))
-x <- seq(0, 1, length = 20)
-probs <- dbeta(x, 5, 1)
-plot(x, probs, type = "l", main = "Population Distribution")
-plot_sampling_dist(gen_beta_data(5, 1, n))
-
-
 data <- gen_data(rnorm, mu, sigma, n)
 plot_dist(dnorm, mu, sigma)
 sample <- data[, 80]
@@ -107,3 +99,10 @@ n <- 25
 sample <- rnorm(n, mean = mu, sd = sigma)
 tscore <- calc_t_score(sample, 100)
 plot_tdist(tscore)
+
+
+par(mfrow = c(1, 2))
+x <- seq(0, 1, length = 20)
+probs <- dbeta(x, 5, 1)
+plot(x, probs, type = "l", main = "Population Distribution")
+plot_sampling_dist(gen_beta_data(5, 1, n))
