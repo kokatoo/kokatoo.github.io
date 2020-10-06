@@ -120,7 +120,7 @@ Explain Newton's Third Law and its application on falling object. We will first 
 
 Next explain to them the physics of bouncing. The formula for the bounce up will depend on the velocity accumulated until the time the ball hits the ground and governed by the following equation:
 
-`y = v(0) * t - 0.5*a*t^2`
+$$y=v_{0}t-\frac{1}{2}at^{2}$$
 
 ![](/assets/img/falling2.gif)
 
