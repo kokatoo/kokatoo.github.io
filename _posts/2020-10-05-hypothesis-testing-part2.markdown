@@ -121,7 +121,4 @@ Note that with a large enough sample size, the null hypothesis will eventually b
 
 We can generate this to a difference of 2 samples as well with a similar process. 
 
-In Part 3, we will discuss about Analysis of Variance. Stay tuned!
-
-
-
+In Part 3, we will start discussing about Analysis of Variance. Stay tuned!
