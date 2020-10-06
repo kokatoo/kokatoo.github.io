@@ -12,19 +12,21 @@ Today we will continue with part 2 of the Hypothesis Testing series about Power 
 
 ### Type I/II Errors
 
-We can represent the above null/alternate hypothesis by the below confusion matrix:
+We can represent the above null/alternative hypothesis by the below confusion matrix:
 
 |           | H0 True      | H0 False      |
 |-----------|--------------|---------------|
 | Reject H0 | Type I error | Power         |
 | Accept H0 | Correct      | Type II error |
 
+From the confusion matrix we can see that 4 things can happen, If H0 is true, the probability of making a wrong decision is `alpha` and the probability of making a right decision is `1 - alpha`. If H0 is false, the probability of making a right decision to reject H0 is `1 - beta` and the probability of making a wrong decision is `beta`.
+
 Type I error is determined by the significance level alpha. In our above example, `alpha = 0.05`. This mean out of 100 times, on average we will reject the null hypothesis when the null hypothesis is in fact true. On the contrary, if null hypothesis is false and we fail to reject the null hypothesis, we have made a Type II error. We can plot the 2 different hypothesis below:
 
 {% highlight r %}
 plot_dists <- function(fun, fun2, mu, sigma) {
   x <- mu + seq(-4, 6, length = 100) * sigma / sqrt(n)
-  plot(x, fun(x), ylab = "Probs", type = "l", main = "Null vs Alternate Distribution")      
+  plot(x, fun(x), ylab = "Probs", type = "l", main = "Null vs Alternative Distribution")      
   lines(x, fun2(x), col = "blue")
 }
 
@@ -49,11 +51,11 @@ abline(
 
 ![](/assets/img/power2.png)
 
-The shaded black represents alpha (Type I error). The area under the curve will be equal to 0.05. On the left side shaded blue under the alternate hypothesis will be beta (Type II error). This is so because we will fail to reject the null hypothesis when the alternate hypothesis is true.
+The shaded black represents alpha (Type I error). The area under the curve will be equal to 0.05. On the left side shaded blue under the alternative hypothesis will be beta (Type II error). This is so because we will fail to reject the null hypothesis when the alternative hypothesis is true.
 
 ## Power
 
-Power is defined as the ability to reject the null hypothesis when the alternate hypothesis is true. This is shown as shaded blue below:
+Power is defined as the ability to reject the null hypothesis when the alternative hypothesis is true. This is shown as shaded blue below:
 
 ![](/assets/img/power7.png)
 
@@ -114,6 +116,10 @@ n <- 50
 {% endhighlight %}
 
 ![](/assets/img/power5.png)
+
+Note that with a large enough sample size, the null hypothesis will eventually be rejected as it is almost definitely never exactly true. Hence usually what practitioners do is to use power analysis to calculate the sample size needed to detect a particular effect size with the levels of `alpha` and `beta` specificed.
+
+We can generate this to a difference of 2 samples as well with a similar process. 
 
 In Part 3, we will discuss about Analysis of Variance. Stay tuned!
 
