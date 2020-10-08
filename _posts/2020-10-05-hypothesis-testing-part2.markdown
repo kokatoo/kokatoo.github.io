@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Uncover Hypothesis Testing (Part 2)"
+title: "Hypothesis Testing (Part 2) Power and Type I/II Errors"
 date: 2020-10-05 03:30:06 +0800
 img : power2.png
 categories:

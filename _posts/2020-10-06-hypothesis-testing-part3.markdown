@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Uncover Hypothesis Testing (Part 3)"
+title: "Hypothesis Testing (Part 3) One-Way ANOVA"
 date: 2020-10-05 03:30:06 +0800
 img : anova1.png
 categories:
@@ -192,8 +192,4 @@ F test is relatively robust to deviation from normality given that:
 
 However F test is not robust to violations of variance homogeneity as we can see from the above simuation. A rule of thumb is the ratio between the highest variance and lowest variance < 3.
 
-In Part 4, we will explore Factorial ANOVA . Stay tuned!
-
-
-
-
+In Part 4, we will explore Two-Way ANOVA . Stay tuned!

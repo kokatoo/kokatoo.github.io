@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Uncover Hypothesis Testing (Part 1)"
+title: "Hypothesis Testing (Part 1) One-Sample test"
 date: 2020-10-05 02:30:06 +0800
 img : ht4.gif
 categories:
