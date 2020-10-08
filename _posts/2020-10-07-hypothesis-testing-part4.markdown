@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Hypothesis Testing (Part 4) Two-way Anova"
+title: "Hypothesis Testing (Part 4) Two-way ANOVA"
 date: 2020-10-07 03:30:06 +0800
 img : interaction1.png
 categories:
