@@ -1,3 +1,7 @@
+.header-style-2 img {
+    width: auto !important;
+}
+
 .blog table {
     margin-bottom: 10px;
 }
