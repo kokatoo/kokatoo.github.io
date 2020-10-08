@@ -282,12 +282,12 @@ interaction.plot(
   ylab = "Response",
   xlab = "Treatment",
   trace.label = "Gender",
-  main = "Interaction between Treatment and Gender"
+  main = "Interaction between Treatment and Gender"     
 )
 {% endhighlight %}
 
 ![](/assets/img/interaction1.png)
 
-With higher-order factorial designs, variation among groups are broken down into main effects for each independent variables, two-way interaction between each pair of independent variables, three-way among each trio, and etc. Similar to two-way factorial design, error sum o fsquares is the snum of squared differences within each cell.
+With higher-order factorial designs, variation among groups are broken down into main effects for each independent variables, two-way interaction between each pair of independent variables, three-way among each trio, and etc. Similar to two-way factorial design, error sum of squares is the num of squared differences within each cell.
 
 In Part 5, we will explore Random and Mixed Models . Stay tuned!
