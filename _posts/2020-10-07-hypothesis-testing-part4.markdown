@@ -5,12 +5,6 @@ date: 2020-10-07 03:30:06 +0800
 img : interaction1.png
 categories:
 ---
-$$\begin{aligned}
-SS_{Treatment} &= \frac{1}{(bn)}\sum_{i = 1}^{a}X_{i..}^{2} - \frac{\sum_{}^{}X_{...}^{2}}{N}\\\\
-SS_{Gender} &= \frac{1}{(an)}\sum_{i = 1}^{b}X_{.j.}^{2} - \frac{\sum_{}^{}X_{...}^{2}}{N}\\\\
-SS_{Total} &= \sum_{i = 1}^{a}\sum_{j = 1}^{b}X_{ij.}^{2} - \frac{\sum_{}^{}X_{...}^{2}}{N}\\\\
-SS_{Treatment, Gender} &= \sum_{i = 1}^{a}\sum_{j = 1}^{b}\frac{X_{ij.}^{2}}{n} - \frac{\sum_{}^{}X_{...}^{2}}{N} - SS_{Treatment} - SS_{Gender}\\\\
-\end{aligned}$$
 
 Today we will continue with part 4 of the Hypothesis Testing series on Factorial ANOVA. If you haven't checked out part 3 please check it out [here]({% post_url 2020-10-06-hypothesis-testing-part3 %})
 
