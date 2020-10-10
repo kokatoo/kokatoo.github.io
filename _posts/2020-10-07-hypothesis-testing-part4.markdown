@@ -288,6 +288,9 @@ interaction.plot(
 
 ![](/assets/img/interaction1.png)
 
+For the interaction plot, it doesn't matter which independent variable is in the x-axis but traditionally the variable with the most levels will be chosen and the order doesn't matter as well
+. If there is no interaction, the change in the response will be the same if we move along the points on the x-axis (i.e. the lines are all parallel). Note it is the change in the response  that is dependent on the level of the other explanatory variable if there is an interaction.
+
 With higher-order factorial designs, variation among groups are broken down into main effects for each independent variables, two-way interaction between each pair of independent variables, three-way among each trio, and etc. Similar to two-way factorial design, error sum of squares is the num of squared differences within each cell.
 
 In Part 5, we will explore Random and Mixed Models . Stay tuned!

@@ -1,3 +1,41 @@
+df <- data.frame(
+  response
+  = c(
+    46, 56, 55, 47,
+    54, 55, 51, 56,
+    48, 56, 50, 58,
+    46, 60, 51, 59,
+    51, 53, 53, 55
+  ),
+  machine =
+    as.factor(
+      c(
+        1, 2, 3, 4,
+        1, 2, 3, 4,
+        1, 2, 3, 4,
+        1, 2, 3, 4,
+        1, 2, 3, 4
+      )
+    ),
+  operator =
+    as.factor(
+      c(
+        1, 1, 1, 1,
+        2, 2, 2, 2,
+        3, 3, 3, 3,
+        4, 4, 4, 4,
+        5, 5, 5, 5
+      )
+    )
+)
+
+fit <- aov(response ~ machine * operator, data = df)
+summary(fit)
+
+summary(aov(response ~ machine + operator, data = df))
+summary(aov(response ~ machine * operator, data = df))
+df
+
 mu1 <- 100
 mu2 <- 110
 mu3 <- 130
