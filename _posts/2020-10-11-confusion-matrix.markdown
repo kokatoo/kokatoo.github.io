@@ -1,0 +1,56 @@
+---
+layout: post
+title: "Confusion Matrix"
+date: 2020-10-11 03:30:06 +0800
+img : confusion.png
+categories:
+---
+
+In a binary classification test, you will tend to see the following confusion matrix:
+
+|                    | Actual Positive       | Actual Negative                   |
+|--------------------|-----------------------|-----------------------------------|
+| Predicted Positive | True Positive (Hit)   | False Positive (False Alarm)      |
+| Predicted Negative | False Negative (Miss) | True Negative (Correct Rejection) |
+
+Or in the following format:
+
+|                    | Actual Positive | Actual Negative |
+|--------------------|-----------------|-----------------|
+| Predicted Positive | True Positive   | Type I Error    |
+| Predicted Negative | Type II Error   | True Negative   |
+
+Or in terms of Null/Alternative Hypothesis:
+
+|                    | H0 is False | H0 is True       |
+|--------------------|-------------|------------------|
+| Predicted Positive | Power       | Alpha            |
+| Predicted Negative | Beta        | Correct Decision |
+
+## Sensitivity and Specificity
+
+Consider a patient going for a test for an infection.
+
+Sensitivity is the probability that the test is positive given that the patient is infected:
+
+$$\begin{aligned}
+Sensitivity &= \frac{True\: Positive}{True\: Positive + False\: Negative}\\\\
+&= \frac{True\: Positive}{Actual\: Positive}
+\end{aligned}$$
+
+Specificity is the probability that the test is negative given that the patient is not infected:
+
+$$\begin{aligned}
+Specificity &= \frac{True\: Negative}{True\: Negative + False\: Positive}\\\\
+&= \frac{True\: Negative}{Actual\: Negative}
+\end{aligned}$$
+
+## Odds Ratio
+
+Odds ratio can be defined as the ratio of the odds of the test being positive given that the patient is infected over the odds of the test being positive given that the patient is not infected.
+
+$$Odds Ratio = \frac{True\: Positive \mathbin{/} False\: Negative} {False\: Positive \mathbin{/} True\: Negative}$$
+
+The Odds Ratio is often used to compare an experimental vs a control condition. Note that the Odds Ratio is independent from the incidence rate. For example, the OR of `(10/100)/(1/100)` is the same as `(10/10,000)/(1/10,000)` even though the likelihood of Predicted Negative has increased by a factor of 100.
+
+

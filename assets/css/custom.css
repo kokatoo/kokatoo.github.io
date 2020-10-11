@@ -9,6 +9,12 @@
 .blog table th, td {
     border: 1px solid black;
     font-weight: normal;
+    padding: 5px;
+}
+
+.blog h3 {
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .blog-post h3 {
