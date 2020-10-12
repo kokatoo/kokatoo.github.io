@@ -14,14 +14,14 @@ Today we will continue with part 2 of the Hypothesis Testing series about Power 
 
 We can represent the above null/alternative hypothesis by the below confusion matrix:
 
-|           | H0 True      | H0 False      |
-|-----------|--------------|---------------|
-| Reject H0 | Type I error | Power         |
-| Accept H0 | Correct      | Type II error |
+|           | H0 True                    | H0 False               |
+|-----------|----------------------------|------------------------|
+| Reject H0 | Type I error (False Alarm) | Power (Hit)            |
+| Accept H0 | Correct                    | Type II error (Miss)   |
 
-From the confusion matrix we can see that 4 things can happen, If H0 is true, the probability of making a wrong decision is `alpha` and the probability of making a right decision is `1 - alpha`. If H0 is false, the probability of making a right decision to reject H0 is `1 - beta` and the probability of making a wrong decision is `beta`.
+From the confusion matrix we can see that 4 things can happen, If H0 is true, the probability of making a wrong decision is $$\alpha$$ and the probability of making a right decision is $$1 - \alpha$$. If H0 is false, the probability of making a right decision to reject H0 is $$1 - \beta$$ and the probability of making a wrong decision is $$\beta$$.
 
-Type I error is determined by the significance level alpha. In our above example, `alpha = 0.05`. This mean out of 100 times, on average we will reject the null hypothesis when the null hypothesis is in fact true. On the contrary, if null hypothesis is false and we fail to reject the null hypothesis, we have made a Type II error. We can plot the 2 different hypothesis below:
+Type I error is determined by the significance level alpha. In our above example, $$\alpha = 0.05$$. This mean out of 100 times, on average we will reject the null hypothesis when the null hypothesis is in fact true. On the contrary, if null hypothesis is false and we fail to reject the null hypothesis, we have made a Type II error. We can plot the 2 different hypothesis below:
 
 {% highlight r %}
 plot_dists <- function(fun, fun2, mu, sigma) {
@@ -117,8 +117,30 @@ n <- 50
 
 ![](/assets/img/power5.png)
 
-Note that with a large enough sample size, the null hypothesis will eventually be rejected as it is almost definitely never exactly true. Hence usually what practitioners do is to use power analysis to calculate the sample size needed to detect a particular effect size with the levels of `alpha` and `beta` specificed.
+Note that with a large enough sample size, the null hypothesis will eventually be rejected as it is almost definitely never exactly true. This can also be seen in the formula for the test statistic where we multiply by $$\sqrt{n}$$ and with a big enough n the test statistic can be made arbitrary large. Usually what practitioners do is to use power analysis to calculate the sample size needed to detect a particular effect size with the levels of $$\alpha$$ and $$\beta$$ specificed.
 
 We can generate this to a difference of 2 samples as well with a similar process. 
+
+## Effect Size
+
+As previously stated, with a large enough sample size, any test will be eventually significant. To counter this problem, the experimenter have to take account of effect size. Note that p-value does not give any information about effect size. With the same effect size, the p-value can change with a different sample size.
+
+So what exactly is effect size? It is also known as Cohen's $$\delta$$ and is defined as the distance between two population means:
+
+$$\delta = \frac{\mu 1 - \mu 0}{\sigma}$$
+
+For categorical variables, we can define effect size as:
+
+$$\delta = z(Hit\: Rate) - z(Type\:I\:Rate)$$
+
+where $$z$$ is the normal distribution score which cumulative probability equals the rate.
+
+For example, if the hit rate is 0.8 and Type I error rate is 0.2:
+
+{% highlight r %}
+> qnorm(0.8) - qnorm(0.2)  
+[1] 1.683242
+{% endhighlight %}
+
 
 In Part 3, we will start discussing about Analysis of Variance. Stay tuned!
