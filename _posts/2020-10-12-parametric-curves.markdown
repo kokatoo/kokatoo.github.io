@@ -117,7 +117,7 @@ $$r\theta$$ represents part of the circumference of the circle as it traces it's
 
 ![](/assets/img/para5.gif)
 
-## Tangents
+## Tangent
 
 Let's try to plot tangents to the parametric plots. We know from the chain rule:
 
@@ -150,6 +150,21 @@ y &= t^{3} - 3t\\\\
 \end{aligned}$$
 
 ![](/assets/img/para7.gif)
+
+## Arc Length
+
+The formula for arc length can be derived from the Pythagorean Theorem (for the interval/hypotenuse approximation) and Mean Value Theorem (for the $$\frac{dy}{dx}$$) is given below:
+
+$$L = \int_{a}^{b}\sqrt{1 + \bigg(\frac{dy}{dx}\bigg)^{2}} dx$$
+
+To extend this to cover parametric equation:
+
+$$\begin{aligned}
+L &= \int_{a}^{b}\sqrt{1 + \bigg(\frac{dy}{dx}\bigg)^{2}} dx\\\\
+L &= \int_{c}^{d}\sqrt{1 + \bigg(\frac{dy \mathbin{/} dt}{dx \mathbin{/} dt}\bigg)^{2}} \frac{dx}{dt} dt\\\\
+L &= \int_{c}^{d}\sqrt{\bigg(\frac{dx}{dt}\bigg)^{2} + \bigg(\frac{dy}{dt}\bigg)^{2}} dt\\\\
+\end{aligned}$$
+
 
 <br />
 The `plot-animate` function:
