@@ -162,15 +162,13 @@
        (/ (sin t) (- 1 (cos t))))))
 
 (tangent-animate
- -5 5
- 0 4.5 -4 4
+ (- (sqrt 5)) (+ (sqrt 5) 0.5)
+ 0 5 -4.5 4.5
  (lambda (t)
    (vector (* t t)
            (- (* t t t) (* 3 t))))
  (lambda (t)
-   (if (= t 0)
-       100000
-       (* 1.5 (- t (/ 1 t))))))
+   (* 1.5 (- t (/ 1 t)))))
 
 (define (tangent-animate
          min-t
@@ -197,7 +195,7 @@
 
   (define (tock)
     (sleep/yield inc)
-    (if (> t (+ max-t inc))
+    (if (> t max-t)
         (send timer stop)
         (plot/dc
          (list (parametric
