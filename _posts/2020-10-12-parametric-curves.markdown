@@ -94,6 +94,29 @@ y &= 2.3\: sin\: 10t\: - \: sin\: 23t
 
 ![](/assets/img/para4.gif)
 
+## Cycloids
+
+We can trace a path of a circle rolling along a straight line usin gthe following parametric equations:
+
+$$\begin{aligned}
+x &= r(\theta  - sin\: \theta)\\
+y &= r(\theta  - cos\: \theta)
+\end{aligned}$$
+
+$$r\theta$$ represents part of the circumference of the circle as it traces it's path along the line. Cycloids are interesting because it arises in many interesting problems like the brachistochrone problem and tautochrone problem. In short, when you invert the cycloid, and row a particle down, it will slide down in the shortest time due to gravity and no matter where you place it, it will always slide to the bottom at the same time.
+
+{% highlight racket %}
+(plot-animate
+ (* 3 2 pi)
+ 0 (* 3 2 pi) 0 5
+ (lambda (t)
+   (let ([r 1])
+     (vector (* r (- t (sin t)))
+             (* r (- 1 (cos t)))))))   
+{% endhighlight %}
+
+![](/assets/img/para5.gif)
+
 The `plot-animate` function:
 
 {% highlight racket %}
@@ -147,4 +170,3 @@ The `plot-animate` function:
                    (send timer stop))])
   #f)
 {% endhighlight %}
-

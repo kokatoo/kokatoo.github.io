@@ -135,3 +135,12 @@
  (lambda (t)
    (vector (+ (* 2.3 (cos (* 10 t))) (cos (* 23 t)))
            (- (* 2.3 (sin (* 10 t))) (sin (* 23 t))))))
+
+(plot-animate
+ (* 3 2 pi)
+ 0 (* 3 2 pi) 0 5
+ (lambda (t)
+   (let ([r 1])
+     (vector (* r (- t (sin t)))
+             (* r (- 1 (cos t)))))))
+
