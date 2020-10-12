@@ -123,7 +123,7 @@ We can generate this to a difference of 2 samples as well with a similar process
 
 ## Effect Size
 
-As previously stated, with a large enough sample size, any test will be eventually significant. To counter this problem, the experimenter have to take account of effect size. Note that p-value does not give any information about effect size. With the same effect size, the p-value can change with a different sample size.
+As previously stated, with a large enough sample size, any test will be eventually significant. To counter this problem, the experimenter have to take account of effect size. Note that p-value does not give any information about effect size. With the same effect size, the p-value can change with a different sample size. In other words, you should not compare p-values among experiments when the sample sizes are not the same.
 
 So what exactly is effect size? It is also known as Cohen's $$\delta$$ and is defined as the distance between two population means:
 
