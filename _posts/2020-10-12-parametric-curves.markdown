@@ -117,6 +117,41 @@ $$r\theta$$ represents part of the circumference of the circle as it traces it's
 
 ![](/assets/img/para5.gif)
 
+## Tangents
+
+Let's try to plot tangents to the parametric plots. We know from the chain rule:
+
+$$\frac{dy}{dt} = \frac{dy}{dx} \cdot \frac{dx}{dt}$$
+
+We can then bring solve for $$\frac{dy}{dx}$$:
+
+$$\frac{dy}{dx} = \frac{dy \mathbin{/} dt}{dx \mathbin{/} dt} \mathbin{,} \:\:\: \frac{dx}{dt} \neq 0$$
+
+The tangent for the cycloid:
+
+$$\begin{aligned}
+\frac{dy}{dx} &= \frac{dy \mathbin{/} d\theta}{dx \mathbin{/} d\theta}\\\\
+&= \frac{r\:sin\:\theta}{r(1 - cos\:\theta)}\\\\
+&= \frac{sin\:\theta}{1 - cos\:\theta}
+\end{aligned}$$
+
+Let's plot the tangent for the cycloid:
+
+![](/assets/img/para6.gif)
+
+Let's try another function:
+
+$$\begin{aligned}
+x &= t^{2}\\
+y &= t^{3} - 3t\\\\
+\frac{dy}{dx} &= \frac{dy \mathbin{/} dt}{dx \mathbin{/} dt}\\\\
+&= \frac{3t^{2} - 3}{2t}\\\\
+&= \frac{3}{2}(t - \frac{1}{t})
+\end{aligned}$$
+
+![](/assets/img/para7.gif)
+
+<br />
 The `plot-animate` function:
 
 {% highlight racket %}

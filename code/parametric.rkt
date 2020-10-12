@@ -144,3 +144,95 @@
      (vector (* r (- t (sin t)))
              (* r (- 1 (cos t)))))))
 
+(plot (function
+       (lambda (t)
+         (+ 0 (* 2 t)))
+       0 10))
+
+(tangent-animate
+ 0 (* 3 2 pi)
+ 0 (* 3 2 pi) 0 5
+ (lambda (t)
+   (let ([r 1])
+     (vector (* r (- t (sin t)))
+             (* r (- 1 (cos t))))))
+ (lambda (t)
+   (if (= t 0)
+       0
+       (/ (sin t) (- 1 (cos t))))))
+
+(tangent-animate
+ -5 5
+ 0 4.5 -4 4
+ (lambda (t)
+   (vector (* t t)
+           (- (* t t t) (* 3 t))))
+ (lambda (t)
+   (if (= t 0)
+       100000
+       (* 1.5 (- t (/ 1 t))))))
+
+(define (tangent-animate
+         min-t
+         max-t
+         x-min
+         x-max
+         y-min
+         y-max
+         fn
+         tan-fn)
+
+  (define f (new frame% [label "Test graph"]
+                 [width 600]
+                 [height 600]))
+
+  (define c (new canvas% [parent f]))
+
+  (define t min-t)
+  (define inc 0.5)
+
+  (send f show #t)
+
+  (define timer #f)
+
+  (define (tock)
+    (sleep/yield inc)
+    (if (> t (+ max-t inc))
+        (send timer stop)
+        (plot/dc
+         (list (parametric
+                fn
+                min-t
+                max-t
+                #:x-min x-min #:x-max x-max
+                #:y-min y-min #:y-max y-max)
+               (let* ([m (tan-fn t)]
+                      [res (fn t)]
+                      [x (vector-ref res 0)]
+                      [y (vector-ref res 1)]
+                      [c (- y (* m x))])
+                 (function
+                  (lambda (x)
+                    (let ([res (+ (* m x) c)])
+                      (cond
+                        [(> res y-max) y-max]
+                        [(< res y-min) y-min]
+                        [else res])))
+                  #:color "blue")))
+         (send c get-dc)
+         0
+         0
+         (- (send f get-width) 40)
+         (- (send f get-height) 40)))
+
+    (set! t (+ t inc)))
+
+  (new button% [parent f]
+       [label "Start"]
+       [callback (lambda (button event)
+                   (set! timer (new timer% [notify-callback tock] [interval 5])))])
+  (new button% [parent f]
+       [label "Stop"]
+       [callback (lambda (button event)
+                   (send timer stop))])
+  #f)
