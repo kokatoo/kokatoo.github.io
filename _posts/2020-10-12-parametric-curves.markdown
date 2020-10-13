@@ -165,6 +165,23 @@ L &= \int_{c}^{d}\sqrt{1 + \bigg(\frac{dy \mathbin{/} dt}{dx \mathbin{/} dt}\big
 L &= \int_{c}^{d}\sqrt{\bigg(\frac{dx}{dt}\bigg)^{2} + \bigg(\frac{dy}{dt}\bigg)^{2}} dt\\\\
 \end{aligned}$$
 
+## Surface Area
+
+We can calculate the surface area of a function $$f$$ when it's revolved about the x-axis by the following formula:
+
+$$L = \int_{a}^{b} 2 \pi f(x)\sqrt{1 + [f'(x)]^{2}} dx$$
+
+This equation can be derived from the surface area of a section of the cone with length $$l$$ and radius $$r$$ (see the textbook for more details):
+
+$$A = 2\pi rl \mathbin{,} \:\:\: r=\frac{1}{2}(r_{1} + r_{2}) $$
+
+$$r$$ corresponds to the $$f(x)$$ part of the equation (derived from Mean Value Theorem) and $$l$$ corresponds to the arc length part of the equation $$\sqrt{1 + [f'(x)]^{2}}$$.
+
+Let us extend this to cover parametric equations:
+
+$$L = \int_{a}^{b} 2 \pi y \sqrt{\bigg(\frac{dx}{dt}\bigg)^{2} + \bigg(\frac{dy}{dt}\bigg)^{2}} dt$$
+
+This can be derived in a similar way to arc length.
 
 <br />
 The `plot-animate` function:
@@ -182,7 +199,8 @@ The `plot-animate` function:
                  [width 600]
                  [height 600]))
 
-  (define c (new canvas% [parent f]))
+  (define c (new canvas% [parent f]
+                 [min-height 500]))
 
   (define t 0)
   (define inc 0.5)
@@ -210,11 +228,14 @@ The `plot-animate` function:
 
     (set! t (+ t inc)))
 
-  (new button% [parent f]
+  (define panel (new horizontal-panel% [parent f]
+                     [alignment '(center center)]))
+
+  (new button% [parent panel]
        [label "Start"]
        [callback (lambda (button event)
-                   (set! timer (new timer% [notify-callback tock] [interval 5])))])      
-  (new button% [parent f]
+                   (set! timer (new timer% [notify-callback tock] [interval 5])))])
+  (new button% [parent panel]
        [label "Stop"]
        [callback (lambda (button event)
                    (send timer stop))])

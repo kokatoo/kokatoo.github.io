@@ -16,7 +16,8 @@
                  [width 600]
                  [height 600]))
 
-  (define c (new canvas% [parent f]))
+  (define c (new canvas% [parent f]
+                 [min-height 500]))
 
   (define t 0)
   (define inc 0.5)
@@ -44,11 +45,14 @@
 
     (set! t (+ t inc)))
 
-  (new button% [parent f]
+  (define panel (new horizontal-panel% [parent f]
+                     [alignment '(center center)]))
+
+  (new button% [parent panel]
        [label "Start"]
        [callback (lambda (button event)
                    (set! timer (new timer% [notify-callback tock] [interval 5])))])
-  (new button% [parent f]
+  (new button% [parent panel]
        [label "Stop"]
        [callback (lambda (button event)
                    (send timer stop))])
@@ -58,6 +62,61 @@
 ;; y = t + 1
 
 (plot-new-window? #t)
+
+(define (line-fn x0 y0 x1 y1)
+  (let ([m (/ (- y1 y0) (- x1 x0))])
+    (lambda (x)
+      (let ([res (+ y0 (* m (- x x0)))])
+        res))))
+
+(plot
+ (list (parametric
+        (lambda (t)
+          (let ([x0 4]
+                [y0 1]
+                [x1 28]
+                [y1 48]
+                [x2 50]
+                [y2 42]
+                [x3 40]
+                [y3 5])
+            (vector (+ (* x0 (expt (- 1 t) 3))
+                       (* 3 x1 t (expt (- 1 t) 2))
+                       (* 3 x2 (* t t) (expt (- 1 t) 1))
+                       (* x3 (* t t t) (expt (- 1 t) 0)))
+                    (+ (* y0 (expt (- 1 t) 3))
+                       (* 3 y1 t (expt (- 1 t) 2))
+                       (* 3 y2 (* t t) (expt (- 1 t) 1))
+                       (* y3 (* t t t) (expt (- 1 t) 0))))))
+        0
+        1)
+       (function
+        (line-fn 4 1 28 48)
+        #:color "blue")
+       (function
+        (line-fn 28 48 50 42)
+        #:color "green")
+       (function
+        (line-fn 50 42 40 5)
+        0 50
+        #:color "black")))
+
+(plot-animate
+ 2
+ -120 50 -500 100
+ (lambda (t)
+   (let ([x0 4] [y0 1]
+                [x1 28] [y1 48]
+                [x2 50] [y2 42]
+                [x3 40] [y3 5])
+     (vector (+ (* x0 (expt (- 1 t) 3))
+                (* 3 x1 t (expt (- 1 t) 2))
+                (* 3 x2 (* t t) (expt (- 1 t) 1))
+                (* x3 (* t t t) (expt (- 1 t) 0)))
+             (+ (* y0 (expt (- 1 t) 3))
+                (* 3 y1 t (expt (- 1 t) 2))
+                (* 3 y2 (* t t) (expt (- 1 t) 1))
+                (* y3 (* t t t) (expt (- 1 t) 0)))))))
 
 (plot
  (parametric
@@ -104,6 +163,8 @@
          [r 2])
      (vector (+ h (* r (cos t)))
              (+ k (* r (sin t)))))))
+
+
 
 (plot
  (parametric

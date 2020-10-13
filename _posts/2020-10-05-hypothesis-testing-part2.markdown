@@ -123,15 +123,19 @@ We can generate this to a difference of 2 samples as well with a similar process
 
 ## Effect Size
 
-As previously stated, with a large enough sample size, any test will be eventually significant. To counter this problem, the experimenter have to take account of effect size. Note that p-value does not give any information about effect size. With the same effect size, the p-value can change with a different sample size. In other words, you should not compare p-values among experiments when the sample sizes are not the same.
+As previously stated, with a large enough sample size, any test will be eventually significant. To counter this problem, the experimenter have to take account of effect size. This is because larger effect size are less susceptible to the sample size problem. Note that p-value does not give any information about effect size. With the same effect size, the p-value can change with a different sample size. In other words, you should not compare p-values among experiments when the sample sizes are not the same and be especially wary of small effect size with large sample.
 
 So what exactly is effect size? It is also known as Cohen's $$\delta$$ and is defined as the distance between two population means:
 
 $$\delta = \frac{\mu 1 - \mu 0}{\sigma}$$
 
-For categorical variables, we can define effect size as:
+In signal detection theory (detecting signal vs noise), we can define effect size as:
 
-$$\delta = z(Hit\: Rate) - z(Type\:I\:Rate)$$
+$$\begin{aligned}
+\delta &= z(Hit\: Rate) - z(False\:Alarm\:Rate)\\\\
+Hit\: Rate &= \frac{Hit}{Hit + Miss}\\\\
+False\:Alarm\:Rate &= \frac{Type\: I\: Error}{Correct}
+\end{aligned}$$
 
 where $$z$$ is the normal distribution score which cumulative probability equals the rate.
 
