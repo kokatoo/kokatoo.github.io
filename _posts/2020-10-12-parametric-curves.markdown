@@ -183,6 +183,25 @@ $$L = \int_{a}^{b} 2 \pi y \sqrt{\bigg(\frac{dx}{dt}\bigg)^{2} + \bigg(\frac{dy}
 
 This can be derived in a similar way to arc length.
 
+## Bézier Curves
+
+Bézier curve is a parammetric curve that is used extensively in Computer Aided Design (CAD). For example in the design of curvature of cars' bodies.
+
+Following is a cubic Bézier curve comprising of 4 control points for: $$0 \leqslant t \leqslant 1\\\\$$
+
+$$\begin{aligned}
+x &= x_{0}(1 - t)^{3} + 3x_{1}t(1 - t)^{2} + 3 x_{2}t^{2}(1 - t) + x_{3}t^{3}\\\\
+y &= y_{0}(1 - t)^{3} + 3y_{1}t(1 - t)^{2} + 3 y_{2}t^{2}(1 - t) + y_{3}t^{3}\\
+\end{aligned}$$
+
+The control points basically act as boundary condition on a cubic spline interpolation. Given the following control points, we can plot the following graph in Racket:
+
+$$P_{0}(4\mathbin{,}\:1)\mathbin{,}\:P_{1}(28\mathbin{,}\:48)\mathbin{,}\:P_{2}(50\mathbin{,}\:42)\mathbin{,}\:P_{3}(40\mathbin{,}\:5)$$
+
+![](/assets/img/para2.png)
+
+The blue, green, and black lines are formed using the 4 control points while the 2 yellow lines are formed from anchor points at $$t = 0.5$$ and the red line is also the anchor point at $$t = 0.5$$ but on the yellow lines. As you can see the red line touches the cubic Bézier Curve. As $$t$$ moves, the red line will trace the curve correspondingly.
+
 <br />
 The `plot-animate` function:
 

@@ -69,6 +69,12 @@
       (let ([res (+ y0 (* m (- x x0)))])
         res))))
 
+(define (line-pt x0 y0 x1 y1 t)
+  (let* ([line-fn (line-fn x0 y0 x1 y1)]
+         [x (+ x0 (* t (- x1 x0)))])
+    (list x (line-fn x))))
+
+
 (plot
  (list (parametric
         (lambda (t)
@@ -90,6 +96,17 @@
                        (* y3 (* t t t) (expt (- 1 t) 0))))))
         0
         1)
+       (function
+        (apply line-fn (flatten (list (line-pt 4 1 28 48 0.5)
+                                      (line-pt 28 48 50 42 0.5))))
+        #:color "orange")
+       (function
+        (apply line-fn (flatten (list (line-pt 28 48 50 42 0.5)
+                                      (line-pt 50 42 40 5 0.5))))
+        #:color "orange")
+       (function
+        (line-fn 27.5 34.5 42 34.25)
+        #:color "red")
        (function
         (line-fn 4 1 28 48)
         #:color "blue")
