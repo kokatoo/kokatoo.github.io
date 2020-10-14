@@ -8,9 +8,17 @@ categories:
 
 Today we will continue with part 2 of the Hypothesis Testing series about Power and Type I/II errors. If you haven't checked out part 1 please check it out [here]({% post_url 2020-10-05-hypothesis-testing %})
 
-## Part 2: Power and Type I/II Errors
+<div class="toc" markdown="1">
+# Contents:
+- [Type I/II Errors](#type)
+- [Power](#power)
+- [Two-Sample t-test](#two)
+- [Paired-Sample t-test](#paired)
+- [Assumptions t-test](#assumption)
+- [Effect Size](#effect)
+</div>
 
-### Type I/II Errors
+## <a name="type"></a>Type I/II Errors
 
 We can represent the above null/alternative hypothesis by the below confusion matrix:
 
@@ -53,7 +61,7 @@ abline(
 
 The shaded black represents alpha (Type I error). The area under the curve will be equal to 0.05. On the left side shaded blue under the alternative hypothesis will be beta (Type II error). This is so because we will fail to reject the null hypothesis when the alternative hypothesis is true.
 
-## Power
+## <a name="power"></a>Power
 
 Power is defined as the ability to reject the null hypothesis when the alternative hypothesis is true. This is shown as shaded blue below:
 
@@ -119,9 +127,31 @@ n <- 50
 
 Note that with a large enough sample size, the null hypothesis will eventually be rejected as it is almost definitely never exactly true. This can also be seen in the formula for the test statistic where we multiply by $$\sqrt{n}$$ and with a big enough n the test statistic can be made arbitrary large. Usually what practitioners do is to use power analysis to calculate the sample size needed to detect a particular effect size with the levels of $$\alpha$$ and $$\beta$$ specificed.
 
-We can generate this to a difference of 2 samples as well with a similar process. 
+## <a name="two"></a>Two-Sample t-test
 
-## Effect Size
+A two-sample t test is similar to the one-sample t test except that we have a second mean, variance, and a potentially different sample size. 
+
+$$\begin{aligned}
+t &= \frac{\bar{x}_{A} - \bar{x}_{B}}{\sqrt{\frac{S_{Pool}^2}{n_{A}} + \frac{S_{Pool}^2}{n_{B}}}}\\\\
+S_{Pool} &= \frac{\sum{(x - \bar{x}_{A})^{2}} + \sum{(x - \bar{x}_{B})^{2}}}{n_{A} + n_{B} - 2}\\\\
+df &= n_{A} + n_{B} - 2
+\end{aligned}$$
+
+## <a name="paired"></a>Paired-Sample t-test
+
+Also known as the dependent t-test, within-subjects or repeated-measures test. This test is used when the two groups are related such that the same participant is being tested more than once. So essentially we pair the same individuals up and reduce the overall variation as each pair is his or her own control.
+
+$$\begin{aligned}
+t &= \frac{\sum_{i}x_{Ai} - x_{Bi}}{\frac{S_{diff}}{\sqrt{n}}}
+\end{aligned}$$
+
+$$S_{diff}$$ is the standard deviation of the differences of the two groups.
+
+## <a name="assumption"></a>Assumptions t-test
+
+TBD
+
+## <a name="effect"></a>Effect Size
 
 As previously stated, with a large enough sample size, any test will be eventually significant. To counter this problem, the experimenter have to take account of effect size. This is because larger effect size are less susceptible to the sample size problem. Note that p-value does not give any information about effect size. With the same effect size, the p-value can change with a different sample size. In other words, you should not compare p-values among experiments when the sample sizes are not the same and be especially wary of small effect size with large sample.
 

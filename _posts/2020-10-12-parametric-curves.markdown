@@ -8,6 +8,18 @@ categories:
 
 We shall start a new series based on the popular [Multivariate Calculus](https://www.amazon.com/Multivariable-Calculus-James-Stewart/dp/1305266641/ref=sr_1_1?crid=3OZ0BQMO52OZ7&dchild=1&keywords=multivariable+calculus+james&qid=1602362514&s=books&sprefix=multivar%2Cstripbooks-intl-ship%2C360&sr=1-1) textbook by James Stewart. Most of the examples will be taken from the book and I highly recommend you to get a copy. We shall start the series with Parametric Curves.
 
+<div class="toc" markdown="1">
+# Contents:
+- [Parametric Equation](#parametric)
+- [Cycloid](#cycloid)
+- [Tangent](#tangent)
+- [Arc Length](#arc)
+- [Surface Area](#surface)
+- [Bézier Curves](#beizer)
+</div>
+
+## <a name="parametric"></a>Parametric Equation
+
 Parametric equations are a set of `x`, `y` equations that are given as functions of a third variable `t`. This allows us to denote a curve as a set of functions where the usual function will fail the Vertical Line Test for functions.
 
 $$\begin{aligned}
@@ -94,7 +106,7 @@ y &= 2.3\: sin\: 10t\: - \: sin\: 23t
 
 ![](/assets/img/para4.gif)
 
-## Cycloids
+## <a name="cycloid"></a>Cycloid
 
 We can trace a path of a circle rolling along a straight line usin gthe following parametric equations:
 
@@ -117,7 +129,7 @@ $$r\theta$$ represents part of the circumference of the circle as it traces it's
 
 ![](/assets/img/para5.gif)
 
-## Tangent
+## <a name="tangent"></a>Tangent
 
 Let's try to plot tangents to the parametric plots. We know from the chain rule:
 
@@ -151,7 +163,7 @@ y &= t^{3} - 3t\\\\
 
 ![](/assets/img/para7.gif)
 
-## Arc Length
+## <a name="arc"></a>Arc Length
 
 The formula for arc length can be derived from the Pythagorean Theorem (for the interval/hypotenuse approximation) and Mean Value Theorem (for the $$\frac{dy}{dx}$$) is given below:
 
@@ -165,7 +177,7 @@ L &= \int_{c}^{d}\sqrt{1 + \bigg(\frac{dy \mathbin{/} dt}{dx \mathbin{/} dt}\big
 L &= \int_{c}^{d}\sqrt{\bigg(\frac{dx}{dt}\bigg)^{2} + \bigg(\frac{dy}{dt}\bigg)^{2}} dt\\\\
 \end{aligned}$$
 
-## Surface Area
+## <a name="surface"></a>Surface Area
 
 We can calculate the surface area of a function $$f$$ when it's revolved about the x-axis by the following formula:
 
@@ -183,7 +195,7 @@ $$L = \int_{a}^{b} 2 \pi y \sqrt{\bigg(\frac{dx}{dt}\bigg)^{2} + \bigg(\frac{dy}
 
 This can be derived in a similar way to arc length.
 
-## Bézier Curves
+## <a name="beizer"></a>Bézier Curves
 
 Bézier curve is a parammetric curve that is used extensively in Computer Aided Design (CAD). For example in the design of curvature of cars' bodies.
 
@@ -194,7 +206,7 @@ x &= x_{0}(1 - t)^{3} + 3x_{1}t(1 - t)^{2} + 3 x_{2}t^{2}(1 - t) + x_{3}t^{3}\\\
 y &= y_{0}(1 - t)^{3} + 3y_{1}t(1 - t)^{2} + 3 y_{2}t^{2}(1 - t) + y_{3}t^{3}\\
 \end{aligned}$$
 
-The control points basically act as boundary condition on a cubic spline interpolation. Given the following control points, we can plot the following graph in Racket:
+The control points basically act as boundary conditions on a cubic spline interpolation. Given the following control points, we can plot the following graph in Racket:
 
 $$P_{0}(4\mathbin{,}\:1)\mathbin{,}\:P_{1}(28\mathbin{,}\:48)\mathbin{,}\:P_{2}(50\mathbin{,}\:42)\mathbin{,}\:P_{3}(40\mathbin{,}\:5)$$
 
