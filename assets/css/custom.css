@@ -9,12 +9,7 @@
     margin-bottom: 20px;
 }
 
-.navbar-nav {
-    margin-top: 10px;
-}
-.navbar {
-    padding: 0px !important;
-}
+
 
 .navbar-brand img {
     width: auto;
@@ -29,6 +24,9 @@
     background: white !important;
 }
 
+.toc li {
+    padding-top: 3px;
+}
 .toc h1 {
     display: block;
     color: #727272;
