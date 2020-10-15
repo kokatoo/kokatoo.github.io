@@ -264,7 +264,7 @@ for (i in 1:100) {
 [1] 8
 {% endhighlight %}
 
-Now let's increase sigma2 to 5:
+Now let's increase $$\sigma_{2}$$ to 5:
 
 {% highlight r %}
 sigma1 <- 1
