@@ -2,6 +2,11 @@
     padding-bottom: 15px;
 }
 
+.tag h1 {
+    color: #EB586F !important;
+    font-size: 30px;
+}
+
 strong, h1, h2, h3 a {
     color: #4682b4 !important;
 }
@@ -11,15 +16,14 @@ strong, h1, h2, h3 a {
 }
 
 .brand2 {
-    color: #d27886 !important;
+    color: #cb65cf !important;
 }
 
+.new-text-primary {
+    color: #cb65cf;
+}
 .btn-default-filled {
-    border: 2px solid #EB586F !important;
-}
-
-.btn-common {
-    border: 2px solid #EB586F !important;
+    background: #EB586F !important;
 }
 
 .brand {

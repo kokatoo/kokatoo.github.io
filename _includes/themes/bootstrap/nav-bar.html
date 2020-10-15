@@ -37,7 +37,7 @@
                     </a>
                     <div class="dropdown-menu">
                         {% for tag in site.tags %}
-                        <a class="dropdown-item" href="{{ BASE_PATH }}/tags/{{ tag[0] }}">{{ tag[0] }}&nbsp;({{ tag[1] | size }})</a>
+                        <a class="dropdown-item" href="{{ BASE_PATH }}/tags/{{ tag[0] | slugify }}">{{ tag[0] }}&nbsp;({{ tag[1] | size }})</a>
                         {% endfor %}
                     </div>
                 </li>

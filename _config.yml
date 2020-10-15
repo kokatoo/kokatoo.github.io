@@ -38,7 +38,6 @@ kramdown:
 
 plugins:
   - jekyll-feed
-  - jekyll/tagging
 
 author : 
   name : Jason
@@ -47,9 +46,6 @@ author :
   image : jason.png
   email : kokatoo1948@gmail.com
   github : kokatoo
-
-tag_page_layout: tag
-tag_page_dir: tags
 
 # Exclude from processing.
 # The following items will not be processed, by default.
