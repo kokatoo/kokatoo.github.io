@@ -127,7 +127,7 @@ n <- 50
 
 Note that with a large enough sample size, the null hypothesis will eventually be rejected as it is almost definitely never exactly true. This can also be seen in the formula for the test statistic where we multiply by $$\sqrt{n}$$ and with a big enough n the test statistic can be made arbitrary large. Usually what practitioners do is to use power analysis to calculate the sample size needed to detect a particular effect size with the levels of $$\alpha$$ and $$\beta$$ specificed.
 
-## <a name="two"></a>Two-Sample t-test
+## <a name="two"></a> Two-Sample t-test
 
 A two-sample t test is similar to the one-sample t test except that we have a second mean, variance, and a potentially different sample size. 
 
@@ -149,7 +149,166 @@ $$S_{diff}$$ is the standard deviation of the differences of the two groups.
 
 ## <a name="assumption"></a>Assumptions t-test
 
-TBD
+The violation of key assumptions usually affect the Type I error rate. This mean the Type I error rate intended is not what it is in reality.
+
+### Independent and Identitically Distributed (IID)
+
+The key requirement of the sampled data is that they have to be IID. Firstly the data needs to be independent. If you design an experiment, it is important that each participant only participate one time. Even for paired t-tests, each pair has to be unique. A way to get around the problem of multiple identical participants is to average the score for each participant. Next the data in the sample should come from the same distribution and have the same variance (identically distributed). Do not mix them if they come from different distribution. For example if you are comparing the heights for two groups of people in different region, take note that one sample might include more females than males.
+
+Let us simulate a population that is not independent. First we construct a covariance matrix with `variance = 1`:
+
+{% highlight r %}
+corr <- 0.9
+cov.mat <-
+  matrix(
+    c(1, corr,
+      corr, 1),   
+    nrow = 2)
+{% endhighlight %}
+
+Then we simulate 100 trials with `data1` containing correlated data:
+
+{% highlight r %}
+set.seed(123)
+diffs <- c()
+n <- 25
+for (i in 1:100) {
+  df <-
+      data.frame(
+          MASS::mvrnorm(
+              n = n,
+              mu = c(0, 0),
+              Sigma = cov.mat
+          )
+      )
+  data1 <- c(df[, 1], df[, 2])
+  data2 <- rnorm(n * 2, 0, 1)
+  mu1 <- mean(data1)
+  mu2 <- mean(data3)
+  diffs <- c(mu1 - mu2, diffs)
+}
+> length(diffs[abs(diffs) > 1.96 * sqrt(2 * 1 / (n * 2))])    
+[1] 14
+{% endhighlight %}
+
+We can see a false alarm rate of 14% vs an expected Type I error of 5%. Using the same seed but reverting back to independent data we got a decent 4%.
+
+{% highlight r %}
+set.seed(123)
+data1 <- rnorm(n * 2, 0, 1)
+data2 <- rnorm(n * 2, 0, 1)
+> length(diffs[abs(diffs) > 1.96 * sqrt(2 * 1 / (n * 2))])    
+[1] 4
+{% endhighlight %}
+
+Next we simulate the non-identical distribution part. We will split the population into 2 groups with different means. During the sample process, we over sample from the first group. This will result in data not coming from the same population distribution (like oversampling males vs females when comparing heights).
+
+{% highlight r %}
+set.seed(123)
+data1 <- rnorm(1000, 1, 1)
+data2 <- rnorm(1000, 3, 1)
+data3 <- c(data1, data2)
+variance <- var(data3)
+diffs <- c()
+n <- 8
+for(i in 1:100) {
+  mu1 <- mean(c(sample(data1, n-1, TRUE), sample(data2, 1, TRUE)))     
+  mu2 <- mean(sample(data3, n, TRUE))
+  diffs <- c(mu1 - mu2, diffs)
+}
+> length(diffs[abs(diffs) > 1.96 * sqrt(2 * variance / n)])
+17
+{% endhighlight %}
+
+We get a more decent Type I rate when we sample from the same distribution:
+
+{% highlight r %}
+set.seed(123)
+mu1 <- mean(sample(data3, n, TRUE))
+mu2 <- mean(sample(data3, n, TRUE))
+> length(diffs[abs(diffs) > 1.96 * sqrt(2 * variance / n)])     
+4
+{% endhighlight %}
+
+T-test also require that the population distributions are Gaussian. This can be violated as long as the distribution is unimodal and not too skewed. The sample size need to be > 30 especially if it's non-Gaussian.
+
+Lastly the two population should have the same variance. This is especially problematic if the sample sizes are different. Let's simulate different sample sizes and variances. First we look at the base case:
+
+{% highlight r %}
+set.seed(1234)
+sigma1 <- 1
+sigma2 <- 1
+n1 <- 5
+n2 <- 5
+
+diffs <- c()
+data1 <- rnorm(10000, 0, sigma1)
+data2 <- rnorm(10000, 0, sigma2)
+pool <- sum((data1 - mean(data1))^2) + sum((data2 - mean(data2))^2)     
+pool <- pool / (n1 + n2 - 2)
+
+for (i in 1:100) {
+  d1 <- sample(data1, n1, replace = TRUE)
+  d2 <- sample(data2, n2, replace = TRUE)
+
+  pool <- sum((d1 - mean(d1))^2) + sum((d2 - mean(d2))^2)
+  pool <- pool / (n1 + n2 - 2)
+  
+  mu1 <- mean(d1)
+  mu2 <- mean(d2)
+  if (abs(mu1 - mu2) > 1.96 * sqrt(pool / n1 + pool / n2)) {     
+    diffs <- c(mu1 - mu2, diffs)
+  }
+}
+> length(diffs)
+[1] 8
+{% endhighlight %}
+
+Now let's increase sigma2 to 5:
+
+{% highlight r %}
+sigma1 <- 1
+sigma2 <- 5
+n1 <- 5
+n2 <- 5
+> length(diffs)   
+[1] 10
+{% endhighlight %}
+
+We can see a slight increase in Type I error. How about if we increase n2 to 25:
+
+{% highlight r %}
+sigma1 <- 1
+sigma2 <- 5
+n1 <- 5
+n2 <- 25
+> length(diffs)   
+[1] 0
+{% endhighlight %}
+
+We get 0 Type I error. This is because when we pair the small sample with the small population variance, the pooled estimated variance is inflated making it hard to reject the null hypothesis. Similary if we pair the small sample with the large population variance, the pooled estimated variance is deflated making tType I error to be inflated. Let's simulate this:
+
+{% highlight r %}
+sigma1 <- 1
+sigma2 <- 5
+n1 <- 25
+n2 <- 5
+> length(diffs)   
+[1] 38
+{% endhighlight %}
+
+The following table summarizes the result:
+
+| $$n_{1} = 5 \mathbin{,} n_{2} = 5$$ | $$\sigma_{2} = 1$$ | $$\sigma_{2} = 5$$ |
+|-----------------------|--------------------|--------------------|
+| $$\sigma_{1} = 1$$    |               0.08 |               0.10 |
+| $$\sigma_{1} = 5$$    |               0.09 |               0.08 |
+
+
+| $$n_{1} = 5 \mathbin{,} n_{2} = 25$$ | $$\sigma_{2} = 1$$ | $$\sigma_{2} = 5$$ |
+|--------------------------------------|--------------------|--------------------|
+| $$\sigma_{1} = 1$$                   |               0.05 |               0.00 |
+| $$\sigma_{1} = 5$$                   |               0.38 |               0.05 |
 
 ## <a name="effect"></a>Effect Size
 
