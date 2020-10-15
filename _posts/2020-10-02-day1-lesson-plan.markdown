@@ -3,7 +3,7 @@ layout: post
 title:  "Day 1 Lesson Plan"
 date:   2020-10-02 15:43:06 +0800
 img : snake.png
-categories:
+tags: racket
 ---
 
 In day 1 lesson plan, we will introduce about coding and DrRacket. We will show demos and introduce to the 2htdp teaching packs. 

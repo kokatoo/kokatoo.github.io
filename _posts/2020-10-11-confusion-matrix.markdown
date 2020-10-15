@@ -3,7 +3,7 @@ layout: post
 title: "Confusion Matrix"
 date: 2020-10-11 03:30:06 +0800
 img : confusion.png
-categories:
+tags: [statistics]
 ---
 
 In a binary classification test, you will tend to see the following confusion matrix:

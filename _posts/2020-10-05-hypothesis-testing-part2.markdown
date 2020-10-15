@@ -3,7 +3,7 @@ layout: post
 title: "Hypothesis Testing (Part 2) Power and Type I/II Errors"
 date: 2020-10-05 03:30:06 +0800
 img : power2.png
-categories:
+tags: [statistics, hypothesis testing]
 ---
 
 Today we will continue with part 2 of the Hypothesis Testing series about Power and Type I/II errors. If you haven't checked out part 1 please check it out [here]({% post_url 2020-10-05-hypothesis-testing %})

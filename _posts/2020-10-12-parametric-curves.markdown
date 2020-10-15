@@ -3,7 +3,7 @@ layout: post
 title: "Parametric Curves"
 date: 2020-10-12 01:30:06 +0800
 img : para2.gif
-categories:
+tags: calculus
 ---
 
 We shall start a new series based on the popular [Multivariate Calculus](https://www.amazon.com/Multivariable-Calculus-James-Stewart/dp/1305266641/ref=sr_1_1?crid=3OZ0BQMO52OZ7&dchild=1&keywords=multivariable+calculus+james&qid=1602362514&s=books&sprefix=multivar%2Cstripbooks-intl-ship%2C360&sr=1-1) textbook by James Stewart. Most of the examples will be taken from the book and I highly recommend you to get a copy. We shall start the series with Parametric Curves.

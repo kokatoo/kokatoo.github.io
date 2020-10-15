@@ -1,3 +1,31 @@
+.tag {
+    padding-bottom: 15px;
+}
+
+strong, h1, h2, h3 a {
+    color: #4682b4 !important;
+}
+
+.sub-title, .brand, a.nav-link, a.dropdown-item {
+    color: #4682b4 !important;
+}
+
+.brand2 {
+    color: #d27886 !important;
+}
+
+.btn-default-filled {
+    border: 2px solid #EB586F !important;
+}
+
+.btn-common {
+    border: 2px solid #EB586F !important;
+}
+
+.brand {
+    font-size: 25px !important;
+}
+
 .toc {
     border: 1px solid #a2a9b1;
     background-color: #f8f9fa;
@@ -19,10 +47,6 @@
 .navbar-brand img {
     width: auto;
     padding-right: 10px;
-}
-
-.brand {
-    color: #999 !important;
 }
 
 .bg-default {

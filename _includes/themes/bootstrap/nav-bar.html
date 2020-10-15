@@ -31,6 +31,16 @@
                 {% assign pages_list = site.pages %}
                 {% assign group = 'navigation' %}
                 {% include JB/pages_list %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Tags
+                    </a>
+                    <div class="dropdown-menu">
+                        {% for tag in site.tags %}
+                        <a class="dropdown-item" href="{{ BASE_PATH }}/tags/{{ tag[0] }}">{{ tag[0] }}&nbsp;({{ tag[1] | size }})</a>
+                        {% endfor %}
+                    </div>
+                </li>
             </ul>
         </div>
     </div>

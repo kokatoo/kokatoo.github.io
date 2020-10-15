@@ -3,7 +3,7 @@ layout: post
 title:  "Day 2 Lesson Plan"
 date:   2020-10-03 15:43:06 +0800
 img : falling2.gif
-categories:
+tags: racket
 ---
 
 In day 2 of the seminar, we will introduce list and recursion. We will demo Newton's Method for calculating square root and some fundamental Number Theory concepts like Prime Factorization, GCD and LCD. Students can test the LCD of blinking traffic lights and code it for themselves. Finally we will simulate bouncing balls.

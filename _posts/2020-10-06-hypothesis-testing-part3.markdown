@@ -3,7 +3,7 @@ layout: post
 title: "Hypothesis Testing (Part 3) One-Way ANOVA"
 date: 2020-10-05 03:30:06 +0800
 img : anova1.png
-categories:
+tags: [statistics, hypothesis testing]
 ---
 
 Today we will continue with part 3 of the Hypothesis Testing series on One-way ANOVA. If you haven't checked out part 2 please check it out [here]({% post_url 2020-10-05-hypothesis-testing-part2 %})

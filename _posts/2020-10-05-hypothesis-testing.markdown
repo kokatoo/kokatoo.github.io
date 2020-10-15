@@ -3,7 +3,7 @@ layout: post
 title: "Hypothesis Testing (Part 1) One-Sample test"
 date: 2020-10-05 02:30:06 +0800
 img : ht4.gif
-categories:
+tags: [statistics, hypothesis testing]
 ---
 
 We are going to start a series of blog posts that will target hypothesis testing by generating data where we know the distribution and the population parameters in R. We will go through different scenarios and uncover and better understand the concept behind hypothesis testing. We will start off with a simple one-sample t-test.
