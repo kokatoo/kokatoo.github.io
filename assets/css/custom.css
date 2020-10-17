@@ -2,6 +2,11 @@
     padding-bottom: 15px;
 }
 
+.navbar-toggler {
+    float: right !important;
+    margin-top: 20px;
+}
+
 .tag h1 {
     color: #EB586F !important;
     font-size: 30px;
