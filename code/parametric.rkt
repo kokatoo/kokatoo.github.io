@@ -1,8 +1,8 @@
 #lang racket
 
-(require racket)
-(require racket/gui)
-(require plot)
+(require racket
+         racket/gui
+         plot)
 
 (define (plot-animate
          max-t
@@ -15,7 +15,6 @@
   (define f (new frame% [label "Test graph"]
                  [width 600]
                  [height 600]))
-
   (define c (new canvas% [parent f]
                  [min-height 500]))
 
