@@ -14,8 +14,10 @@ Today we will continue with part 2 of the Hypothesis Testing series about Power 
 - [Power](#power)
 - [Two-Sample t-test](#two)
 - [Paired-Sample t-test](#paired)
-- [Assumptions t-test](#assumption)
 - [Effect Size](#effect)
+- [Multiple Testing](#multiple)
+- [Assumptions t-test](#assumption)
+
 </div>
 
 ## <a name="type"></a>Type I/II Errors
@@ -146,6 +148,60 @@ t &= \frac{\sum_{i}x_{Ai} - x_{Bi}}{\frac{S_{diff}}{\sqrt{n}}}
 \end{aligned}$$
 
 $$S_{diff}$$ is the standard deviation of the differences of the two groups.
+
+## <a name="effect"></a>Effect Size
+
+As previously stated, with a large enough sample size, any test will be eventually significant. To counter this problem, the experimenter have to take account of effect size. This is because larger effect size are less susceptible to the sample size problem. Note that p-value does not give any information about effect size. With the same effect size, the p-value can change with a different sample size. In other words, you should not compare p-values among experiments when the sample sizes are not the same and be especially wary of small effect size with large sample.
+
+So what exactly is effect size? It is also known as Cohen's $$\delta$$ and is defined as the distance between two population means:
+
+$$\delta = \frac{\mu 1 - \mu 0}{\sigma}$$
+
+In signal detection theory (detecting signal vs noise), we can define effect size as:
+
+$$\begin{aligned}
+\delta &= z(Hit\: Rate) - z(False\:Alarm\:Rate)\\\\
+Hit\: Rate &= \frac{Hit}{Hit + Miss}\\\\
+False\:Alarm\:Rate &= \frac{Type\: I\: Error}{Correct}
+\end{aligned}$$
+
+where $$z$$ is the normal distribution score which cumulative probability equals the rate.
+
+For example, if the hit rate is 0.8 and Type I error rate is 0.2:
+
+{% highlight r %}
+> qnorm(0.8) - qnorm(0.2)  
+[1] 1.683242
+{% endhighlight %}
+
+## <a name="multiple"></a>Multiple Testing
+
+Doing multiple t-test on the same experiment (for example many variables in a regression and testing for significance) increases the chance of making a Type I error. For $$n$$ independent t-test, assuming $$\alpha = 0.05$$ will result in a Type I error of $$1 - 0.95^{n}$$.
+
+{% highlight r %}
+x <- seq(1, 100)
+plot(
+    x,
+    1 - 0.95^x,
+    ylab = "Prob (Type I Error)",   
+    type = "l", 
+    xlab = "Num Comparisions"
+)
+{% endhighlight %}
+
+![](/assets/img/ht8.png)
+
+To account for this increase in Type I error, we can decrease $$alpha$$ by doing a Bonferroni Correction:
+
+$$\begin{aligned}
+\alpha_{corrected} &= 1 - \sqrt[n]{1 - \alpha}\\
+&\approx \frac{0.05}{n}
+\end{aligned}$$
+
+However, using a Bonferroni correction would naturally decrease the power of the t-test.
+
+Most tests however are not independent. For example using the same sample and asking multiple questions. The problem is that the questions might be correlated themselves. We might make a Type I error on a sample and correlated question will make the same error. Imagine all the questions asked are essentially correlated and they will all be wrong. However we can still use the Bonferroni correction just that it might be too conservative.
+
 
 ## <a name="assumption"></a>Assumptions t-test
 
@@ -309,31 +365,5 @@ The following table summarizes the result:
 |--------------------------------------|--------------------|--------------------|
 | $$\sigma_{1} = 1$$                   |               0.05 |               0.00 |
 | $$\sigma_{1} = 5$$                   |               0.38 |               0.05 |
-
-## <a name="effect"></a>Effect Size
-
-As previously stated, with a large enough sample size, any test will be eventually significant. To counter this problem, the experimenter have to take account of effect size. This is because larger effect size are less susceptible to the sample size problem. Note that p-value does not give any information about effect size. With the same effect size, the p-value can change with a different sample size. In other words, you should not compare p-values among experiments when the sample sizes are not the same and be especially wary of small effect size with large sample.
-
-So what exactly is effect size? It is also known as Cohen's $$\delta$$ and is defined as the distance between two population means:
-
-$$\delta = \frac{\mu 1 - \mu 0}{\sigma}$$
-
-In signal detection theory (detecting signal vs noise), we can define effect size as:
-
-$$\begin{aligned}
-\delta &= z(Hit\: Rate) - z(False\:Alarm\:Rate)\\\\
-Hit\: Rate &= \frac{Hit}{Hit + Miss}\\\\
-False\:Alarm\:Rate &= \frac{Type\: I\: Error}{Correct}
-\end{aligned}$$
-
-where $$z$$ is the normal distribution score which cumulative probability equals the rate.
-
-For example, if the hit rate is 0.8 and Type I error rate is 0.2:
-
-{% highlight r %}
-> qnorm(0.8) - qnorm(0.2)  
-[1] 1.683242
-{% endhighlight %}
-
 
 In Part 3, we will start discussing about Analysis of Variance. Stay tuned!

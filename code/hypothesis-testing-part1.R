@@ -1,3 +1,12 @@
+x <- seq(1, 100)
+plot(
+    x,
+    1 - 0.95^x,
+    ylab = "Prob (Type I Error)", type = "l", xlab = "Num Comparisions"
+)
+
+
+
 gen_data <- function(fun, mu, sigma, n) {
   sapply(
     1:100,
