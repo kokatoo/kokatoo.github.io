@@ -201,4 +201,34 @@
 
 
 
+(define ((make-current-value-renderer fn) snip event x y)
+  (define overlays
+    (and x y (eq? (send event get-event-type) 'motion)
+         (list (vrule x #:style 'long-dash)
+               (point-label (vector x (fn x)) #:anchor 'auto))))
+  (send snip set-overlay-renderers overlays))
+
+(send snip set-mouse-event-callback (make-current-value-renderer sin))
+(define snip
+  (plot-snip
+   (function sin)
+   #p:x-min 0 #:x-max
+   (* 2 pi)
+   #:y-min -1.5 #:y-max 1.5))
+snip
+
+(define ((make-tangent-renderer fn derivative) snip event x y)
+  (define overlays
+    (and x y (eq? (send event get-event-type) 'motion)
+         (let* ((slope (derivative x))
+                (intercept (- (fn x) (* slope x)))
+                (tangent (lambda (x) (+ (* slope x) intercept))))
+           (list (function tangent #:color "blue")
+                 (points (list (vector x (fn x))))))))
+  (send snip set-overlay-renderers overlays))
+
+(define snip (plot-snip (function sin) #:x-min -5 #:x-max 5 #:y-min -1.5 #:y-max 1.5))
+(send snip set-mouse-event-callback (make-tangent-renderer sin cos))
+snip
+
 
