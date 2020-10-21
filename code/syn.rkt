@@ -48,19 +48,19 @@
                  (+ (put-fn spot)
                     premium))
                x-min x-max
-               #:color 2)
+               #:color 3)
      (function
       (lambda (x)
         (if (> x strike)
             (+ premium)
             (+ x (- strike) (+ premium))))
       x-min x-max
-      #:color 2)
+      #:color 3)
      (function (lambda (spot)
                  (+ (put-fn spot)
                     (call-fn spot)))
                x-min x-max
-               #:color 3))))
+               #:color 2))))
 (animate-options
  bs2)
 
