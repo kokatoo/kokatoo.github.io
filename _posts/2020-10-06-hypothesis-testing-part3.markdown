@@ -8,7 +8,17 @@ tags: [statistics, hypothesis testing]
 
 Today we will continue with part 3 of the Hypothesis Testing series on One-way ANOVA. If you haven't checked out part 2 please check it out [here]({% post_url 2020-10-05-hypothesis-testing-part2 %})
 
-## Part 3: One-Way ANOVA
+<div class="toc" markdown="1">
+# Contents:
+- [Sum of Squares](#ss)
+- [Mean Variances](#mean)
+- [Simulation](#simu)
+- [Assumptions of ANOVA](#assumptions)
+- [Scheffé Test](#scheffe)
+- [Effect Size](#effect)
+</div>
+
+## <a name="ss"></a>Sum of Squares
 
 When there are more than 2 means to compare, we can use ANOVA to detect any significance differences among them (note ANOVA can compare 2 means as well). ANOVA as its name suggests, is an analysis of 2 estimates of variance. It is a ratio between the variance coming from differences between groups and variance coming from differences within groups. 
 
@@ -28,7 +38,18 @@ For this example, we will simulate 3 different types of treatments performed on 
 | Subject 2   | Subject 5   | Subject 8   |
 | Subject 3   | Subject 6   | Subject 9   |
 
-We can break up the total SS into between SS and within SS with `i = 3` and `j = 3`.
+$$\begin{aligned}
+H_{0}&: \mu_{1} = \mu_{2} = \mu_{3}
+\end{aligned}$$
+
+$$\begin{aligned}
+H_{1}&: \mu_{1} = \mu_{2} \neq \mu_{3}\\
+H_{1}&: \mu_{1} \neq \mu_{2} = \mu_{3}\\
+H_{1}&: \mu_{1} \neq \mu_{3} \neq \mu_{2}\\
+H_{1}&: \mu_{1} \neq \mu_{2} \neq \mu_{3}
+\end{aligned}$$
+
+We can break up $$SS_{Total}$$ into $$SS_{Between}$$ and $$SS_{Within}$$ with $$i = 3$$ and $$j = 3$$.
 
 $$Y_{ij} - \bar{Y} = (Y_{ij} - \bar{Y_{j}}) + (\bar{Y_{j}} - \bar{Y})$$
 
@@ -38,15 +59,17 @@ $$\sum_{i}^{}\sum_{j}^{}(Y_{ij} - \bar{Y})^{2} = n\sum_{j}^{}(\bar{Y_{j}} - \bar
 
 $$SS_{Total} = SS_{Between} + SS_{Within}$$
 
-Between df is `number of groups - 1` due to 1 df lost from estimating total mean.
+## <a name="mean"></a>Mean Variances
+
+$$df_{Between}$$ is number of groups $$k$$ minus 1 due to 1 $$df$$ lost from estimating total mean.
 
 $$df_{Between} = k - 1$$
 
-Within df is `N - number of groups` due to 3 dfs lost from estimating group means.
+Within df is $$N$$ minus number of groups due to 3 $$dfs$$ lost from estimating group means.
 
 $$df_{Within} = N - k$$
 
-Total df is the `number of subjects - 1` due to 1 df lost from estimating total mean.
+$$df_{Total}$$ is the number of subjects minus 1 due to 1 $$df$$ lost from estimating total mean.
 
 $$df_{Total} = N - 1$$
 
@@ -58,13 +81,17 @@ $$MS_{Total} = MS_{Between} + MS_{Within}$$
 
 $$\frac{SS_{Total}}{df_{Total}} = \frac{SS_{Between}}{df_{Between}} + \frac{SS_{Within}}{df_{Within}}$$
 
-Finally the `F score` is computed from computing the ratio of the between and within mean squares (variances):
+Basically $$MS_{Between}$$ is the variance based on the variability between the 3 group means while $$MS_{Within}$$ is the average of the variance within 3 groups.
+
+Finally the $$F$$ score is computed from computing the ratio of the between and within mean squares (variances):
 
 $$F = \frac{MS_{Between}}{MS_{Within}}$$
 
 $$df = (k - 1), (N - k)$$
 
-### Simulation
+If the null hypothesis is true, we should get a low $$F$$ score. We will need to compute the p-value from a $$F_{k-1, N-k}$$ distribution.
+
+## <a name="simu"></a>Simulation
 
 In our first simulation example, Treatment 1 and 2 will share the same mean while Treatment 3 will have a different mean and all have the same variance.
 
@@ -128,7 +155,7 @@ Residuals    6  140.6   23.44
 ---
 {% endhighlight %}
 
-We see the calculations match. But it's barely significant. Let's try plotting the F distribution:
+We see the calculations match. But it's barely significant. Let's try plotting the $$F$$ distribution:
 
 {% highlight r %}
 x <- seq(0, 8, length = 100)
@@ -180,16 +207,40 @@ Residuals    6  185.5   30.91
 
 We can see even though the means are different, the test is non-significant. Let's check the assumptions for ANOVA next.
 
-### Assumptions for ANOVA
+## <a name="assumptions"></a> Assumptions for ANOVA
+
+Please check out [assumptions for t-tests](/2020/10/05/hypothesis-testing-part2.html#assumption) for more details as the assumptions are the same.
+
+In summary:
 
 - Each group is normally distributed
 - All groups have a common variances
+- The independent variable is discrete and dependent variable continuous
 
-F test is relatively robust to deviation from normality given that:
+$$F$$ test is relatively robust to deviation from normality given that:
 
 - Distributions are symmetrical and uni-modal
 - Sample sizes are equal (Balanced Design) and greater than 10 for each group
 
-However F test is not robust to violations of variance homogeneity as we can see from the above simuation. A rule of thumb is the ratio between the highest variance and lowest variance < 3.
+However $$F$$ test is not robust to violations of variance homogeneity as we can see from the above simuation. A rule of thumb is the ratio between the highest variance and lowest variance < 3.
+
+## <a name="scheffe"></a>Scheffé Test
+
+Once we are done with ANOVA, how can we know which groups are significant? If we do multiple pairwise comparisions we will incur a higher Type I error. We discussed Bonferroni in part 2 of the series. In this series, we will touch on Scheffé. The idea is to do multiple pairwise ANOVA. We will use $$MS_{Within}$$ sas the estimate for the within group variability as one of the assumption of ANOVA is the variance homogeneity. 
+
+$$\begin{aligned}
+SS_{Between} &= n(Y_{1} - \bar{Y})^{2} + n(Y_{2} - \bar{Y})^2\\\\
+MS_{Between} &= \frac{SS_{Between}}{SS_{Within}}\\\\
+F_{k-1, N-k} &= \frac{MS_{Between}}{MS_{Within}}
+\end{aligned}$$
+
+## <a name="effect"></a>Effect Size
+
+Back in part 2 we discussed about effect size in terms of t-test. In ANOVA, effect size is defined as:
+
+$$\eta^{2} = \frac{SS_{Between}}{SS_{Total}}$$
+
+Similar to the effect size in t-test, $$\eta^{2}$$ tells us the how much the variability of the dependent variance that is explained by the variability of the independent variable.
+
 
 In Part 4, we will explore Two-Way ANOVA . Stay tuned!
