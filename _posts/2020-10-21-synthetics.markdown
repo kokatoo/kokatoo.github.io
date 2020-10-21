@@ -6,7 +6,9 @@ img : bs1.gif
 tags: options
 ---
 
-When employing options strategies, people generally cover very little on synthetics as it seem to be more for market makers or arbitragers than for retail investors. Synthetics can help transform from one position to another equivalent position giving another perspective and clarity. One simple example is the covered call strategy $$\{+u\mathpunct{,} -c\}$$ being essentially equivalent to the naked short put $$\{-p\}$$ in terms of pnl and risk profile. Thinking of covered calls as equivalent to naked puts might help in terms of rolling deep ITM calls when the time value of the equivalent put options approaches 0. Also do note that deep ITM options' bid/ask spread is generally higher and it might be more worthwhile to short naked puts as the spread is tighter and the leverage it gives you.
+When employing options strategies, people generally cover very little on synthetics as it seem to be more for market makers or arbitragers than for retail investors. Synthetics can help transform from one position to another equivalent position giving another perspective and clarity. One simple example is the covered call strategy $$\{+u\mathpunct{,} -c\}$$ being essentially equivalent to the naked short put $$\{-p\}$$ in terms of pnl and risk profile. 
+
+Thinking of covered calls as equivalent to naked puts might help in terms of rolling deep ITM calls when the time value of the equivalent put options approaches 0. Also do note that deep ITM options' bid/ask spread is generally higher and it might be more worthwhile to short naked puts as the spread is tighter and the leverage it gives you.
 
 <div class="toc" markdown="1">
 # Contents:
