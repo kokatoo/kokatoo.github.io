@@ -31,13 +31,15 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
 
     <!-- CSS loaded by the children page -->
-        {% if page.css %}<link rel="stylesheet" type="text/css" href="{{ BASE_PATH }}/assets/css/custom/{{ page.css }}" />{% endif %}
+    {% if page.css %}<link rel="stylesheet" type="text/css" href="{{ BASE_PATH }}/assets/css/custom/{{ page.css }}" />{% endif %}
 
     <meta property="og:title" content="{{ page.title }}">
     <meta property="og:description" content="{{ page.tagline }}">
     <meta property="og:image" content="{{ BASE_PATH }}/assets/img/big/{{ page.img }}">
     <meta property="og:url" content="{{ BASE_PATH }}">
     <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="icon" href="/assets/images/favicon.png" type="image/x-icon" />
 
 	<!--[if IE]>
 		<script type="text/javascript">

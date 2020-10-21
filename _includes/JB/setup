@@ -20,5 +20,3 @@
     {% endif %}
   {% endif %}
 {% endcapture %}{% assign jbcache = nil %}
-
-<link rel="icon" href="/assets/images/favicon.png" type="image/x-icon" />
