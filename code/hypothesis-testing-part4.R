@@ -200,3 +200,48 @@ interaction.plot(
   trace.label = "Gender",
   main = "Interaction between Treatment and Gender"
 )
+
+mu1 <- 100
+mu2 <- 100
+mu3 <- 100
+
+sigma <- 1
+n <- 1
+
+data1 <- rnorm(n, mean = mu1, sd = sigma)
+data2 <- rnorm(n, mean = mu2, sd = sigma)
+data3 <- rnorm(n, mean = mu3, sd = sigma)
+
+data <- c(data1, data1 + 10, data2, data2 + 10, data3, data3 + 10)
+
+df <- data.frame(
+    response = data,
+    treatment = as.factor(c(1, 1, 2, 2, 3, 3)),
+    gender = as.factor(c("male", "female", "male", "female", "male", "female"))
+)
+
+interaction.plot(
+    df$treatment,
+    df$gender,
+    df$response,
+    type = "b", col = c("red", "blue"),
+    pch = c(16, 18),
+    ylab = "Response",
+    xlab = "Treatment",
+    trace.label = "Gender",
+    main = "Interaction between Treatment and Gender"
+)
+
+data1 <- rnorm(n, mean = mu1, sd = sigma)
+data2 <- rnorm(n, mean = mu2, sd = sigma)
+data3 <- rnorm(n, mean = mu3, sd = sigma)
+data <- c(data1, data2, data3)
+
+df <- rbind(
+    df,
+    data.frame(
+        response = data,
+        treatment = as.factor(c(1, 1, 2, 2, 3, 3)),
+        gender = as.factor("male")
+    )
+)

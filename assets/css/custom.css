@@ -1,3 +1,19 @@
+.autowidth img {
+    width: auto !important;
+}
+
+.course {
+    padding: 20px;
+}
+
+.classes {
+    padding: 15px;
+    padding-left: 0px;
+    font-size: 24px;
+    font-weight: 400;
+    color: #4682b4 !important;
+}
+
 .column {
     float: left;
     width: 25%;
@@ -161,5 +177,5 @@ li {
 }
 
 .blog code {
-    font-size: 15px;
+    font-size: 14px;
 }

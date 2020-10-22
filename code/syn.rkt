@@ -25,10 +25,10 @@
          [x-min 5]
          [x-max 25]
          [call-fn (lambda (spot)
-                    (bs spot 0 0.2 t strike #t))]
+                    (bs spot 0 0.1 t strike #t))]
          [put-fn (lambda (spot)
                    (* -1
-                      (bs spot 0 0.2 t strike #f)))])
+                      (bs spot 0 0.1 t strike #f)))])
     (list
      (axes)
      (function (lambda (spot)

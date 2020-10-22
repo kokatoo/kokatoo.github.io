@@ -6,9 +6,19 @@ img : falling2.gif
 tags: racket
 ---
 
-In day 2 of the seminar, we will introduce list and recursion. We will demo Newton's Method for calculating square root and some fundamental Number Theory concepts like Prime Factorization, GCD and LCD. Students can test the LCD of blinking traffic lights and code it for themselves. Finally we will simulate bouncing balls.
+In Day 1 of the seminar, we will introduce list and recursion. We will demo Newton's Method for calculating square root and some fundamental Number Theory concepts like Prime Factorization, GCD and LCD. Students can test the LCD of blinking traffic lights and code it for themselves. Finally we will simulate bouncing balls. Please also check out [Day 1]({% post_url 2020-10-02-day1-lesson-plan %}) lesson plan.
 
-## 1. List, Loop, and Recursion
+<div class="toc" markdown="1">
+# Contents:
+- [List, Loop, and Recursion](#list)
+- [Newton's Method](#newton)
+- [Prime Factorization](#prime)
+- [Greatest Common Divisor (GCD)](#gcd)
+- [Least Common Multiple (LCM)](#lcm)
+- [Bouncing Balls](#balls)
+</div>
+
+## <a name="list"></a>List, Loop, and Recursion
 
 Introduce the list function and datatype and some basic functions to deal with list like car and cdr.
 
@@ -27,7 +37,7 @@ Next we will task them to code a factorial function. Make sure test cases are wr
 (check-equal? (factorial 5) 120)   
 {% endhighlight %}
 
-## 2. Newton's Method
+## <a name="newton"></a>Newton's Method
 Revisit the square function that we did on day 1 and query the student whether they can figure out a way to find the inverse function. In other words, how does the computer calculate the square root of a number? 
 
 {% highlight racket %}
@@ -58,7 +68,7 @@ The students are not expected to learn this but it would be interesting to expos
   (sqrt-iter 1.0))
 {% endhighlight %}
 
-## 3. Prime Factorization
+## <a name="prime"></a>Prime Factorization
 
 Get the students to recall what they learned about prime factorization in math class and how they would have coded it. Explain to them why they only have to search for factors up to the `(sqrt n)`. This involves a simple but beautiful mathematical proof.
 
@@ -84,7 +94,7 @@ We will start with a prime search algorithm and move on from there to prime fact
 
 Next we will briefly go into the importance of prime as basic building blocks of number (Fundamental Theorem of Arithmetic), how its used in cryptography and the field of cryptography.
 
-## 4. Greatest Common Divisor (GCD)
+## <a name="gcd"></a>Greatest Common Divisor (GCD)
 
 Next we would ask them to recall what they have learned in math class about GCD. Explain to them the importance of GCD in Number Theory and a simple example of maximizing the side of a square you can cut out from a rectangle and simplifying fractions.
 
@@ -99,7 +109,7 @@ There is a faster way and easier way to compute the GCD which is to use Euclid's
       (gcd b (modulo a b))))   
 {% endhighlight %}
 
-## 5. Least Common Multiple (LCM)
+## <a name="lcm"></a>Least Common Multiple (LCM)
 
 Next we will show them the relationship between GCD and LCM through a simple formula.
 
@@ -110,20 +120,20 @@ Next we will show them the relationship between GCD and LCM through a simple for
 
 Using the traffic light simulation we did yesterday, explain to them if two traffic lights are blinking at different intervals, LCM would be able to predict when the red light will blink together again. We can use the bicycle wheel example in their Math textbook to better explain this. Task them to code 2 different traffic lights to verify that this is in fact true.
 
-![](/assets/img/lcm.gif)
+<span class="autowidth">![](/assets/img/lcm.gif)</span>
 
-## 6. Bouncing Balls
+## <a name="balls"></a>Bouncing Balls
 
 Explain Newton's Third Law and its application on falling object. We will first task the students to create a ball using a circle in an empty canvas. Using a gravitational constant of 9.81 and the knowledge gained about rates in the traffic light simulation, get the student to code a falling object obeying Newton's equation for a falling body.
 
-![](/assets/img/falling.gif)
+<span class="autowidth">![](/assets/img/falling.gif)</span>
 
 Next explain to them the physics of bouncing. The formula for the bounce up will depend on the velocity accumulated until the time the ball hits the ground and governed by the following equation:
 
 $$y=v_{0}t-\frac{1}{2}at^{2}$$
 
-![](/assets/img/falling2.gif)
+<span class="autowidth">![](/assets/img/falling2.gif)</span>
 
 Finally if there is enough time, we can challenge the students to create multiple balls simulating drops from all the planets in the solar system.
 
-![](/assets/img/gravity.gif)
+<span class="autowidth">![](/assets/img/gravity.gif)</span>

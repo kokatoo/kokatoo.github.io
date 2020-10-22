@@ -6,17 +6,29 @@ img : snake.png
 tags: racket
 ---
 
-In day 1 lesson plan, we will introduce about coding and DrRacket. We will show demos and introduce to the 2htdp teaching packs. 
-Finally we will simulate a traffic light animation
+In Day 1 of the seminar, we will introduce about coding and DrRacket. We will show demos and introduce to the 2htdp teaching packs. 
+Finally we will simulate a traffic light animation. Please also check out [Day 2]({% post_url 2020-10-03-day2-lesson-plan %}) lesson plan.
 
-## 1. Introduction
+<div class="toc" markdown="1">
+# Contents:
+- [Introduction](#intro)
+- [DrRacket](#drracket)
+- [Demos](#demos)
+- [Functions](#functions)
+- [Writing Tests](#tests)
+- [2htdp/image Library](#image)
+- [2htdp/universe Library](#universe)
+- [Finite State Machine (FSM)](#fsm)
+</div>
+
+## <a name="intro"></a>Introduction
 We will start off the seminar by answering the following questions.
 
 1. Why learn coding
 2. Future of coding
 3. Why Us?
 
-## 2. DrRacket
+## <a name="drracket"></a>DrRacket
 
 We will introduce them to the DrRacket programming environment or IDE. It is widely used in introductory CS courses with minimal setup and simple to use.
 
@@ -30,7 +42,7 @@ in the REPL panel (see below).
 
 <img src="/assets/img/drracket.png" />
 
-## 3. Demos
+## <a name="demos"></a>Demos
 
 First we will demo the power of Racket by running some simple programs.
 
@@ -82,7 +94,7 @@ Simulate bouncing balls with different gravitational constant from the Sun to Pl
 ### 3.2 Snake Game:
 ![](/assets/img/snake.gif)
 
-## 4. Function
+## <a name="functions"></a>Functions
 
 Give the students a revision of what defines a mathematical function and how it's different from the conventional function as we know in programming. Introduce implictly the concept of immutability vs state changes as we compared the differences between various programming languages and mathematical function. This is essentially giving the students a taste of the debate between functional programming vs imperative programming.
 
@@ -108,7 +120,7 @@ Students will proceed to code the following formulas:
 
 Next we will impart to them by coding these functions, we can automate computation and compose functions to do wonderful things.
 
-## 5. Writing Tests
+## <a name="tests"></a>Writing Tests
 
 Test cases would be taught as a form of coming up with examples (ideally prior to actual coding) that you expect the function to produce. We will introduce various industry best practice of testing like TDD (Test Driven Development). 
 
@@ -129,26 +141,26 @@ Using the mathematical functions we have written, we will proceed to ask the stu
 (check-equal? (area-circle 1) pi)
 {% endhighlight %}
 
-## 6. 2htdp/image Library
+## <a name="image"></a>2htdp/image Library
 
 2htdp/image is a image teachpack that provides a number of basic image construction functions and combining them to build more complex images. We will use them to a simple traffic light simulation. We will start off with a single circle follow by stacking 3 circles to create a static traffic light simulation.
 
-![](/assets/img/demo6.png)
+<span class="autowidth">![](/assets/img/demo6.png)</span>
 
-## 7. 2htdp/universe Library
+## <a name="universe"></a>2htdp/universe Library
 
 Next we introduce the big-bang function in 2htdp/universe library to animate the images. Basically we would like to change colors across time. I will proceed to demo an example of how to change the colors of a circle across time. The students will then be tasked to change the color of all circles with a challenge of a certain time interval. This will tie to the concept of rates and modulo they learned in their math class to coding. They will be exposed to keeping track of time state and how to abstract them into mathematical functions.
 
-![](/assets/img/one-traffic.gif)
+<span class="autowidth">![](/assets/img/one-traffic.gif)</span>
 
-## 8. Finite State Machine (FSM)
+## <a name="fsm"></a>Finite State Machine (FSM)
 
 Finally we will introduce them the concept of FSM and conditionals. We will take the abs math function as an example to explain conditionals. In the traffic light example, there are only 3 states (Red, Yellow, Green). We will draw the state transition diagram (Red -> Green -> Yellow -> Green). They will be tasked to simulate a traffic light at fixed time interval.
 
-![](/assets/img/traffic.gif)
+<span class="autowidth">![](/assets/img/traffic.gif)</span>
 
 Note that the time interval is fixed across all 3 states, but we know in real life yellow state is shorter than both red and green. In order to solve this problem, we will introduce the concept of structure to store more information to tackle this problem.
 
-![](/assets/img/full-traffic.gif)
+<span class="autowidth">![](/assets/img/full-traffic.gif)></span>
 
 Before we end the first day, we will revisit the traffic light program and analyze what kind of coding improvements to mae the code more asethetic and maintainable if requirements were to be changed in the future.
