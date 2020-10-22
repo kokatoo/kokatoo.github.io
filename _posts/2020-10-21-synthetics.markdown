@@ -56,7 +56,7 @@ $$\begin{alignedat}{2}
 P = (&k + c)\: -\: (&&u + p)
 \end{alignedat}$$
 
-We can picture the transactions this way. For the conversion, at initiation we buy the underlying and put and sell the call at a price of $$(u + p - c)$$. At expiration either the call will be assigned or put option will be exercised. This will result in selling the underlying at $$-k$$ giving us a net pnl of $$(k - u + c - p)$$. $$(k - u)$$ is the pnl from the underlying and and $$(c - p)$$ is the pnl from the options.
+We can picture the transactions this way. For the conversion, at initiation we buy the underlying and put and sell the call at a price of $$(u + p - c)$$. At expiration either the call will be assigned or put option will be exercised. This will result in selling the underlying at $$-k$$ giving us a net pnl of $$(k - u + c - p)$$. $$(k - u)$$ is the pnl from the underlying and and $$(c - p)$$ is the pnl from the options. If you make money on the underlying you should lose money on the options and vice versa.
 
 Similarly for the reversal, at initiation we sell the underlying and put and buy the call at a price of $$(c - u - p)$$. At expiration, either the call will be exercised or put option will be assigned. This will result in buying the underlying at $$k$$ giving us a net pnl of $$(u + p - k - c)$$. $$(u - k)$$ is the pnl from the underlying and and $$(p - c)$$ is the pnl from the options.
 
@@ -65,10 +65,15 @@ To create a synthetic long underlying based on put-call parity:
 
 $$\begin{aligned}
 S &= C - P + K\\
--S &= P - C - K
+S - K &= C - P
 \end{aligned}$$
 
-Note the similarity with the C/R formula. We can create a synthetic long underlying by buying a call option and selling a put option at the same strike. Then pnl diagram will be the same as the underlying. The $$K$$ is just the amount of cash needed to buy the underlying at the strike price upon expiration. Or we can create a synthetic short by buying a put option and selling a call position at the same strike and similary $$-k$$ is the amount of cash received from selling the underlying at the strike. To simplify things, we will ignore $$K$$ as well as margin requirements.
+$$\begin{aligned}
+-S &= P - C - K\\
+K - S &= P - C
+\end{aligned}$$
+
+Note the similarity with the C/R formula. We can create a synthetic long underlying by buying a call option and selling a put option at the same strike. The pnl payoff diagram will be the same as the underlying. Upon expiration, for long underlying $$(S - K)$$ is the pnl and it's equivalent to $$(C - P)$$, $$\{+c, -p\}$$. Similarly, $$(K - S)$$ is the pnl for the short position and it's equivalent to $$(P - C)$$, $$\{+p, -c\}$$.
 
 We shall define a conversion and reversal as follow:
 
