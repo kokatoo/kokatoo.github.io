@@ -161,6 +161,6 @@ Finally we will introduce them the concept of FSM and conditionals. We will take
 
 Note that the time interval is fixed across all 3 states, but we know in real life yellow state is shorter than both red and green. In order to solve this problem, we will introduce the concept of structure to store more information to tackle this problem.
 
-<span class="autowidth">![](/assets/img/full-traffic.gif)></span>
+<span class="autowidth">![](/assets/img/full-traffic.gif)</span>
 
 Before we end the first day, we will revisit the traffic light program and analyze what kind of coding improvements to mae the code more asethetic and maintainable if requirements were to be changed in the future.
