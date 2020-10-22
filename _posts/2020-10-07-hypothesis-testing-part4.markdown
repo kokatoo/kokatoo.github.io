@@ -8,13 +8,19 @@ tags: [statistics, hypothesis testing]
 
 Today we will continue with part 4 of the Hypothesis Testing series on Factorial ANOVA. If you haven't checked out part 3 please check it out [here]({% post_url 2020-10-06-hypothesis-testing-part3 %})
 
-## Part 4: Two-way ANOVA (Factorial Design)
+<div class="toc" markdown="1">
+# Contents:
+- [No Interaction](#nointeraction)
+- [Expectation and Variance](#expectation)
+- [With Interaction](#interaction)
+- [Type I Error](#type)
+</div>
+
+## <a name="nointeraction"></a>No Interaction
 
 Let's introduce another independent variable into our analysis. One common variable in treatment analysis is gender.
 
 We will simulate score marks for three different exams and determine whether are there any differences in the scores among the 3 exams and across gender.
-
-### Two-way ANOVA with no interaction
 
 In our first example, we will simulate the following mean scores for each exams and they are the same across gender. Also for each exam, there will be `n = 2` males and `n = 2` females giving a total of 4 participants per exam.
 
@@ -52,7 +58,7 @@ df <- rbind(
 )
 {% endhighlight %}
 
-Next we will compute the sum of squares of treatment and gender with assumption of no interaction. The equations are shown below with `a and b` equal to the number of levels of each independent variables.
+Next we will compute the sum of squares of treatment and gender with assumption of no interaction. The equations are shown below with `a` and `b` equal to the number of levels of each independent variables.
 
 {% highlight r %}
 a <- length(levels(df$treatment))   
@@ -132,7 +138,7 @@ Residuals    8  113.5    14.2
 ---
 {% endhighlight %}
 
-We can see only the `treatment` is significant which is what we expected. To calculate the F value manually, we find the mean square for each main effects and divide by the mean square error.
+We can see only the `treatment` is significant which is what we expected. To calculate the $$F$$ value manually, we find the mean square for each main effects and divide by the mean square error.
 
 $$MS_{Treatment} = \frac{SS_{Treatment}}{a - 1}$$
 
@@ -155,6 +161,8 @@ mu1 <- 110
 mu2 <- 120  
 mu3 <- 135
 {% endhighlight %}
+
+## <a name="expectation"></a>Expectation and Variance
 
 For this example, we will use a different way to calculate sum of squares. As you probably know variance can be calculated using expectation:
 
@@ -219,11 +227,15 @@ Residuals    8  243.2    30.4
 
 We can see now that `Gender` is significant.
 
+## <a name="interaction"></a>With Interaction
+
 So far we have assumed there is no interaction between the 2 independent variables. In fact, the sum of squares for interaction is included in the sum of squares for error. It's time to partition that out.
 
 $$\begin{aligned}
 SS_{Treatment, Gender} &= \sum_{i = 1}^{a}\sum_{j = 1}^{b}\frac{X_{ij.}^{2}}{n} - \frac{\sum_{}^{}X_{...}^{2}}{N} - SS_{Treatment} - SS_{Gender}
 \end{aligned}$$
+
+By reducing $$MS_{Error}$$ we also increase the power of detecting an effect.
 
 For the interaction example, we will the following distribution for males:
 
@@ -291,6 +303,64 @@ interaction.plot(
 For the interaction plot, it doesn't matter which independent variable is in the x-axis but traditionally the variable with the most levels will be chosen and the order doesn't matter as well
 . If there is no interaction, the change in the response will be the same if we move along the points on the x-axis (i.e. the lines are all parallel). Note it is the change in the response  that is dependent on the level of the other explanatory variable if there is an interaction.
 
+For illustration, we can simulate data where there is no interaction and only main effect. Let's say there is only a treatment effect:
+
+{% highlight r %}
+mu1 <- 100
+mu2 <- 120
+mu3 <- 130
+
+sigma <- 5
+n <- 1
+
+data1 <- rnorm(n, mean = mu1, sd = sigma)
+data2 <- rnorm(n, mean = mu2, sd = sigma)
+data3 <- rnorm(n, mean = mu3, sd = sigma)
+
+data <- c(data1, data1, data2, data2, data3, data3)
+
+df <- data.frame(
+    response = data,
+    treatment = as.factor(c(1, 1, 2, 2, 3, 3)),
+    gender = as.factor(c("male", "female", "male", "female", "male", "female"))      
+)
+{% endhighlight %}
+
+This is what we get on the interaction plot if there are only treatment effects:
+
+![](/assets/img/ht9.png)
+
+We can see that both males and females stacked on top of each other. Similarly we can simulate only gender effects.
+
+{% highlight r %}
+mu1 <- 100
+mu2 <- 100
+mu3 <- 100
+
+sigma <- 1
+n <- 1
+
+data1 <- rnorm(n, mean = mu1, sd = sigma)
+data2 <- rnorm(n, mean = mu2, sd = sigma)
+data3 <- rnorm(n, mean = mu3, sd = sigma)
+
+data <- c(data1, data1 + 10, data2, data2 + 10, data3, data3 + 10)
+
+df <- data.frame(
+    response = data,
+    treatment = as.factor(c(1, 1, 2, 2, 3, 3)),
+    gender = as.factor(c("male", "female", "male", "female", "male", "female"))      
+)
+{% endhighlight %}
+
+We can see that the lines are parallel and there is not much variation across treatments.
+
+![](/assets/img/ht10.png)
+
 With higher-order factorial designs, variation among groups are broken down into main effects for each independent variables, two-way interaction between each pair of independent variables, three-way among each trio, and etc. Similar to two-way factorial design, error sum of squares is the num of squared differences within each cell.
+
+## <a name="type"></a>Type I Error
+
+Back in One-way ANOVA we said that it avoids the multiple pairwise comparison problem by doing just 1 $$F$$ test. However for two-way ANOVA and multi-way ANOVA, we are doing multiple $$F$$ tests. In a two-way ANOVA example, we do one for treatment effect, one for gender effect, and one for interaction effect. Assuming a 0.05 significance level, we have a $$1 - (1 - 0.05)^{3} = 0.14$$. In other words, there is a 14% chance of making a Type I error.
 
 In Part 5, we will explore Random and Mixed Models . Stay tuned!
