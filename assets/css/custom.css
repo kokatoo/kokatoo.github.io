@@ -6,6 +6,10 @@
     padding: 20px;
 }
 
+.sub-title {
+    margin-bottom: 30px !important;
+}
+
 .classes {
     padding: 15px;
     padding-left: 0px;
