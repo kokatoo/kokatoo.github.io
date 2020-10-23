@@ -26,8 +26,6 @@
     <link rel="stylesheet" href="{{ BASE_PATH }}/assets/css/native.css">
 
     <link rel="icon" href="/assets/images/favicon.png" type="image/x-icon" />
-    <meta property="og:image" content="/assets/images/logo.png" />
-    <meta property="og:type" content="website" /> 
 
     <!--KaTex-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
@@ -38,12 +36,8 @@
     <!-- CSS loaded by the children page -->
     {% if page.css %}<link rel="stylesheet" type="text/css" href="{{ BASE_PATH }}/assets/css/custom/{{ page.css }}" />{% endif %}
 
-    <meta property="og:title" content="{{ page.title }}">
-    <meta property="og:description" content="{{ page.tagline }}">
-    <meta property="og:image" content="{{ BASE_PATH }}/assets/img/big/{{ page.img }}">
-    <meta property="og:url" content="{{ BASE_PATH }}">
-    <meta name="twitter:card" content="summary_large_image">
-
+    <meta property="og:image" content="{{ BASE_PATH }}/assets/images/logo.png">
+    
     <link rel="icon" href="/assets/images/favicon.png" type="image/x-icon" />
 
 	<!--[if IE]>
@@ -65,7 +59,7 @@
     {% endif %}
   </head>
   <body>
-  <div class="wrapper">	  	  
+  <div class="wrapper">
       <!--Home page style--> 
       {% include themes/bootstrap/nav-bar.html %}  
       {{ content }}
