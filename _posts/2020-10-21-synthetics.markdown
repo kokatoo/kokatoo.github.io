@@ -84,6 +84,8 @@ conversion &= + u + p - c = 0\\
 reversal &= - u - p + c = 0
 \end{aligned}$$
 
+C/Rs can be used to transform same strike combos to other synthetic combinations.
+
 ## <a name="pin"></a>Pin Risk
 
 Things get a little trickier when the closing price is close to the options' strike price. If we are short the option, we do not know for certain whether we will be assigned. For example, supposed the counterparty of the short option gets to decide whether to exercise the option after the closing price on expiration date and something happen in the market. Some correlated assets' market which has not been closed indicate a swing in the price. Despite the option being OTM, the counterparty might choose to exercise the option. Thereby we are being stucked with a position where there is nothing we can do about until the market opens, subjecting to an adverse price of the underlying. This is known as Pin Risk.
@@ -110,7 +112,7 @@ Short SPY Sep 250/260 Box:
 |           250 | Conversion      | $$-c\mathpunct{,}+p$$     |
 |           260 | Reversal        | $$+c\mathpunct{,}-p$$     |
 
-Similar to C/Rs, boxes are flat and can be used to transform combination of positions.
+Similar to C/Rs, boxes are flat and can be used to transform verticals, butterfiles and condors (different strikes but same expiration).
 
 ## <a name="jelly"></a>Jelly Roll
 
@@ -132,4 +134,4 @@ Short SPY Sep 250 Box:
 | Sep             | Reversal        | $$+c\mathpunct{,}-p$$               |
 | Nov             | Conversion      | $$-c\mathpunct{,}+p$$               |
 
-Similar to C/Rs and boxes, jelly rolls are flat and can be used to transform combination of positions.
+Similar to C/Rs and boxes, jelly rolls are flat and can be used to transform calendar, diagonal spreads (different strikes and different expirations).
