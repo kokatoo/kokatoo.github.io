@@ -134,4 +134,4 @@ Short SPY Sep 250 Box:
 | Sep             | Reversal        | $$+c\mathpunct{,}-p$$               |
 | Nov             | Conversion      | $$-c\mathpunct{,}+p$$               |
 
-Similar to C/Rs and boxes, jelly rolls are flat and can be used to transform calendar, diagonal spreads (different strikes and different expirations).
+Similar to C/Rs and boxes, jelly rolls are flat and can be used to transform calendar, diagonal spreads (same/different strikes and different expirations).
