@@ -15,7 +15,7 @@ Thinking of covered calls as equivalent to naked puts might help in terms of rol
 - [Put-Call Parity](#parity)
 - [Conversion/Reversal](#cr)
 - [Pin Risk](#pin)
-- [Box](#box)
+- [Box Spread](#box)
 - [Jelly Roll](#jelly)
 </div>
 
@@ -90,13 +90,13 @@ C/Rs can be used to transform same strike combos to other synthetic combinations
 
 Things get a little trickier when the closing price is close to the options' strike price. If we are short the option, we do not know for certain whether we will be assigned. For example, supposed the counterparty of the short option gets to decide whether to exercise the option after the closing price on expiration date and something happen in the market. Some correlated assets' market which has not been closed indicate a swing in the price. Despite the option being OTM, the counterparty might choose to exercise the option. Thereby we are being stucked with a position where there is nothing we can do about until the market opens, subjecting to an adverse price of the underlying. This is known as Pin Risk.
 
-## <a name="box"></a>Box
+## <a name="box"></a>Box Spread
 
-Boxes are locks which are combination of C/Rs with the same expiration date. 
+Box spreads are locks which are combination of C/Rs with the same expiration date. 
 
-Long Box is where you have the reversal $$\{-u\mathpunct{,} +c_{1}\mathpunct{,} -p_{1}\}$$ on the lower strike and conversion $$\{+u \mathpunct{,} -c_{2} \mathpunct{,} +p_{2}\}$$ on the higher strike. The underlyings basically cancel each other out. This is basically a combination of a bull call spread and a bear put spread.
+Long Box is where you have the reversal $$\{-u\mathpunct{,} +c_{1}\mathpunct{,} -p_{1}\}$$ on the lower strike and conversion $$\{+u \mathpunct{,} -c_{2} \mathpunct{,} +p_{2}\}$$ on the higher strike. The underlyings basically cancel each other out. This is basically a combination of a bull call spread and a bear put spread. The debit spread should yield the risk free rate.
 
-Short box is the opposite where you have the conversion $$\{+u\mathpunct{,} -c_{1}\mathpunct{,} +p_{1}\}$$ on the lower strike and a reversal on the higher strike $$\{-u\mathpunct{,} -c_{2}\mathpunct{,} +p_{2}\}$$. This is basically a combination of a bear call spread and a bull put spread.
+Short box is the opposite where you have the conversion $$\{+u\mathpunct{,} -c_{1}\mathpunct{,} +p_{1}\}$$ on the lower strike and a reversal on the higher strike $$\{-u\mathpunct{,} -c_{2}\mathpunct{,} +p_{2}\}$$. This is basically a combination of a bear call spread and a bull put spread. The credit spread should yield the risk free rate.
 
 Long SPY Sep 250/260 Box:
 
@@ -112,7 +112,7 @@ Short SPY Sep 250/260 Box:
 |           250 | Conversion      | $$-c\mathpunct{,}+p$$     |
 |           260 | Reversal        | $$+c\mathpunct{,}-p$$     |
 
-Similar to C/Rs, boxes are flat and can be used to transform verticals, butterfiles and condors (different strikes but same expiration).
+Similar to C/Rs, boxes are flat and can be used to transform verticals, butterfiles and condors (different strikes but same expiration). The box spread will hold its value until expiration. Essentially one is lending in the options market when one is long the box spread and borrowing when one is short the box spread.
 
 ## <a name="jelly"></a>Jelly Roll
 
