@@ -94,9 +94,9 @@ Things get a little trickier when the closing price is close to the options' str
 
 Box spreads are locks which are combination of C/Rs with the same expiration date. 
 
-Long Box is where you have the reversal $$\{-u\mathpunct{,} +c_{1}\mathpunct{,} -p_{1}\}$$ on the lower strike and conversion $$\{+u \mathpunct{,} -c_{2} \mathpunct{,} +p_{2}\}$$ on the higher strike. The underlyings basically cancel each other out. This is basically a combination of a bull call spread and a bear put spread. The debit spread should yield the risk free rate.
+Long Box is where you have the reversal $$\{-u\mathpunct{,} +c_{1}\mathpunct{,} -p_{1}\}$$ on the lower strike and conversion $$\{+u \mathpunct{,} -c_{2} \mathpunct{,} +p_{2}\}$$ on the higher strike. The underlyings basically cancel each other out. This is basically a combination of a bull call spread and a bear put spread. The debit spread loan amount should equal the strike difference and discounted by the risk-free rate.
 
-Short box is the opposite where you have the conversion $$\{+u\mathpunct{,} -c_{1}\mathpunct{,} +p_{1}\}$$ on the lower strike and a reversal on the higher strike $$\{-u\mathpunct{,} -c_{2}\mathpunct{,} +p_{2}\}$$. This is basically a combination of a bear call spread and a bull put spread. The credit spread should yield the risk free rate.
+Short box is the opposite where you have the conversion $$\{+u\mathpunct{,} -c_{1}\mathpunct{,} +p_{1}\}$$ on the lower strike and a reversal on the higher strike $$\{-u\mathpunct{,} -c_{2}\mathpunct{,} +p_{2}\}$$. This is basically a combination of a bear call spread and a bull put spread. The credit spread loan amount should equal the strike difference and discounted by the risk-free rate.
 
 Long SPY Sep 250/260 Box:
 
