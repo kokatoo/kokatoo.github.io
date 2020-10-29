@@ -12,14 +12,36 @@ Delta is defined as the rate of change of the option value relative to the chang
 
 <div class="toc" markdown="1">
 # Contents:
+- [Black-Scholes Formula](#bs)
 - [Delta as Tangent](#tangent)
+- [Underlying Equivalent](#equivalent)
+- [Probablity of Expiring ITM](#prob)
 - [Delta vs Underlying](#underlying)
 - [Delta vs Volatility]($vol)
 </div>
 
+## <a name="bs"></a>Black-Scholes Formula
+
+Before continuing, let's list out the formula for easy reference:
+
+$$\begin{aligned}
+C(S, t) &= SN(d_{1}) - Ke^{-r(T - t)}N(d_{2})\\[2pt]
+P(S, t) &= Ke^{-r(T - t)}N(-d_{2}) - SN(-d_{1})
+\end{aligned}$$
+
+$$\begin{aligned}
+d_{1} &= \frac{ln\frac{S_{t}}{K} + (r + \frac{\sigma^{2}}{2})(T - t)}{\sigma \sqrt{T - t}}\\
+d_{2} &= d_{1} - \sigma \sqrt{T - t}\\
+N(x) &= \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{x}e^{\frac{-z^{2}}{2}}dz
+\end{aligned}$$
+
+Note that $$N(x)$$ is just the standard normal cumulative distribution function (CDF) and one can find the value via a lookup table or builtin function, for example `pnorm()` in R, rather than computing the integral.
+
+$$T - t$$ is also known as time to expiration in years. For example, 30 days to expiration using a daycount convention of "Actual/365" would give you $$30/365 = 0.0822\: years$$.
+
 ## <a name="tangent"></a>Delta as Tangent
 
-Let's demonstrate delta as tangent for a call and put option with a strike price of $15 with half a year to maturity $$(T = 0.5)$$. For simplicity sake, we will assume an interest rate of 0% and no dividends.
+Let's demonstrate delta as tangent for a call and put option with a strike price of $15 with half a year to maturity $$(T = 0.5)$$. For simplicity sake, we will assume an interest rate of 0%, European style options and no dividends. Note that the delta is not static and it changes along the option price curve and the absolute value increases as the underlying goes ITM and decreases as underlying goes OTM:
 
 Call:
 
@@ -29,7 +51,9 @@ Put:
 
 ![](/assets/img/delta2.gif)
 
-Delta is calculated from the Black-Scholes formula by computing $$N(d_{1})$$ for calls and $$N(-d_{1})$$ for puts:
+Delta can be understood as the percentage of the change in the underlying. So for example, if the option has a delta of 0.5, the option price will change by 50% of the change in the price of the underlying. Calls have a positive delta while puts have a negative delta as puts have a negative relationship with the underlying. When delta approaches 1, it approaches parity with the underlying. 
+
+Delta is derived from the Black-Scholes formula by computing $$N(d_{1})$$ for calls and $$-N(-d_{1})$$ for puts:
 
 {% highlight racket %}
 (define (d1 spot vol t strike r)
@@ -44,7 +68,26 @@ Delta is calculated from the Black-Scholes formula by computing $$N(d_{1})$$ for
         (cdf (normal-dist) (- d1)))))     
 {% endhighlight %}
 
-Note that when the price is equal to the strike (ATM), the absolute delta is close to 0.5. It is not exactly 0.5 because there is still some time to expiration. At expiration, ATM strike will be exactly 0.5.
+Note also that when the price is equal to the strike (ATM), the absolute delta is close to 0.5. It is not exactly 0.5 because there is still some time to expiration. At expiration, ATM strike will be exactly 0.5.
+
+## <a name="equivalent"></a>Underlying Equivalent
+
+Delta can also be interpreted as the equivalent number of underlying. For example if you are long 5 contracts of call options with a multiplier of 100 shares per contract and a delta of 0.5, that is equivalent to:
+
+$$\begin{aligned}
+Num\: of\: Equivalent\: Underlying &= Num\: contracts \times multiplier \times delta\\
+&= 5\: contracts \times 100 \times 0.5\\
+&= 250\: shares
+\end{aligned}$$
+
+## <a name="prob"></a>Probablity of Expiring ITM
+
+It is commonly misunderstood that delta stands for the probability of the option expiring ITM. In fact, using risk neutral probability measure, the probability of expiring ITM should be $$N(d_{2})$$ and not delta, aka $$N(d_{1})$$ in the case of a call option. In summary:
+
+$$\begin{aligned}
+P(ITM\: for\: Call) &= N(d_{2})\\
+P(ITM\: for\: Put) &= -N(-d_{2})
+\end{aligned}$$
 
 ## <a name="underlying"></a>Delta vs Underlying
 
