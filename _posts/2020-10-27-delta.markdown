@@ -80,7 +80,7 @@ Put:
 
 ## <a name="vol"></a>Delta vs Volatility
 
-Another parameter that affects delta is volatility. Higher volatility makes the delta curve converges slower to the step function we see at expiration. It also has the ability to slow down time or in the case of an increasing volatility, the ability to move back in time. Let's look at this for a call:
+Another parameter that affects delta is volatility. Higher volatility makes the delta curve converges slower to the step function we see at expiration. It also has the ability to slow down time or in the case of an increasing volatility, the ability to move back in time. Let's look at this for a call for $$T = 1.00$$, $$T = 0.50$$ and $$T = 0.01$$:
 
 ![](/assets/img/delta6.png)
 
