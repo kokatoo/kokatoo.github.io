@@ -42,8 +42,9 @@ plugins:
 author : 
   name : Jason
   site: https://kokatoo.github.io
-  description : Passionate software engineer with a background in CS, Math, and Statistics. Love challenges and solving hard quantitative problems with interest in the area of finance and ML.
+  description : Passionate software developer with a background in CS, Math, and Statistics. Love challenges and solving hard quantitative problems with interest in the area of finance and ML.
   image : jason.png
+  penguin: fat_penguin.png
   email : kokatoo1948@gmail.com
   github : kokatoo
   facebook : InterDataInnovLabs
