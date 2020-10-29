@@ -1,0 +1,93 @@
+---
+layout: post
+title: "Options Delta"
+date: 2020-10-27 01:30:06 +0800
+img : delta5.gif
+tags: options
+---
+
+Today we shall discuss the first of the greeks: Delta and with plenty of graphs created using Racket. 
+
+Delta is defined as the rate of change of the option value relative to the change of the underlying price. More commonly defined as the change in the option price for a $1 move in the underlying. We can also understand this as the first derivative (tangent) of the option price curve.
+
+<div class="toc" markdown="1">
+# Contents:
+- [Delta as Tangent](#tangent)
+- [Delta vs Underlying](#underlying)
+- [Delta vs Volatility]($vol)
+</div>
+
+## <a name="tangent"></a>Delta as Tangent
+
+Let's demonstrate delta as tangent for a call and put option with a strike price of $15 with half a year to maturity $$(T = 0.5)$$. For simplicity sake, we will assume an interest rate of 0% and no dividends.
+
+Call:
+
+![](/assets/img/delta1.gif)
+
+Put:
+
+![](/assets/img/delta2.gif)
+
+Delta is calculated from the Black-Scholes formula by computing $$N(d_{1})$$ for calls and $$N(-d_{1})$$ for puts:
+
+{% highlight racket %}
+(define (d1 spot vol t strike r)
+  (/ (+ (log (/ spot strike))
+        (* (+ r (/ (sqr vol) 2)) t))
+     (* vol (sqrt t))))
+
+(define (delta spot vol t strike call?)
+  (let ([d1 (d1 spot vol t strike 0)])
+    (if call?
+        (cdf (normal-dist) d1)
+        (cdf (normal-dist) (- d1)))))     
+{% endhighlight %}
+
+Note that when the price is equal to the strike (ATM), the absolute delta is close to 0.5. It is not exactly 0.5 because there is still some time to expiration. At expiration, ATM strike will be exactly 0.5.
+
+## <a name="underlying"></a>Delta vs Underlying
+
+Next let's see the relationship between delta and the underlying. We can see how delta changes as $$T = time\: to\: expiration$$ approaches 0. As $$T$$ approaches 0, we can see the delta curve approaches a step-wise function. With very little time left, OTM and ITM delta approaches 0 or 1 depending on whether it's OTM or ITM. With more time left, we can see more variation in delta spanning a larger set of underlying prices.
+
+Call:
+
+![](/assets/img/delta1.png)
+
+Put:
+
+![](/assets/img/delta2.png)
+
+And the same relationship in animation:
+
+Call:
+
+![](/assets/img/delta3.gif)
+
+Put:
+
+![](/assets/img/delta4.gif)
+
+Including $$T$$ and underlying in the x-axis and y-axis, we can graph the whole transition using a 3D graph:
+
+Call:
+
+![](/assets/img/delta4.png)
+
+Put:
+
+![](/assets/img/delta5.png)
+
+## <a name="vol"></a>Delta vs Volatility
+
+Another parameter that affects delta is volatility. Higher volatility makes the delta curve converges slower to the step function we see at expiration. It also has the ability to slow down time or in the case of an increasing volatility, the ability to move back in time. Let's look at this for a call:
+
+![](/assets/img/delta6.png)
+
+![](/assets/img/delta7.png)
+
+![](/assets/img/delta8.png)
+
+And in animation:
+
+![](/assets/img/delta5.gif)
