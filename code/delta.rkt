@@ -14,6 +14,11 @@
           (* (+ r (/ (sqr vol) 2)) t))
        (* vol (sqrt t)))))
 
+(define (d1 spot vol t atm r)
+  (/ (+ (log (/ spot atm))
+        (* (+ r (/ (sqr vol) 2)) t))
+     (* vol (sqrt t))))
+
 (define (delta spot vol t atm call?)
   (let ([d1 (d1 spot vol t atm 0)])
     (if call?

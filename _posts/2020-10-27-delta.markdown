@@ -13,11 +13,12 @@ Delta is defined as the rate of change of the option value relative to the chang
 <div class="toc" markdown="1">
 # Contents:
 - [Black-Scholes Formula](#bs)
-- [Delta as Tangent](#tangent)
+- [Tangent](#tangent)
 - [Underlying Equivalent](#equivalent)
 - [Probablity of Expiring ITM](#prob)
-- [Delta vs Underlying](#underlying)
-- [Delta vs Volatility]($vol)
+- [Delta vs Time](#time)
+- [Delta vs Volatility](#vol)
+- [Put-Call Parity](#parity)
 </div>
 
 ## <a name="bs"></a>Black-Scholes Formula
@@ -39,7 +40,7 @@ Note that $$N(x)$$ is just the standard normal cumulative distribution function 
 
 $$T - t$$ is also known as time to expiration in years. For example, 30 days to expiration using a daycount convention of "Actual/365" would give you $$30/365 = 0.0822\: years$$.
 
-## <a name="tangent"></a>Delta as Tangent
+## <a name="tangent"></a>Tangent
 
 Let's demonstrate delta as tangent for a call and put option with a strike price of $15 with half a year to maturity $$(T = 0.5)$$. For simplicity sake, we will assume an interest rate of 0%, European style options and no dividends. Note that the delta is not static and it changes along the option price curve and the absolute value increases as the underlying goes ITM and decreases as underlying goes OTM:
 
@@ -68,7 +69,7 @@ Delta is derived from the Black-Scholes formula by computing $$N(d_{1})$$ for ca
         (cdf (normal-dist) (- d1)))))     
 {% endhighlight %}
 
-Note also that when the price is equal to the strike (ATM), the absolute delta is close to 0.5. It is not exactly 0.5 because there is still some time to expiration. At expiration, ATM strike will be exactly 0.5.
+Note also that when the price is equal to the strike (ATM), the absolute delta is close to 0.5. It is not exactly 0.5 because there is still some time to expiration. At expiration, ATM strike will be exactly 0.5. Generally, ATM call will have a delta greater than 0.5 and put will have absolute put delta lower than 0.5. This is due to the interest rate and volatility of the underlying. When $$d_{1} = 0$$, $$N(d_{1}) = 0.5$$. This is because $$(r + \frac{\sigma^{2}}{2}) > 0$$. We can also understand this as call options will be higher when interest rate is higher as a holder of the option can delay buying the underlying while holding cash and put options will be lower as the holder will hold the underlying and have to borrow cash.
 
 ## <a name="equivalent"></a>Underlying Equivalent
 
@@ -89,9 +90,9 @@ P(ITM\: for\: Call) &= N(d_{2})\\
 P(ITM\: for\: Put) &= -N(-d_{2})
 \end{aligned}$$
 
-## <a name="underlying"></a>Delta vs Underlying
+## <a name="time"></a>Delta vs Time
 
-Next let's see the relationship between delta and the underlying. We can see how delta changes as $$T = time\: to\: expiration$$ approaches 0. As $$T$$ approaches 0, we can see the delta curve approaches a step-wise function. With very little time left, OTM and ITM delta approaches 0 or 1 depending on whether it's OTM or ITM. With more time left, we can see more variation in delta spanning a larger set of underlying prices.
+Next let's see the relationship between delta and the underlying. We can see how delta changes as $$T = time\: to\: expiration$$ approaches 0. As $$T$$ approaches 0, we can see the delta curve approaches a step-wise function. With very little time left, OTM and ITM delta approaches 0 or 1 depending on whether it's OTM or ITM. With more time left, we can see more variation in delta spanning a larger set of underlying prices. Intuitively, sa there are more time till expiration, the ITM and OTM absolute deltas will gravitate toward 0.5, the maximum uncertainty. This will cause the curve to be less step-like.
 
 Call:
 
@@ -134,3 +135,26 @@ Another parameter that affects delta is volatility. Higher volatility makes the 
 And in animation:
 
 ![](/assets/img/delta5.gif)
+
+## <a name="parity"></a>Put-Call Parity
+
+Back in the [post]({% post_url 2020-10-21-synthetics %}#parity) on Synthetics, we got a glimpse of put-call parity:
+
+$$\begin{aligned}
+C - P &= S - D\mathbin{.}K\\
+&= S - Ke^{-r(T - t)}
+\end{aligned}$$
+
+We can see the relationship between delta and put-call parity by differentiating both sides w.r.t $$S$$:
+
+$$\begin{aligned}
+\frac{\partial (C - P)}{\partial S} &= \frac{\partial (S - Ke^{-r(T - t)})}{\partial S}\\
+\frac{\partial C}{\partial S} - \frac{\partial P}{\partial S} &= \frac{\partial S}{\partial S} - \frac{\partial Ke^{-r(T - t)}}{\partial S}\\[2pt]
+\end{aligned}$$
+
+$$\begin{aligned}
+\Delta_{C} - \Delta_{P} &= 1 - 0\\
+\Delta_{C} +  -\Delta_{P} &= 1
+\end{aligned}$$
+
+So by subtracting away the delta of P from delta for C we get one. However you don't always get one when it comes to American style options. For ITM calls and puts, the absolute deltas tend to be higher than what put-call parity would suggest. This is due to the possibility of early exercise. Hence they act more like a short/long stock and the absolute detas will pull towards 1. Similarly close to the ex-dividend date, ITM calls are more likely to be exercised so as to capture the dividend and so the delta will tend to be higher.
