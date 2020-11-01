@@ -157,6 +157,12 @@ So what exactly is effect size? It is also known as Cohen's $$\delta$$ and is de
 
 $$\delta = \frac{\mu 1 - \mu 0}{\sigma}$$
 
+Note that when calculating effect size, we do not divide $$\sigma$$ by the sample size $$n$$.
+
+For ANOVA, the effect size is defined as $$\eta^{2}$$:
+
+$$\eta^{2} = \frac{SS_{Between}}{SS_{Total}}$$
+
 In signal detection theory (detecting signal vs noise), we can define effect size as:
 
 $$\begin{aligned}

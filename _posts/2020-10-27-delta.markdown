@@ -66,14 +66,14 @@ Delta is derived from the Black-Scholes formula by computing $$N(d_{1})$$ for ca
   (let ([d1 (d1 spot vol t strike 0)])
     (if call?
         (cdf (normal-dist) d1)
-        (cdf (normal-dist) (- d1)))))     
+        (- cdf (normal-dist) (- d1)))))     
 {% endhighlight %}
 
 Note also that when the price is equal to the strike (ATM), the absolute delta is close to 0.5. It is not exactly 0.5 because there is still some time to expiration. At expiration, ATM strike will be exactly 0.5. Generally, ATM call will have a delta greater than 0.5 and put will have absolute put delta lower than 0.5. This is due to the interest rate and volatility of the underlying. When $$d_{1} = 0$$, $$N(d_{1}) = 0.5$$. This is because $$(r + \frac{\sigma^{2}}{2}) > 0$$. We can also understand this as call options will be higher when interest rate is higher as a holder of the option can delay buying the underlying while holding cash and put options will be lower as the holder will hold the underlying and have to borrow cash.
 
 ## <a name="equivalent"></a>Underlying Equivalent
 
-Delta can also be interpreted as the equivalent number of underlying. For example if you are long 5 contracts of call options with a multiplier of 100 shares per contract and a delta of 0.5, that is equivalent to:
+Delta can also be interpreted as the equivalent number of underlying also known as the hedge ratio. For example if you are long 5 contracts of call options with a multiplier of 100 shares per contract and a delta of 0.5, that is equivalent to:
 
 $$\begin{aligned}
 Num\: of\: Equivalent\: Underlying &= Num\: contracts \times multiplier \times delta\\
@@ -124,11 +124,12 @@ Put:
 
 ## <a name="vol"></a>Delta vs Volatility
 
-Another parameter that affects delta is volatility. Higher volatility makes the delta curve converges slower to the step function we see at expiration. It also has the ability to slow down time or in the case of an increasing volatility, the ability to move back in time. Let's look at this for a call for $$T = 1.00$$, $$T = 0.50$$ and $$T = 0.01$$:
+Another parameter that affects delta is volatility. Higher volatility makes the delta curve converges slower to the step function we see at expiration. It also has the ability to slow down time or to move back in time. The opposite will happen (i.e. time will go faster) when volatility increases. Let's look at this for a call for $$T = 1.00$$, $$T = 0.50$$ and $$T = 0.01$$:
 
 ![](/assets/img/delta6.png)
 
 ![](/assets/img/delta7.png)
+
 
 ![](/assets/img/delta8.png)
 

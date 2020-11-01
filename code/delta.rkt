@@ -23,7 +23,7 @@
   (let ([d1 (d1 spot vol t atm 0)])
     (if call?
         (cdf (normal-dist) d1)
-        (cdf (normal-dist) (- d1)))))
+        (- (cdf (normal-dist) (- d1))))))
 
 (define (bs spot vol t atm call?)
   (let* ([r 0]
@@ -88,6 +88,8 @@
   (let* ([atm 15]
          [x-min 11]
          [x-max 19]
+         [y-min (if call? 0 -1)]
+         [y-max (if call? 1 0)]
          [call-fn (lambda (spot)
                     (bs spot 0.3 t atm #t))]
          [put-fn (lambda (spot)
@@ -101,15 +103,18 @@
                      (delta spot 0.1 t atm call?)))
                x-min x-max
                #:color 1
-               #:y-min 0 #:y-max 1)
+               #:y-min y-min #:y-max y-max)
      (function (lambda (spot)
                  (if call?
                      (delta spot 0.1 0.000001 atm call?)
                      (delta spot 0.1 0.000001 atm call?)))
                x-min x-max
                #:color 3
-               #:y-min 0 #:y-max 1)
-     (function-label (lambda (x) 0.8)
+               #:y-min y-min #:y-max y-max)
+     (function-label (lambda (x)
+                       (if call?
+                           0.8
+                           -0.2))
                      12
                      (string-append "T = " (real->decimal-string t 3))
                      #:point-sym 'none))))
@@ -137,35 +142,38 @@
           #:z-label "Delta"
           ))
 
+
 (let ([x-min 11]
       [x-max 19]
       [atm 15]
-      [call? #f])
+      [call? #f]
+      [y-min -1]
+      [y-max 0])
   (plot (list
          (axes)
          (function (lambda (spot)
                      (delta spot 0.1 0.5 atm call?))
                    x-min x-max
                    #:color 1
-                   #:y-min 0 #:y-max 1
+                   #:y-min y-min #:y-max y-max
                    #:label "T = 0.5")
          (function (lambda (spot)
                      (delta spot 0.1 0.1 atm call?))
                    x-min x-max
                    #:color 2
-                   #:y-min 0 #:y-max 1
+                   #:y-min y-min #:y-max y-max
                    #:label "T = 0.1")
          (function (lambda (spot)
                      (delta spot 0.1 0.01 atm call?))
                    x-min x-max
                    #:color 3
-                   #:y-min 0 #:y-max 1
+                   #:y-min y-min #:y-max y-max
                    #:label "T = 0.01")
          (function (lambda (spot)
                      (delta spot 0.1 0.000001 atm call?))
                    x-min x-max
                    #:color 0
-                   #:y-min 0 #:y-max 1
+                   #:y-min y-min #:y-max y-max
                    #:label "T = 0"))
         #:x-label "Underlying Price"
         #:y-label "Delta"))
