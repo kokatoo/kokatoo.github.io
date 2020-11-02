@@ -25,6 +25,12 @@
         (cdf (normal-dist) d1)
         (- (cdf (normal-dist) (- d1))))))
 
+(define (gamma spot vol t atm)
+  (let* ([d1 (d1 spot vol t atm 0)]
+         [delta-prime (* (/ 1 (sqrt (* 2 pi)))
+                         (exp (- (/ (sqr d1) 2))))])
+    (/ delta-prime (* spot vol (sqrt t)))))
+
 (define (bs spot vol t atm call?)
   (let* ([r 0]
          [d1 (d1 spot vol t atm r)]
@@ -43,13 +49,11 @@
          [call-fn (lambda (spot)
                     (bs spot 0.3 t atm #t))]
          [put-fn (lambda (spot)
-                   (* -1
-                      (bs spot 0.3 t atm #f)))]
+                   (bs spot 0.3 t atm #f))]
          [m (delta price 0.3 t atm call?)]
          [y (if call?
                 (call-fn price)
-                (put-fn price))
-            ]
+                (put-fn price))]
          [c (- y (* m price))])
     (list
      (axes)
@@ -84,6 +88,63 @@
                #:y-min -10 #:y-max 10
                #:label "Delta"))))
 
+(define (gamma-bs price call?)
+  (let* ([t 0.5]
+         [atm 15]
+         [x-min 5]
+         [x-max 25]
+         [call-fn (lambda (spot)
+                    (bs spot 0.3 t atm #t))]
+         [put-fn (lambda (spot)
+                   (bs spot 0.3 t atm #f))]
+         [delta (delta price 0.3 t atm call?)]
+         [gamma (gamma price 0.3 t atm)]
+         [y (if call?
+                (call-fn price)
+                (put-fn price))]
+         [a (/ gamma 2)]
+         [b (- delta (* gamma price))]
+         [c (- y  (* a (sqr price)) (* b price))])
+    (list
+     (axes)
+     (function-label (lambda (x) 4)
+                     10
+                     (string-append "Delta: " (real->decimal-string m 2))
+                     #:point-sym 'none)
+     (function-label (lambda (x) 5)
+                     10
+                     (string-append "Gamma: " (real->decimal-string gamma 2))
+                     #:point-sym 'none)
+     (function-label (lambda (x) 6)
+                     10
+                     (string-append "Price: " (number->string price))
+                     #:point-sym 'none)
+     (function-label (lambda (x) 7)
+                     10
+                     (string-append "ATM Strike: " "15")
+                     #:point-sym 'none)
+     (function (lambda (spot)
+                 (if call?
+                     (call-fn spot)
+                     (put-fn spot)))
+               x-min x-max
+               #:color 1
+               #:y-min -10 #:y-max 10
+               #:label "Option"
+               )
+     (function (lambda (x)
+                 (let ([res (+ (* a (sqr x)) (* b x) c)])
+                   (if (> (abs res) 10)
+                       +nan.0
+                       res)))
+               x-min x-max
+               #:color 3
+               #:y-min -10 #:y-max 10
+               #:label "Gamma"))))
+
+(animate-options
+ gamma-bs)
+
 (define (option-underlying t call?)
   (let* ([atm 15]
          [x-min 11]
@@ -117,6 +178,30 @@
                            -0.2))
                      12
                      (string-append "T = " (real->decimal-string t 3))
+                     #:point-sym 'none))))
+
+(define (option-underlying t call?)
+  (let* ([atm 15]
+         [x-min 11]
+         [x-max 19]
+         [y-min 0]
+         [y-max 3]
+         [call-fn (lambda (spot)
+                    (bs spot 0.3 t atm #t))]
+         [put-fn (lambda (spot)
+                   (* -1
+                      (bs spot 0.3 t atm #f)))])
+    (list
+     (axes)
+     (function (lambda (spot)
+                 (gamma spot 0.1 t atm))
+               x-min x-max
+               #:color 3
+               #:y-min y-min #:y-max y-max)
+     (function-label (lambda (x)
+                       2)
+                     12
+                     (string-append "T = " (real->decimal-string t 2))
                      #:point-sym 'none))))
 (animate-options
  option-underlying)
@@ -178,6 +263,41 @@
         #:x-label "Underlying Price"
         #:y-label "Delta"))
 
+(let ([x-min 11]
+      [x-max 19]
+      [atm 15]
+      [call? #f]
+      [y-min 0]
+      [y-max 3])
+  (plot (list
+         (axes)
+         (function (lambda (spot)
+                     (gamma spot 0.1 1 atm))
+                   x-min x-max
+                   #:color 0
+                   #:y-min y-min #:y-max y-max
+                   #:label "T = 1")
+         (function (lambda (spot)
+                     (gamma spot 0.1 0.5 atm))
+                   x-min x-max
+                   #:color 1
+                   #:y-min y-min #:y-max y-max
+                   #:label "T = 0.5")
+         (function (lambda (spot)
+                     (gamma spot 0.1 0.1 atm))
+                   x-min x-max
+                   #:color 2
+                   #:y-min y-min #:y-max y-max
+                   #:label "T = 0.1")
+         (function (lambda (spot)
+                     (gamma spot 0.1 0.01 atm))
+                   x-min x-max
+                   #:color 3
+                   #:y-min y-min #:y-max y-max
+                   #:label "T = 0.01"))
+        #:x-label "Underlying Price"
+        #:y-label "Gamma"))
+
 (define (animate-options
          fn)
 
@@ -206,17 +326,12 @@
           [(<= t 0.11)
            (set! t-inc 0.01)])
 
-    (display t)
-    (newline)
-    (display t-inc)
-    (newline)
-
     (sleep/yield 0.1)
     ;(> price max-price)
-    (if (< t 0)
+    (if (< t 0.01);(> price max-price)
         (send timer stop)
         (plot/dc
-         (fn t #f)
+         (fn t #f);(fn price #f)
          (send c1 get-dc)
          0
          0
@@ -224,14 +339,14 @@
          (- (send f get-height) 60)
          #:title ""
          #:x-label "Underlying Price"
-         #:y-label "Delta"))
+         #:y-label "Gamma"))
     (set! price (+ price inc))
     (set! t (- t t-inc)))
 
   (new button% [parent f]
        [label "Start"]
        [callback (lambda (button event)
-                   (set! timer (new timer% [notify-callback tock] [interval 100])))])
+                   (set! timer (new timer% [notify-callback tock] [interval 1000])))])
   (new button% [parent f]
        [label "Stop"]
        [callback (lambda (button event)
@@ -348,11 +463,102 @@
    (surface3d
     (lambda (spot vol)
       (delta spot vol t atm call?))
-           11 19 0.05 1
-           #:color 3
-           #:label (string-append "T = " (real->decimal-string t 2)))
+    11 19 0.05 1
+    #:color 3
+    #:label (string-append "T = " (real->decimal-string t 2)))
    #:x-label "Underlying"
    #:y-label "Vol"
    #:z-label "Delta"
    #:angle 57
    #:altitude 20))
+
+
+(let ([atm 15]
+      [t 0.01])
+  (plot3d
+   (surface3d
+    (lambda (spot vol)
+      (gamma spot vol t atm))
+    11 19 0.05 1
+    #:color 3
+    #:label (string-append "T = " (real->decimal-string t 2)))
+   #:x-label "Underlying"
+   #:y-label "Vol"
+   #:z-label "Gamma"
+   #:angle 48
+   #:altitude 25))
+
+
+(define (animate3D
+         fn)
+
+  (define f (new frame%
+                 [label "Test graph"]
+                 [width 600]
+                 [height 800]))
+  (define c1 (new canvas%
+                  [parent f]))
+
+  (define price 5)
+  (define max-price 25)
+  (define inc 1)
+
+  (define t 1)
+  (define t-inc 0.1)
+
+  (send f show #t)
+
+  (define timer #f)
+
+  (define (tock)
+
+    (cond [(<= t 0.011)
+           (set! t-inc 0.001)]
+          [(<= t 0.11)
+           (set! t-inc 0.01)])
+
+    (display t)
+    (newline)
+    (display t-inc)
+    (newline)
+
+    (sleep/yield 0.1)
+    ;(> price max-price)
+    (if (< t 0)
+        (send timer stop)
+        (plot3d/dc
+         (fn t)
+         (send c1 get-dc)
+         0
+         0
+         (- (send f get-width) 40)
+         (- (send f get-height) 60)
+         #:x-label "Underlying"
+         #:y-label "Volatility"
+         #:z-label "Gamma"
+         #:angle 48
+         #:altitude 25))
+    (set! price (+ price inc))
+    (set! t (- t t-inc)))
+
+  (new button% [parent f]
+       [label "Start"]
+       [callback (lambda (button event)
+                   (set! timer (new timer% [notify-callback tock] [interval 3000])))])
+  (new button% [parent f]
+       [label "Stop"]
+       [callback (lambda (button event)
+                   (send timer stop))])
+  #f)
+
+(animate3D
+ vol-gamma)
+
+(define (vol-gamma t)
+  (let ([atm 15])
+    (surface3d
+     (lambda (spot vol)
+       (gamma spot vol t atm))
+     11 19 0.05 1
+     #:color 3
+     #:label (string-append "T = " (real->decimal-string t 3)))))

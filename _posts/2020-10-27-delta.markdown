@@ -26,7 +26,7 @@ Delta is defined as the rate of change of the option value relative to the chang
 Before continuing, let's list out the formula for easy reference:
 
 $$\begin{aligned}
-C(S, t) &= SN(d_{1}) - Ke^{-r(T - t)}N(d_{2})\\[2pt]
+C(S, t) &= SN(d_{1}) - Ke^{-r(T - t)}N(d_{2})\\
 P(S, t) &= Ke^{-r(T - t)}N(-d_{2}) - SN(-d_{1})
 \end{aligned}$$
 
@@ -39,6 +39,13 @@ N(x) &= \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{x}e^{\frac{-z^{2}}{2}}dz
 Note that $$N(x)$$ is just the standard normal cumulative distribution function (CDF) and one can find the value via a lookup table or builtin function, for example `pnorm()` in R, rather than computing the integral.
 
 $$T - t$$ is also known as time to expiration in years. For example, 30 days to expiration using a daycount convention of "Actual/365" would give you $$30/365 = 0.0822\: years$$.
+
+By differentiating the Black-Scholes Formula, we can get the equation for delta:
+
+$$\begin{aligned}
+Call\: \Delta &= N(d_{1})\\
+Put\: \Delta &= -N(-d_{1}) = N(d_{1}) - 1
+\end{aligned}$$
 
 ## <a name="tangent"></a>Tangent
 
@@ -54,7 +61,7 @@ Put:
 
 Delta can be understood as the percentage of the change in the underlying. So for example, if the option has a delta of 0.5, the option price will change by 50% of the change in the price of the underlying. Calls have a positive delta while puts have a negative delta as puts have a negative relationship with the underlying. When delta approaches 1, it approaches parity with the underlying. 
 
-Delta is derived from the Black-Scholes formula by computing $$N(d_{1})$$ for calls and $$-N(-d_{1})$$ for puts:
+Computing delta in Racket:
 
 {% highlight racket %}
 (define (d1 spot vol t strike r)

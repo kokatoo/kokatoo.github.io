@@ -1,0 +1,132 @@
+---
+layout: post
+title: "Options Gamma"
+date: 2020-11-01 01:30:06 +0800
+img : gamma4.gif
+tags: options
+---
+
+Delta changes as the underlying moves. Gamma measures the second order derivative of the underlying. In other words, gamma is the rate of change of delta given a change in the underlying.
+
+<div class="toc" markdown="1">
+# Contents:
+- [Black-Scholes Formula](#bs)
+- [Taylor Series](#taylor)
+- [Gamma vs Time](#time)
+- [Gamma vs Volatility](#vol)
+- [Gamma Scalping](#scalp)
+</div>
+
+## <a name="bs"></a>Black-Scholes Formula
+
+Back in the delta [post]({% post_url 2020-10-27-delta %}#bs) on Black-Scholes, we showed the formula for call and put delta. The following is the equation for gamma (by differentiating delta). Using the symbol $$\Gamma$$ to represent gamma:
+
+$$\begin{aligned}
+\Gamma = \frac{N'(d_{1})}{S\sigma\sqrt{T - t}}\\[10pt]
+N'(d_{1}) = \frac{1}{\sqrt{2\pi}}e^{\frac{-d_{1}^{2}}{2}}
+\end{aligned}$$
+
+Note that $$\Gamma$$ is the same for both call and put.
+
+We can implement the gamma formula in Racket:
+
+{% highlight racket %}
+(define (gamma spot vol t strike)
+  (let* ([d1 (d1 spot vol t strike 0)]
+         [delta-prime (* (/ 1 (sqrt (* 2 pi)))
+                         (exp (- (/ (sqr d1) 2))))])    
+    (/ delta-prime (* spot vol (sqrt t)))))
+{% endhighlight %}
+
+## <a name="taylor"></a>Taylor Series
+
+The price of an option is nonlinear in terms of the underlying. Therefore the tangent (linear approximation) of the price will not be a good approximation when the underlying move a lot. In order to better approximate the change in the options price, we need to revisit Taylor Series expansion.
+
+The Taylor Series of a function $$f(x)$$ that is infinitely differentiable at a point $$x = x_{0}$$ is:
+
+$$f(x_{0}) + \frac{f'(x_{0})}{1!}(x - x_{0}) + \frac{f''(x_{0})}{2!}(x - x_{0})^{2} + \frac{f'''(x_{0})}{3!}(x - x_{0})^{3} + ...$$
+
+It easier if we represent $$h$$ as $$x - x_{0}$$:
+
+$$\begin{aligned}
+h &= x - x_{0}\\
+x &= x_{0} + h\\
+\end{aligned}$$
+
+$$f(x) = f(x_{0} + h) = f(x_{0}) + \frac{f'(x_{0})}{1!}h + \frac{f''(x_{0})}{2!}h^{2} + \frac{f'''(x_{0})}{3!}h^{3} + ...$$
+
+Using the symbol $$\Delta$$ as delta and $$\Gamma$$ as gamma, we can represent the approximation of an option value around the point $$x_{0}$$ as:
+
+$$f(x_{0} + h) \approx f(x_{0}) + \Delta h + \frac{\Gamma}{2}h^{2}$$
+
+The smaller $$h$$ is, the closer will be the approximation.
+
+Back in the delta [post]({% post_url 2020-10-27-delta %}#tangent) on tangent, we can see the tangent line as we move along the underlying price. Let us now take a look at how a quadratic curve would better approximate the option curve.
+
+Call:
+
+![](/assets/img/gamma1.gif)
+
+Put:
+
+![](/assets/img/gamma2.gif)
+
+<br />
+The quadratic curve can be derived by solving for $$a, b, c$$:
+
+$$\begin{aligned}
+y &= ax^{2} + bx + c\\
+y' &= 2ax + b = \Delta\\
+y'' &= 2a = \Gamma
+\end{aligned}$$
+
+Racket snippet:
+
+{% highlight racket %}
+(let* ([call-fn (lambda (spot)
+                  (bs spot vol t strike #t))]
+       [put-fn (lambda (spot)
+                 (bs spot vol t strike #f))]
+       [delta (delta price vol t strike call?)]
+       [gamma (gamma price vol t strike)]
+       [y (if call?
+              (call-fn price)
+              (put-fn price))]
+       [a (/ gamma 2)]
+       [b (- delta (* gamma price))]
+       [c (- y  (* a (sqr price)) (* b price))]))     
+{% endhighlight %}
+
+The gamma for long options will always be positive. So in the case for calls, gamma will make the increase in delta more positive as the underlying increases. In the case for puts, gamma will slow down the change in delta as the underlying increases as put's delta is negative. This mean that as the underlying increases, calls' deltas will increase at an increasing rate while absolute put deltas will decrease at a decreasing rate. The opposite will be true if the underlying decreases. In other words, gamma is a win-win situation for long options.
+
+The opposite will be the case for short options. In other words, gamma is a lose-lose situation for short options. Negative gamma will cause short options to move to 0 at a slower rate and speed up losses.
+
+## <a name="time"></a>Gamma vs Time
+
+Gamma is greatest ATM. As time progresses gamma will spike up and reaches infinity ATM theoretically at expiration (the denominator will approach 0) and ITM and OTM gamma will approach 0.
+
+![](/assets/img/gamma1.png)
+
+![](/assets/img/gamma3.gif)
+
+## <a name="vol"></a>Gamma vs Volatility
+
+Higher volatility is like moving back in time and lower volatility is like time moving forward:
+
+![](/assets/img/gamma2.png)
+
+![](/assets/img/gamma3.png)
+
+![](/assets/img/gamma4.png)
+
+And in animation:
+
+![](/assets/img/gamma4.gif)
+
+In summary, when the volatility is high or when there is still alot of time to expiration, gamma is relatively flat across the underlying strikes. Closer to expiration or at low volatility, ATM gammas explodes while the ITM and OTM dwindles to 0.
+
+## <a name="scalp"></a>Gamma Scalping
+
+Gamma has a negative relationship with Theta. If your position is long gamma, it will naturally be short theta. In other words, the position is betting the market will make a major move but will be hurt by passing time or reducing volatility. Gamma scalping is one way to make up some of the lost premium from theta.
+
+Also known as delta hedging, gamma scalping is mostly done by market makers who are long gammas but delta neutral (for example long straddles). First you pick two points (left and right of the straddle) as breakout levels, and try to fade the market between the levels (buy when market drop and sell when market rise). This is equivalent to delta hedging and trying to get back to delta neutral. The idea is the pnl you get from delta hedging will offset the loss in theta.

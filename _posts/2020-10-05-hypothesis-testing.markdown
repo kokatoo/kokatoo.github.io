@@ -23,7 +23,7 @@ gen_data <- function(fun, mu, sigma, n) {
 }
 {% endhighlight %}
 
-Let's start with a simple normal distribution with `mu = 100` and `sigma = 15` with a sample of `n = 25` elements.
+Let's start with a simple normal distribution with $$\mu = 100$$ and $$\sigma = 15$$ with a sample of $$n = 25$$ elements.
 
 {% highlight r %}
 mu <- 100
@@ -52,6 +52,7 @@ plot_sampling_dist <- function(data) {
   means <- apply(data, 2, mean)
   x <- seq(min(means), max(means), length = 100)
   ts <- metRology::dt.scaled(x, mean = mean(means), sd = sd(means), df = n - 1)      
+  
   res <- hist(means,
     col = "red",
     xlab = "Sample Mean",
@@ -59,6 +60,7 @@ plot_sampling_dist <- function(data) {
     freq = FALSE,
     ylim = c(0, max(ts))
   )
+  
   lines(x, ts)
 }
 
@@ -87,6 +89,12 @@ sample <- data[, 50]
 Next we shall compute the t score for this particular sample and plot the distribution and p-value.
 
 {% highlight r %}
+calc_t_score <- function(sample, mu) {
+  sample_mu <- mean(sample)
+  sample_se <- (sd(sample) / sqrt(n))
+  (sample_mu - mu) / sample_se
+}
+
 plot_tdist <- function(n, title) {    
   x <- seq(-4, 4, length = 100)
   ts <- dt(x, df = (n - 1))
@@ -112,6 +120,7 @@ title <- paste(
   round(1 - pt(tscore, n - 1), 2),
   ")"
 )
+
 plot_tdist(n, title)
 abline(v = tscore, col = "red")
 {% endhighlight %}
@@ -128,6 +137,7 @@ abline(v = qt(0.95, df = n - 1), lwd = 3)
 for (i in seq_len(ncol(data))) {
   sample <- data[, i]
   tscore <- calc_t_score(sample, mu)
+  
   if (tscore > qt(0.95, df = n - 1)) {
     abline(v = tscore, col = "blue")
   }
