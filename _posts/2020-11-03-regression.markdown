@@ -2,7 +2,7 @@
 layout: post
 title: "Regression"
 date: 2020-11-03 01:30:06 +0800
-img : 
+img : regression4.png
 tags: options
 ---
 
@@ -264,7 +264,7 @@ arrows(160, 160.5, 160, 168)
 
 ![](/assets/img/regression6.png)
 
-We can see the extreme ends regress to the mean of the child's height. How about if the child's mean height is lower than the parent's?
+We can see the extreme ends regress to the mean of the child's height. This shouldn't be surprising as we do know that the bulk of the density of a normal distribution lies in the middle. How about if the child's mean height is lower than the parent's?
 
 {% highlight r %}
 muy <- 170
@@ -303,3 +303,4 @@ arrows(170, 170.5, 170, 178)
 {% endhighlight %}
 
 ![](/assets/img/regression8.png)
+
