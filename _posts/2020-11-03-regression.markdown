@@ -93,7 +93,7 @@ Given $$X = x$$:
 
 $$p(y \mid x) = \frac{1}{\sqrt{2\pi}\sigma_{y \mid x}} e^{\frac{-(y - f(x))^{2}}{2\sigma_{y|x}^{2}}}$$
 
-Note that $$\sigma_{y \mid x}$$ doesn't have to be constant in normality assumption and neither $$f(x)$$ needs to be linear or that the errors are uncorrelated.
+Note that $$\sigma_{y \mid x}$$ doesn't have to be constant in normality assumption and neither $$f(x)$$ needs to be linear, but the errors are uncorrelated.
 
 ## <a name="simulation"></a>Simulation
 
