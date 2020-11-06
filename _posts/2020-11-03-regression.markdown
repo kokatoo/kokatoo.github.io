@@ -13,7 +13,7 @@ Regression models are used to relate a response/dependent variable $$Y$$ to one 
 - [Probabilistic Model](#prob)
 - [Experimental vs Observational Data](#data)
 - [Conditional Mean Function](#conditional)
-- [Classical Regression Assumptions](#classical)
+- [Classical Regression Assumptions](#assumptions)
 - [Simulation](#simulation)
 - [Bivariate Normal Distribution](#bivariate)
 - [Regression to the Mean](#mean)
@@ -58,7 +58,6 @@ We will visit more kinds of functions in future posts.
 In classical regression, the model is linear in the coefficients ($$\beta$$ parameters). However in nonlinear regression like logistic and neural networks, are not linear w.r.t to the coefficients. We will also show in future posts that exponential functions are not linear to the coefficients but multiplicative instead.
 
 ## <a name="assumptions"></a>Classical Regression Assumptions
-
 
 ### Homoscedasticity
 
