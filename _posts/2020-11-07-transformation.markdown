@@ -6,7 +6,7 @@ img : trans3.png
 tags: [statistics, regression, jensen, elasticity, likelihood]
 ---
 
-What do you do when your data violates your model assumptions? One of the reason why you might contemplate doing a transformation is to reduce the violations to an acceptable level. But do not transform just for that. Only do it if it makes sense from a subject matter perspective and that you are not just transforming noise or errorneous data.
+What do you do when your data violates your model assumptions? One of the reason why you might contemplate doing a transformation is to reduce the violations to an acceptable level. But do not transform just for that. Only do it if it makes sense from a subject matter perspective and that you are not just transforming noise or erroneous data.
 
 Other reasons you might want to transform your data is to reduce the effect of outliers and building a more accurate model.
 
