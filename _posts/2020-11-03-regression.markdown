@@ -3,7 +3,7 @@ layout: post
 title: "Regression"
 date: 2020-11-03 01:30:06 +0800
 img : regression4.png
-tags: options
+tags: [statistics, regression]
 ---
 
 Regression models are used to relate a response/dependent variable $$Y$$ to one or more predictor/independent variables $$X$$. One reason why we might want to do this is to predict what will (forecast) or might happen under different scenarios (what-if). This will hopefully better help us understand the relationship we are modeling.
@@ -164,7 +164,7 @@ z_{y} &= \frac{y - u_{y}}{\sigma_{y}}
 And in matrix notation:
 
 $$\begin{aligned}
-p(x, y) &= \frac{1}{2\pi \sqrt{|\mathbf{\Sigma}|}} e^{-\frac{1}{2}(\mathbf{x} - \mathbf{\mu})^{\mathbf{T}}\mathbf{\Sigma^{-1}}(\mathbf{x} - \mathbf{\mu})}
+p(\mathbf{x}) &= \frac{1}{2\pi \sqrt{|\mathbf{\Sigma}|}} e^{-\frac{1}{2}(\mathbf{x} - \mathbf{\mu})^{\mathbf{T}}\mathbf{\Sigma^{-1}}(\mathbf{x} - \mathbf{\mu})}
 \end{aligned}$$
 
 Francis Galton, a famous statistician who discovered regression, noticed that the children of very tall parents tend to be taller than average but shorter than their parents and children of very short parents tend to be short on average but taller than their parents. Let's show this phenomenon by a simulation. Assuming the following parameter:
@@ -239,8 +239,8 @@ If the $$(X, Y)$$ comes from a bivariate normal distribution, we will have the f
 
 $$\begin{aligned}
 p(y \mid X = x) &\sim N(\beta_{0} + \beta_{1}x, \sigma^{2})\\[5pt]
-\beta_{1} &= \rho\frac{\sigma_{y}}{\sigma_{x}}\\
-\beta_{0} &= \mu_{y} - \beta_{1}\mu_{x}\\
+\beta_{1} &= \rho\frac{\sigma_{y}}{\sigma_{x}}= \frac{cov(x, y)}{\sigma_{x}^{2}}\\
+\beta_{0} &= \mu_{y} - \beta_{1}\mu_{x}\\[3pt]
 \sigma^{2} &= (1 - \rho^{2})\sigma_{y}^{2}
 \end{aligned}$$
 

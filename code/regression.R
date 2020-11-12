@@ -99,7 +99,7 @@ plot(x, y,
 points(x, y_rho, type = "l", lty = 2)
 abline(h = 170, lty = 3)
 arrows(190, 190, 190, 180.5)
-arrows(150, 150.5, 150, 158)
+arrows(150, 150.5, 150, 155)
 
 muy <- 190
 x <- 170:210
@@ -114,3 +114,4 @@ points(x, y_rho, type = "l", lty = 2)
 abline(h = 190, lty = 3)
 arrows(210, 210, 210, 205)
 arrows(170, 170.5, 170, 178)
+
