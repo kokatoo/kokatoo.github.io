@@ -187,8 +187,6 @@ n & \sum_{i = 1}^{n}x_{i1} & \sum_{i = 1}^{n}x_{i2} & \cdots & \sum_{i = 1}^{n}x
 \end{pmatrix}\\
 \end{aligned}$$
 
-
-
 Follow by the variance:
 
 $$\begin{aligned}
