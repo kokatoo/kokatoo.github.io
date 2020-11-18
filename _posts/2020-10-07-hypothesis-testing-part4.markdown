@@ -3,7 +3,7 @@ layout: post
 title: "Hypothesis Testing (Part 4) Two-way ANOVA"
 date: 2020-10-07 03:30:06 +0800
 img : interaction1.png
-tags: [statistics, hypothesis testing]
+tags: [statistics, hypothesis testing, interaction]
 ---
 
 Today we will continue with part 4 of the Hypothesis Testing series on Factorial ANOVA. If you haven't checked out part 3 please check it out [here]({% post_url 2020-10-06-hypothesis-testing-part3 %})
@@ -262,7 +262,8 @@ SS_Interaction <-
       sum(df$response[df$treatment == 3 & df$gender == "male"])^2 / n,
       sum(df$response[df$treatment == 1 & df$gender == "female"])^2 / n,
       sum(df$response[df$treatment == 2 & df$gender == "female"])^2 / n,
-      sum(df$response[df$treatment == 3 & df$gender == "female"])^2 / n) -     
+      sum(df$response[df$treatment == 3 & df$gender == "female"])^2 / n)     
+      -
   sum(df$response)^2 / N - SS_Treatment - SS_Gender
 > SS_Interaction
 [1] 1984.545

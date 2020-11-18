@@ -55,7 +55,7 @@ $$\begin{aligned}
 R_{adj}^{2} &= 1 - \frac{\frac{SSE}{n - k - 1}}{\frac{SST}{n - 1}}\\
 \end{aligned}$$
 
-Surprisingly adjusted $$R^{2}$$ is still a biased estimator (although less biased than unadjusted $$R^{2}$$)and it is not necessarily better than unadjusted $$R^{2}$$. You can use simulation to show that in some cases, unadjusted $$R^{2}$$ picks model that are closer to the true model than adjusted $$R^{2}$$. Furthermore, it is possible to get a negative value for adjusted $$R^{2}$$.
+Surprisingly, adjusted $$R^{2}$$ is still a biased estimator (although less biased than unadjusted $$R^{2}$$) and it is not necessarily better than unadjusted $$R^{2}$$. You can use simulation to show that in some cases, unadjusted $$R^{2}$$ picks model that are closer to the true model than adjusted $$R^{2}$$. Furthermore, it is possible to get a negative value for adjusted $$R^{2}$$.
 
 ## <a name="ftest"></a>F Test
 
