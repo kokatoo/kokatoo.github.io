@@ -3,7 +3,7 @@ layout: post
 title: "Multiple Regression"
 date: 2020-11-11 01:30:06 +0800
 img : multi10.png
-tags: [statistics, regression]
+tags: [statistics, regression, expectation]
 ---
 
 Multiple regression refers to a regression model where there are more than 1 predictors. The classical multiple regression model conditional distribution is given as:
@@ -17,6 +17,7 @@ Y_{i} \mid X_{i1} = x_{i1}, X_{i2} = x_{i2}, ..., X_{ik} = x_{ik} \sim N(\beta_{
 - [Matrix Form](#matrix)
 - [Standard Errors](#standard)
 - [Confounding Variable](#confounding)
+- [Law of Iterated Expectation](#law)
 </div>
 
 ## <a name="matrix"></a>Matrix Form
@@ -116,7 +117,7 @@ E[\bm{\hat{\beta}} \mid \mathbf{X = x}] &= \bm{\beta}
 
 In other words, $$\bm{\hat{\beta}}$$ is an unbiased estimator of $$\bm{\beta}$$ conditional on $$\mathbf{X = x}$$.
 
-By law of total expectation:
+By law of total/iterated expectation:
 
 $$\begin{aligned}
 E[\bm{\hat{\beta}}] &= E[E[\bm{\hat{\beta}} \mid \mathbf{X = x}]]\\
@@ -375,3 +376,54 @@ rgl::planes3d(1, 0, 0, -30, col = "red", alpha = 0.6)
 ![](/assets/img/multi10.png)
 
 The way I see this is if the plane is perpendicular to itself, then icecream sales coefficient will be significant and not temperature. Because both icecream sales and temperature are correlated, they point to about the same direction and hence the plane would be perpendicular but because temperature is a better fit, all the variability went to be explained by temperature and leaving icecream sales in the dust.
+
+## <a name="law"></a>Law of Iterated Expectation
+
+To wrap things up, let's review an important proposition in probability theory known as law of iterated/total expectation:
+
+Given $$E[Y] < \infty$$:
+
+$$\begin{aligned}
+E[E[Y \mid \mathbf{X}]] &= E[Y]\\
+\end{aligned}$$
+
+If $$\mathbf{X}$$ is discrete:
+
+$$\begin{aligned}
+E[E[Y \mid \mathbf{X}]] &= \sum_{i = 1}^{\infty}E[Y \mid \mathbf{X}]p(\mathbf{x_{i}}) = E[Y]\\
+\end{aligned}$$
+
+If $$\mathbf{X}$$ is continuous:
+
+$$\begin{aligned}
+E[E[Y \mid \mathbf{X}]] &= \int_{\mathbb{R}^{k}}E[Y \mid \mathbf{X}]f(\mathbf{x})d\mathbf{x} = E[Y]\\
+\end{aligned}$$
+
+In other words, we will be able to simplify and get rid of the conditional probability by summing up the weighted average of all possible $$\mathbf{X = x}$$.
+
+Similarly, we can do this for multiple variables:
+
+$$\begin{aligned}
+E[E[Y \mid \mathbf{X_{1}, X_{2}}] \mid \mathbf{X_{1}}] &= E[Y \mid \mathbf{X_{1}}]\\
+\end{aligned}$$
+
+Note that both sides are conditioned on $$\mathbf{X_{1}}$$ and $$\mathbf{X_{2}}$$ is the variable that is averaged out:
+
+$$\begin{aligned}
+E[E[Y \mid \mathbf{X_{1}, X_{2}}] \mid \mathbf{X_{1}}] &= \sum_{i = 1}^{\infty}E[Y \mid \mathbf{X_{1}, X_{2}}]p(\mathbf{x_{2i} \mid x_{1}}) = E[Y \mid \mathbf{X_{1}}]\\
+&= \int_{\mathbb{R}^{k}}E[y \mid \mathbf{X_{1}, X_{2}}]f(\mathbf{x_{2} \mid x_{1}})d\mathbf{x_{2}} = E[Y \mid \mathbf{X_{1}}]\\
+\end{aligned}$$
+
+When conditioned on $$\mathbf{X}$$, you are essentially treating it as a constant $$\mathbf{X = x}$$ so:
+
+$$\begin{aligned}
+E[\mathbf{X|X}] &= \mathbf{X}\\
+E[\mathbf{g(X)|X}] &= \mathbf{g(X)}\\
+\end{aligned}$$
+
+Furthermore,
+
+$$\begin{aligned}
+E[g(\mathbf{X})Y \mid \mathbf{X}] &= g(\mathbf{X})E[Y \mid \mathbf{X}]\\
+E[g(\mathbf{X})Y] &= E[g(\mathbf{X})E[Y \mid \mathbf{X}]]\\
+\end{aligned}$$

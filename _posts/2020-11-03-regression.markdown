@@ -244,7 +244,44 @@ p(y \mid X = x) &\sim N(\beta_{0} + \beta_{1}x, \sigma^{2})\\[5pt]
 \sigma^{2} &= (1 - \rho^{2})\sigma_{y}^{2}
 \end{aligned}$$
 
-We will plot 2 regression lines. The solid line indicates a perfect correlation. Parent's height predicts child's height while the dashed line has a lower correlation of 0.4:
+We can show this is the case by first defining marginal density $$p(x)$$ given the joint distribution $$p(x, y)$$:
+
+$$\begin{aligned}
+p(x) &= \int_{\mathbb{R}}p(x, y)dy\\
+\end{aligned}$$
+
+For $$x$$ such that $$p(x) > 0$$:
+
+$$\begin{aligned}
+1 &= \int_{\mathbb{R}}\frac{p(x, y)}{p(x)}dy\\
+\end{aligned}$$
+
+We define the following as the conditional density given x and see that it integrates to 1:
+
+$$\begin{aligned}
+p(y \mid x) &= \frac{p(x, y)}{p(x)}\\
+\int_{\mathbb{R}}p(y \mid x)dy &= 1
+\end{aligned}$$
+
+Subsituting the Gaussian distribution:
+
+$$\begin{aligned}
+p(y \mid x) &= \frac{\sigma_{x}\sqrt{2\pi}}{2\pi \sigma_{x}\sigma_{y}\sqrt{1 - \rho^{2}}}\frac{e^{kernel_{xy}}}{e^{kernel_{x}}}\\
+&= \frac{1}{\sqrt{2\pi}\sqrt{\sigma_{y}^{2}(1 - \rho^2)}}e^{kernel_{xy} - kernel_{x}}\\
+&= \frac{1}{\sqrt{2\pi}\sigma}e^{\frac{x - (\beta_{0} + \beta_{1}x)}{\sigma}^{2}}\\
+\end{aligned}$$
+
+Given that:
+
+$$\begin{aligned}
+kernel_{xy} &= -\frac{1}{2}\frac{z_{x}^{2} + z_{y}^{2} - 2\rho z_{x}z_{y}}{1 - \rho^{2}}\\
+kernel_{x} &= -\frac{1}{2}z_{x}^{2}\\
+\beta_{1} &= \rho\frac{\sigma_{y}}{\sigma_{x}}= \frac{cov(x, y)}{\sigma_{x}^{2}}\\
+\beta_{0} &= \mu_{y} - \beta_{1}\mu_{x}\\[3pt]
+\sigma^{2} &= (1 - \rho^{2})\sigma_{y}^{2}
+\end{aligned}$$
+
+We will now plot 2 regression lines. The solid line indicates a perfect correlation. Parent's height predicts child's height while the dashed line has a lower correlation of 0.4:
 
 {% highlight r %}
 x <- 160:200
