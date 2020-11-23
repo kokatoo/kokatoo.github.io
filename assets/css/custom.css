@@ -72,6 +72,7 @@ strong, h1, h2, h3 a {
     background-color: #f8f9fa;
     display: table;
     padding: 7px;
+    padding-left: 12px;
     padding-right: 15px;
     padding-bottom: 0px;
     margin-top: 20px;

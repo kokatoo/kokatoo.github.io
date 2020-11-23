@@ -401,6 +401,25 @@ E[E[Y \mid \mathbf{X}]] &= \int_{\mathbb{R}^{k}}E[Y \mid \mathbf{X}]f(\mathbf{x}
 
 In other words, we will be able to simplify and get rid of the conditional probability by summing up the weighted average of all possible $$\mathbf{X = x}$$.
 
+To show why this is so, we know to get the marginal pdf:
+
+$$\begin{aligned}
+\int_{\mathbb{R}}f(x, y)dy &= f(x)\\
+\int_{\mathbb{R}}f(x, y)dx &= f(y)\\
+\end{aligned}$$
+
+To get $$E[E[Y \mid \mathbf{X}]]$$:
+
+$$\begin{aligned}
+E[Y \mid \mathbf{X}] &= \int_{\mathbb{R}}f(y \mid x)dy\\
+&= \int_{\mathbb{R}}\frac{f(x, y)}{f(x)}dy\\
+E[E[Y \mid \mathbf{X}]] &= \int_{\mathbb{R}^{k}} \int_{\mathbb{R}}\frac{f(\mathbf{x}, y)}{f(x)}dyf(\mathbf{x})d(\mathbf{x})\\
+&= \int_{\mathbb{R}^{k}} \int_{\mathbb{R}}f(\mathbf{x}, y)dyd(\mathbf{x})\\
+&= \int_{\mathbb{R}}\int_{\mathbb{R}^{k}}f(\mathbf{x}, y)d(\mathbf{x})dy\\
+&= \int_{\mathbb{R}}yf(y)dy\\
+&= E[Y]
+\end{aligned}$$
+
 Similarly, we can do this for multiple variables:
 
 $$\begin{aligned}
