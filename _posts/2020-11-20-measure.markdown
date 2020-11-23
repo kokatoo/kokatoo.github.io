@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Measure Theory"
+title: "Measure"
 date: 2020-11-20 01:30:06 +0800
 img : measure1.png
 tags: [probability, measure]
