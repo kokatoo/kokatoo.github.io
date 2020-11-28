@@ -3,7 +3,7 @@ layout: post
 title: "Multiple Regression"
 date: 2020-11-11 01:30:06 +0800
 img : multi10.png
-tags: [statistics, regression, expectation]
+tags: [statistics, regression, expectation, confounding]
 ---
 
 Multiple regression refers to a regression model where there are more than 1 predictors. The classical multiple regression model conditional distribution is given as:
@@ -203,7 +203,7 @@ Var(\hat{\beta_{1}}) &= \frac{\sigma^{2}}{\sum_{i = 1}^{n}(x_{i} - \bar{x})^{2}}
 \end{aligned}$$
 
 
-## <a name="Confounding"></a>Confounding Variable
+## <a name="confounding"></a>Confounding Variable
 
 In multiple regression, the coefficients have different interpretation depending on which parameters appear in the particular model. Each coefficient for each parameter is interpretated as all other parameters held fixed. Let's illustrate this more clearly using an example.
 

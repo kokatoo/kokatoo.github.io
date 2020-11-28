@@ -3,7 +3,7 @@ layout: post
 title: "Hypothesis Testing (Part 4) Two-way ANOVA"
 date: 2020-10-07 03:30:06 +0800
 img : interaction1.png
-tags: [statistics, hypothesis testing, interaction]
+tags: [statistics, hypothesis testing, interaction, anova]
 ---
 
 Today we will continue with part 4 of the Hypothesis Testing series on Factorial ANOVA. If you haven't checked out part 3 please check it out [here]({% post_url 2020-10-06-hypothesis-testing-part3 %})
