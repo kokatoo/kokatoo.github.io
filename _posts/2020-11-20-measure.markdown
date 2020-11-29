@@ -6,7 +6,7 @@ img : measure1.png
 tags: [probability, measure]
 ---
 
-A simple explanation of Measure Theory is the distribution of mass over a set $$\Omega$$. A measurable space is defined as the pair $$(\Omega, \mathcal{F})$$ consisting of a nonempty set $$\Omega$$ and a $$\sigma$$-algebra $$\mathcal{F}$$ on $$\Omega$$. In the context of probability measure space, you can think of $$\Omega$$ as the possible outcomes and $$\mathcal{F}$$ as the set of subsets of $$\Omega$$ of possible events. A measure is a way to assign a number to each set of the $$\sigma$$-algebra and you can think of it as a rigorous way to define length, area, volume, and size in general for now. The ultimate aim is to define probability measures which we will talk about it in future posts.
+A measurable space is defined as the pair $$(\Omega, \mathcal{F})$$ consisting of a nonempty set $$\Omega$$ and a $$\sigma$$-algebra $$\mathcal{F}$$ on $$\Omega$$. In the context of probability measure space, you can think of $$\Omega$$ as the set of all possible outcomes (sample space) and $$\mathcal{F}$$ as the set of subsets (set of sets) of $$\Omega$$ which are defined as events. A measure is a way to assign a number to each set of the $$\sigma$$-algebra (events) and you can think of it as a rigorous way to define length, area, volume, and size.
 
 <div class="toc" markdown="1">
 # Contents:
@@ -24,7 +24,7 @@ A simple explanation of Measure Theory is the distribution of mass over a set $$
 
 ## <a name="sigma"></a>$$\sigma$$-Algebra
 
-$$\sigma$$-algebra on $$\Omega$$ is defined as a special collection of subsets of $$\Omega$$ with the following conditions:
+$$\sigma$$-algebra on $$\Omega$$ is defined as a collection of subsets of $$\Omega$$ with the following conditions:
 
 (a)<span style="margin-left: 30px;"></span> $$\Omega \in \mathcal{F}$$
 
@@ -51,13 +51,13 @@ $$\begin{aligned}
 \Omega \cup \emptyset &= \Omega
 \end{aligned}$$
 
-The power set $$\mathcal{P}(\Omega) \subset 2^{\Omega}$$ which is a set of all subsets is also a $$\sigma$$-algebra and also the largest $$\sigma$$-algebra you can produce. All other $$\sigma$$-algebra are subsets of $$\mathcal{P}(\Omega)$$ which may not be countable but would still satisfy condition (c).
+The power set $$\mathcal{P}(\Omega) \subset 2^{\Omega}$$ which is a set of all subsets is also a $$\sigma$$-algebra and also the largest $$\sigma$$-algebra you can produce. All other $$\sigma$$-algebra are subsets of $$\mathcal{P}(\Omega)$$ which may not be countable but would still satisfy condition (c). Usually the power set will be too big to assign a measure with and we will have to contend with a smaller $$\sigma$$-algebra (Borel Sets). Note that it is fine for $$\sigma$$-algebra to be uncountable infinite, but it has to be closed under countable unions. This is not the case for $$2^{\mathbb{R}}$$. But as long as $$\Omega$$ is finite or countable then it is fine to take the power set as the $$\sigma$$-algebra.
 
-A simple and smallest $$\sigma$$-algebra that consist of set system $$A$$ would be $$\{\Omega, \emptyset, A, A^{c}\}$$.
+A simple and smallest $$\sigma$$-algebra that consist of set $$A$$ would be $$\{\Omega, \emptyset, A, A^{c}\}$$.
 
 ### Trace of a set system and $$\sigma$$-Algebra
 
-A set system on a set $$\Omega$$ is a set of subsets of $$\Omega$$ and is not necessarily a $$\sigma$$-algebra. Let $${\Omega_{0}} \subset \Omega$$ and $$\mathcal{E}$$ a set system on $$\Omega$$. Then the trace of $$\mathcal{E}$$ in $$\Omega_{0}$$ is defined as:
+A set system on a set $$\Omega$$ is a set of subsets of $$\Omega$$ that is not necessarily a $$\sigma$$-algebra. Let $${\Omega_{0}} \subset \Omega$$ and $$\mathcal{E}$$ a set system on $$\Omega$$. Then the trace of $$\mathcal{E}$$ in $$\Omega_{0}$$ is defined as:
 
 $$\begin{aligned}
 \mathcal{E} \mid _{\Omega_{0}} := \{\Omega_{0} \cap A: A \in \mathcal{E}\}
@@ -91,7 +91,7 @@ $$\begin{aligned}
 
 and we call the set $$\mathcal{E}$$ a generating set of $$\sigma(\mathcal{E})$$.
 
-The intuitive understanding of this is given a set $$\mathcal{E}$$, we are able to compute a smallest $$\sigma$$-algebra via intersection.
+The intuitive understanding of this is given a set $$\mathcal{E}$$, we are able to compute a smallest $$\sigma$$-algebra via intersection. Note that we can prove an intersection of $$\sigma$$-algebras will always produce a $$\sigma$$-algebra, but this is not the case for unions.
 
 In the earlier example, we noted the trace of $$\mathcal{F_{B}}$$ in $$A \in \mathcal{F}$$ is:
 
@@ -107,7 +107,9 @@ $$\begin{aligned}
 
 ## <a name="borel"></a>Borel $$\sigma$$-Algebra
 
-A half-open interval is defined as:
+When $$\Omega$$ is uncountable, for example $$\Omega \subseteq \mathbb{R}$$, we cannot take the power set as the $$\sigma$$-algebra because the power set of an uncountable set is too big to assign a measure to it. For example, we can show that it is impossible to assign a uniform probability measure on the interval $$\Omega = (0, 1]$$ for all subsets $$2^{\Omega}$$. We would need to define a smaller set of $$\sigma$$-algebra that consists of intervals.
+
+Consider a half-open interval:
 
 $$\begin{aligned}
 (a, b] := \{x \in \mathbb{R}: a < x \leq b\}
@@ -119,13 +121,15 @@ $$\begin{aligned}
 \mathcal{E} := \{(a, b]: a, b \in \mathbb{R}\: and\: a < b\}
 \end{aligned}$$
 
-and the $$\sigma$$-algebra that is generated by $$\mathcal{E}$$ is called the Borel $$\sigma$$-algebra on $$\mathbb{R}$$:
+We will show later that we can assign a Lebesgue measure on these interval, but in order to make these intervals a $$\sigma$$-algebra, we would need to complete it by adding the complement, countable unions, and etc by generating it from $$\mathcal{E}$$:
 
 $$\begin{aligned}
 \mathcal{B} := \sigma(\mathcal{E})
 \end{aligned}$$
 
 The elements of the Borel $$\sigma$$-algebra are known as the Borel sets.
+
+But how do we know the Borel $$\sigma$$-algebra is not the power set itself? One can show that the cardinality of Borel $$\sigma$$-algebra is the same as the real numbers $$\| \mathcal{B} \| = \| \mathbb{R} \|$$.
 
 Similarly, we can define half-open rectangles (sides are parallel to the axes) Borel $$\sigma$$-algebra on $$\mathbb{R}^{2}$$:
 
@@ -139,23 +143,45 @@ $$\begin{aligned}
 \mathcal{E} &:= \{(x_{1},\: \cdots,\: x_{n} \in \mathbb{R}^{n}: a_{1} < x_{1} \leq b_{1},\: \cdots,\: a_{n} < x_{n} \leq b_{n}\}\\
 \end{aligned}$$
 
-Because the class of open sets is too big, we can come up with a Borel $$\sigma$$-algebra that is countably generated and the set of intervals are countable as well:
+Because the class of open sets is uncountable, we can come up with a Borel $$\sigma$$-algebra that is countably generated and the set of intervals are countable as well:
 
 $$\begin{aligned}
 \mathcal{B} := \sigma(\{(a, b]: a, b \in \mathbb{Q}\: and\: a < b\})
 \end{aligned}$$
 
+One example of Borel sets are singletons $$\{x; x \in \mathbb{R}\}$$. We can show that the following countable intersection of intervals equal to the singleton:
+
+$$\begin{aligned}
+\{x\} &= \cap_{i = 1}^{\infty}(x - \frac{1}{i}, x]\\
+\end{aligned}$$
+
+Once we show that singletons are Borel sets, we can show the following intervals are Borel sets:
+
+$$\begin{aligned}
+(a, b) &= (a, b] \setminus \{b\}\\
+[a, b) &= (a, b] \cup \{b\}\\
+[a, b] &= (a, b] \cup \{a\}\\
+\end{aligned}$$
+
+So it doesn't matter whether the intervals are open, closed, or half-open. The reason for starting off with the half-open interval is due to the half-open interval being used in the Carathéodory's extension theorem where a $$\sigma$$-algebra generated by a collection of subsets of $$\Omega = (0, 1]$$ which are finite and disjoint half-open intervals and a measure that is defined on this set can be uniquely extended to the full $$\sigma$$-algebra which turns out to be the same as the Borel sets.  In summary it doesn't matter whether you start off with a open , closed, or half-open intervals.
+
+Another example is the Cantor set. Cantor set can be created by recursively removing the middle-third of the open interval $$(0, 1)$$ infinitely. The Cantor set is whatever that remains and we can show that it is uncountable and has the same cardinality as $$\mathbb{R}$$. By construction the Cantor set doesn't have any intervals and the complement is a countable union of open intervals which we removed. Since the complement is a Borel set, the Cantor set is a Borel set as well.
+
+So if Borel $$\sigma$$-algebra does not contain the power set, what are examples of sets that are not Borel sets? Surprisingly, it is not easy to construct a set that is not a Borel set. For example, certain continued fractions of irrational numbers are non-Borel sets. Another example is the Vitali set that is both non-Borel and non-measurable. Note that it is still possible to assign a measure to some non-Borel sets but from the perspective of a probability measure, we are only interested in Borel sets.
+
 ## <a name="measure"></a>Measure
 
-A measure assigns to all elements of a $$\sigma$$-algebra $$A \in \mathcal{F}$$ a non-negative real number of the interval $$[0, \infty]$$.
+A measure function $$\mu()$$ assigns to all elements of a $$\sigma$$-algebra $$A \in \mathcal{F}$$ a non-negative real number of the interval $$[0, \infty]$$. Note that $$\infty$$ is included in the image.
 
-Let $$(\Omega, \mathcal{F})$$ be a measurable space. A function $$\mu: \mathcal{F} \rightarrow \mathbb{R}$$ is called a measure and $$(\Omega, \mathcal{F}, \mu)$$ is called a measure space if
+Let $$(\Omega, \mathcal{F})$$ be a measure space. A function $$\mu: \mathcal{F} \rightarrow \mathbb{R}$$ is called a measure and $$(\Omega, \mathcal{F}, \mu)$$ is called a measure space if
 
 (a) $$\mu(\emptyset) = 0$$
 
 (b) $$\mu(A) \geq 0, \forall A \in \mathcal{F}$$
 
 (c) $$\sigma$$-additivity: If $$A_{1}, A_{2}, \cdots \in \mathcal{F}$$ are pairwise disjoint, then $$\mu(\cup_{i = 1}^{\infty} A_{i}) = \sum_{i = 1}^{\infty}\mu(A_{i})$$
+
+It is a probability measure if $$\mu(\Omega) = 1$$ and this also implies that $$\mu(\emptyset) = 0$$.
 
 ### Properties
 
@@ -170,15 +196,18 @@ $$\begin{aligned}
 Finite Additivity:
 
 $$\begin{aligned}
-\mu(\cup_{i = 1}^{n}A_{i}) = \sum_{i = 1}^{n}\mu(A_{i}), \forall n \in \mathbb{N}
+\mu(\cup_{i = 1}^{n}A_{i}) &= \sum_{i = 1}^{n}\mu(A_{i})\\
+\forall n &\in \mathbb{N}
 \end{aligned}$$
 
 Monotonicity:
 
 $$\begin{aligned}
-\mathrm{if}\: A \subset B,\\
-\mu(A) \leq \mu(B)
+\mathrm{if}\: A &\subseteq B,\\
+\mu(A) &\leq \mu(B)\\
 \end{aligned}$$
+
+We can show this is the case as $$B = A \cup (B \setminus A)$$ and from finite additivity $$\mu(B) = \mu(A) + \mu(B \setminus A)$$.
 
 ## <a name="indicator"></a>Indicator Function
 
@@ -233,7 +262,7 @@ Counting measure measures the number of elements in $$A$$ and if $$A$$ is finite
 
 ## <a name="lebesgue"></a>Lebesgue Measure
 
-We will show later there is only one measurable space that satisfies the Lebesgue measure: $$(\mathbb{R}, \mathcal{B})$$
+The Lebesgue measure is a measure on the measurable space: $$(\mathbb{R}, \mathcal{B})$$. In other words, we are assigning a measure to the Borel sets in the Borel $$\sigma$$-algebra.
 
 For $$\mathbb{R}$$, the Lebesgue measure is the length of the interval $$(a, b]$$ on $$(\mathbb{R}, \mathcal{B})$$:
 
@@ -299,21 +328,56 @@ $$\begin{aligned}
 
 ## <a name="continuity"></a>Continuity of a Measure
 
-Let $$(\sigma, \mathcal{F}, \mu)$$ be a measure space, and let $$A_{1}, \cdots , A_{n} \in \mathcal{F}$$.
+Let $$(\sigma, \mathcal{F}, \mu)$$ be a measure space, and if $$A_{1}, \cdots , A_{n} \in \mathcal{F}$$:
 
-If $$A_{1} \subset A_{2} \subset \cdots$$ then
+$$\begin{aligned}
+\mu(\cup_{i = 1}^{\infty} A_{i}) &= \lim\limits_{n \rightarrow \infty}\mu(\cup_{i = 1}^{n}A_{i})
+\end{aligned}$$
+
+Essentially we are taking the limit out of $$\mu$$.
+
+To prove the theorem, we define a new set $$B_{n}$$ and claim that it is pairwise disjoint which we can prove by contradiction:
+
+$$\begin{aligned}
+B_{n} &= A_{n} \setminus \cup_{i = 1}^{n - 1} A_{i}\\
+B_{i} &\cap B_{j} = \emptyset\\
+\forall &i, j \geq 1
+\end{aligned}$$
+
+We also claim the following without proof:
+
+$$\begin{aligned}
+\mu(\cup_{i = 1}^{\infty} A_{i}) &= \mu(\cup_{i = 1}^{\infty} B_{i})\\
+\end{aligned}$$
+
+Since $$B_{i}$$ are pairwise disjoint and using $$\sigma$$-additivity:
+
+$$\begin{aligned}
+\mu(\cup_{i = 1}^{\infty} A_{i}) &= \mu(\cup_{i = 1}^{\infty} B_{i})\\
+&= \lim\limits_{n \rightarrow \infty} \sum_{i = 1}^{n}\mu(B_{i})\\
+&= \lim\limits_{n \rightarrow \infty} \mu(\cup_{i = 1}^{n}B_{i})\\
+&= \lim\limits_{n \rightarrow \infty} \mu(\cup_{i = 1}^{n}A_{i})\\
+\end{aligned}$$
+
+As a corollary from the above theorem, if $$A_{1} \subset A_{2} \subset \cdots$$ then
 
 $$\begin{aligned}
 \lim\limits_{i \rightarrow \infty}\mu(A_{i}) = \mu(\cup_{i = 1}^{\infty}A_{i})
 \end{aligned}$$
 
-If $$A_{1} \supset A_{2} \supset \cdots$$ and there is one $$n \in \mathbb{N}$$ with $$\mu(A_{n}) < \infty$$:
+Note that $$A_{i}$$ are monotonically increasing.
+
+Also we can show if $$A_{1} \supset A_{2} \supset \cdots$$ and there is one $$n \in \mathbb{N}$$ with $$\mu(A_{n}) < \infty$$ using DeMorgan's Law:
 
 $$\begin{aligned}
 \lim\limits_{i \rightarrow \infty}\mu(A_{i}) = \mu(\cap_{i = 1}^{\infty}A_{i})
 \end{aligned}$$
 
-Consider the Legesgue measure $$\lambda\: \mathrm{on}\: (\mathbb{R}, \mathcal{B})$$ and the intervals $$\{ A_{i} = (x - \frac{1}{i}, x), i \in \mathbb{N}\}$$:
+Note that $$A_{i}$$ are monotonically decreasing.
+
+And in both cases, note that we took the limit out from inside of the $$\mu$$ function to the outside.
+
+Now let's consider the Lebesgue measure $$\lambda\: \mathrm{on}\: (\mathbb{R}, \mathcal{B})$$ and the intervals $$\{ A_{i} = (x - \frac{1}{i}, x), i \in \mathbb{N}\}$$:
 
 $$\begin{aligned}
 \lambda(\{x\}) &= \lambda(\cap_{i = 1}^{\infty} (x - \frac{1}{i}, x])\\

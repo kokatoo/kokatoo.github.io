@@ -213,11 +213,15 @@ abline(
     fit$coefficients["x"],
     col = "red"
 )
-
 abline(
     fit$coefficients["(Intercept)"] + fit$coefficients["indicator"],
     fit$coefficients["x"] + fit$coefficients["x:indicator"],
     col = "blue"
+)
+
+anova(
+  lm(y ~ x),
+  lm(y ~ x + indicator + x * indicator)
 )
 
 set.seed(123)
@@ -238,9 +242,16 @@ abline(
     fit$coefficients["x"],
     col = "red"
 )
-
 abline(
-    fit$coefficients["(Intercept)"] +  fit$coefficients["x2"] * -20,
+    fit$coefficients["(Intercept)"] - 20 * fit$coefficients["x2"],
     fit$coefficients["x"] + fit$coefficients["x2"],
     col = "blue"
 )
+
+summary(fit)
+
+anova(
+    lm(y ~ x),
+    lm(y ~ x + x2)
+)
+
