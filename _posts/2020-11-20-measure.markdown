@@ -52,7 +52,7 @@ $$\begin{aligned}
 \Omega \cup \emptyset &= \Omega
 \end{aligned}$$
 
-The power set $$\mathcal{P}(\Omega) \subset 2^{\Omega}$$ which is a set of all subsets is also a $$\sigma$$-algebra and also the largest $$\sigma$$-algebra you can produce. All other $$\sigma$$-algebra are subsets of $$\mathcal{P}(\Omega)$$ which may not be countable but would still satisfy condition (c). Usually the power set will be too big to assign a measure with and we will have to contend with a smaller $$\sigma$$-algebra (Borel Sets). Note that it is fine for $$\sigma$$-algebra to be uncountable infinite, but it has to be closed under countable unions. This is not the case for $$2^{\mathbb{R}}$$. But as long as $$\Omega$$ is finite or countable then it is fine to take the power set as the $$\sigma$$-algebra.
+The power set $$\mathcal{P}(\Omega) \subset 2^{\Omega}$$ which is a set of all subsets is also a $$\sigma$$-algebra and also the largest $$\sigma$$-algebra you can produce. All other $$\sigma$$-algebra are subsets of $$\mathcal{P}(\Omega)$$ which may not be countable but would still satisfy condition (c). Usually the power set will be too big to assign a measure to and we will have to contend with a smaller $$\sigma$$-algebra (Borel Sets). Note that it is fine for $$\sigma$$-algebra to be uncountable infinite, but it has to be closed under countable unions. This is not the case for $$2^{\mathbb{R}}$$. But as long as $$\Omega$$ is finite or countable then it is fine to take the power set as the $$\sigma$$-algebra.
 
 A simple and smallest $$\sigma$$-algebra that consist of set $$A$$ would be $$\{\Omega, \emptyset, A, A^{c}\}$$.
 
@@ -422,7 +422,7 @@ $$\begin{aligned}
 \end{aligned}$$
 
 We know that the Lebesgue measure for:
-
+n
 $$\begin{aligned}
 \lambda((a_{1}, b_{1}] \cup (a_{2}, b_{2}] \cup \cdots \cup (a_{n}, b_{n}]) &= \sum_{i = 1}^{n}(b_{i} - a_{i})\\
 \end{aligned}$$
@@ -435,6 +435,8 @@ $$\begin{aligned}
 \mu(A) &= \lambda(A)\\
 \forall &A \in \mathcal{F_{0}}
 \end{aligned}$$
+
+Given that $$\lambda(\emptyset) = 0$$ and $$\lambda$$ is countably additive in the algebra $$\mathcal{F_{0}}$$. That is if the subsets are in the algebra after union (it might not be as it is not a $$\sigma$$-algebra), then it should be additive.
 
 Note that $$\mathcal{F}$$ is a Borel $$\sigma$$-algebra:
 
