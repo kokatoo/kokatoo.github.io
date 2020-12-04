@@ -15,7 +15,7 @@ Y_{i} \mid X_{i1} = x_{i1}, X_{i2} = x_{i2}, ..., X_{ik} = x_{ik} \sim N(\beta_{
 <div class="toc" markdown="1">
 # Contents:
 - [Matrix Form](#matrix)
-- [Standard Errors](#standard)
+- [Standard Error](#standard)
 - [Confidence/Prediction Interval](#interval)
 - [Confounding Variable](#confounding)
 - [Law of Iterated Expectation](#law)
@@ -128,7 +128,7 @@ E[\bm{\hat{\beta}}] &= E[E[\bm{\hat{\beta}} \mid \mathbf{X = x}]]\\
 
 So even for random-X data, $$\bm{\hat{\beta}}$$ is unbiased estimator.
 
-## <a name="standard"></a>Standard Errors
+## <a name="standard"></a>Standard Error
 
 First note the following identities:
 
