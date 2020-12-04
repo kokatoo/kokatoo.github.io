@@ -16,6 +16,7 @@ Y_{i} \mid X_{i1} = x_{i1}, X_{i2} = x_{i2}, ..., X_{ik} = x_{ik} \sim N(\beta_{
 # Contents:
 - [Matrix Form](#matrix)
 - [Standard Errors](#standard)
+- [Confidence/Prediction Interval](#interval)
 - [Confounding Variable](#confounding)
 - [Law of Iterated Expectation](#law)
 </div>
@@ -195,11 +196,107 @@ Var(\bm{\hat{\beta_{j}}} \mid \mathbf{X = x}) &= \sigma^{2}\mathrm{diag}(\mathbf
 SE(\bm{\hat{\beta_{j}}} \mid \mathbf{X = x}) &= \hat{\sigma}\sqrt{\mathrm{diag}(\mathbf{(x^{T}x)^{-1}})}\\
 \end{aligned}$$
 
+For a simple linear regression with only two coefficients:
+
+$$\begin{aligned}
+\mathbf{x^{T}x} &= 
+\begin{pmatrix}
+n & \sum_{i = 1}^{n}x_{i}\\
+\sum_{i = 1}^{n}x_{i} & \sum_{i = 1}^{n}x_{i}^{2}\\
+\end{pmatrix}\\
+\end{aligned}$$
+
+The determinant of $$\mathbf{x^{T}x}$$:
+
+$$\begin{aligned}
+det\mid \mathbf{x^{T}x}\mid &= n\sum_{i = 1}^{n}x_{i}^{2} - (n\bar{x})^{2}\\
+&= n(\sum_{i = 2}^{n}x_{i}^{2} - n\bar{x}^{2})
+\end{aligned}$$
+
+The inverse of $$\mathbf{x^{T}x}$$:
+
+$$\begin{aligned}
+\mathbf{(x^{T}x)^{-1}} &=
+\frac{1}{det\mid \mathbf{x^{T}x}\mid}
+\begin{pmatrix}
+\sum_{i = 1}^{n}x_{i}^2 & -n\bar{x}\\
+-n\bar{x} & n\\
+\end{pmatrix}\\
+&= \frac{1}{n(\sum_{i = 1}^{n}x_{i}^{2} - n\bar{x}^{2})}
+\begin{pmatrix}
+\sum_{i = 1}^{n}x_{i}^2 & -n\bar{x}\\
+-n\bar{x} & n\\
+\end{pmatrix}\\
+&=
+\frac{1}{\sum_{i = 1}^{n}x_{i}^{2} - n\bar{x}^{2}}
+\begin{pmatrix}
+\frac{1}{n}\sum_{i = 1}^{n}x_{i}^2 & -\bar{x}\\
+-\bar{x} & 1\\
+\end{pmatrix}\\
+\end{aligned}$$
+
 For a single variable classical regression, we get the following formulas:
 
 $$\begin{aligned}
-Var(\hat{\beta_{0}}) &= \sigma^{2}(\frac{1}{n} + \frac{\bar{x}^{2}}{\sum_{i = 1}^{n}(x_{i} - \bar{x})^{2}})\\
-Var(\hat{\beta_{1}}) &= \frac{\sigma^{2}}{\sum_{i = 1}^{n}(x_{i} - \bar{x})^{2}}\\
+Var(\hat{\beta_{0}}) &= \frac{\sigma^{2}(\sum_{i = 1}^{n}x_{i}^{2})}{n(\sum_{i = 1}^{n}x_{i}^{2} - n\bar{x}^{2})}\\[10pt]
+&= \frac{\sigma^{2}(\sum_{i = 1}^{n}x_{i}^{2} - n\bar{x}^{2} + n\bar{x}^2)}{n(\sum_{i = 1}^{n}x_{i}^{2} - n\bar{x}^{2})}\\[7pt]
+&= \sigma^{2}\bigg(\frac{1}{n} + \frac{\bar{x}^{2}}{\sum_{i = 1}^{n}x_{i}^{2} - n\bar{x}^{2}} \bigg)\\
+&= \sigma^{2}\bigg(\frac{1}{n} + \frac{\bar{x}^{2}}{\sum_{i = 1}^{n}x_{i}^{2} - \bar{x}(n\bar{x})} \bigg)\\
+&= \sigma^{2}\bigg(\frac{1}{n} + \frac{\bar{x}^{2}}{\sum_{i = 1}^{n}x_{i}^{2} - \bar{x}(2n\bar{x} - n\bar{x})} \bigg)\\
+&= \sigma^{2}\bigg(\frac{1}{n} + \frac{\bar{x}^{2}}{\sum_{i = 1}^{n}x_{i}^{2} - \bar{x}(2\sum_{i = 1}{n}x_{i} - n\bar{x})} \bigg)\\
+&= \sigma^{2}\bigg(\frac{1}{n} + \frac{\bar{x}^{2}}{\sum_{i = 1}^{n}x_{i}^{2} - 2\sum_{i = 1}{n}x_{i}\bar{x} + n\bar{x}^{2}} \bigg)\\
+&= \sigma^{2}\bigg(\frac{1}{n} + \frac{\bar{x}^{2}}{\sum_{i = 1}^{n}(x_{i} - \bar{x})^{2}}\bigg)\\
+Var(\hat{\beta_{1}}) &= \frac{\sigma^{2}}{\sum_{i = 1}^{n}x_{i}^{2} - n\bar{x}^{2}}\\
+&= \frac{\sigma^{2}}{\sum_{i = 1}^{n}(x_{i} - \bar{x})^{2}}\\
+\end{aligned}$$
+
+## <a name="interval"></a>Confidence/Prediction Interval
+
+We have seen the variance of $$\hat{\beta_{0}}$$ and $$\hat{\beta_{1}}$$. To get the total variance for $$\hat{\beta_{0}} + \hat{\beta_{1}}x$$:
+
+$$\begin{aligned}
+Var(\hat{\beta_{0}} + \hat{\beta_{1}}x) &= Var(\hat{\beta_{0}}) + (2)(1)Cov(\beta_{0}, \beta_{1}x) + Var(\hat{\beta_{1}}x)\\[5pt]
+&= Var(\hat{\beta_{0}}) + (2)(1)(x)Cov(\beta_{0}, \beta_{1}) + x^{2}Var(\hat{\beta_{1}})\\[5pt]
+&= \sigma^{2}\bigg(\frac{1}{n} + \frac{\bar{x}^{2} + 2x(-\bar{x}) + {x}^{2}}{\sum_{i = 1}^{n}(x_{i} - \bar{x})^{2}}\bigg)\\
+&= \sigma^{2}\bigg(\frac{1}{n} + \frac{x^{2} - 2x\bar{x} + \bar{x}^{2}}{\sum_{i = 1}^{n}(x_{i} - \bar{x})^{2}}\bigg)\\
+&= \sigma^{2}\bigg(\frac{1}{n} + \frac{(n - 1)(x - \bar{x})^{2}}{(n-1)\sum_{i = 1}^{n}(x_{i} - \bar{x})^{2}}\bigg)\\
+&= \sigma^{2}\bigg(\frac{1}{n} + \frac{(x - \bar{x})^{2}}{(n-1)\sigma_{x}^{2}}\bigg)\\
+&= \sigma^{2}\bigg(\frac{1}{n} + \frac{(x - \bar{x})^{2}}{(n-1)\sigma_{x}^{2}}\bigg)\\
+\end{aligned}$$
+
+To get the standard error, we need to take a square root and replace $$\sigma$$ to $$\hat{\sigma}$$ as we have no idea the true variance:
+
+$$\begin{aligned}
+SE(\hat{\beta_{0}} + \hat{\beta_{1}}x) &= \hat{\sigma}\sqrt{\bigg(\frac{1}{n} + \frac{(x - \bar{x})^{2}}{(n-1)\sigma_{x}^{2}}\bigg)}\\
+\end{aligned}$$
+
+To construct a confidence interval for $$E(Y \mid X = x)$$:
+
+$$\begin{aligned}
+\hat{\beta_{0}} + \hat{\beta_{1}}x \pm t_{df, 1 - \frac{\alpha}{2}} SE(\hat{\beta_{0}} + \hat{\beta_{1}}x)
+\end{aligned}$$
+
+To construct a prediction interval, we need to find the variance for $$e$$:
+
+$$\begin{aligned}
+e &= Y - (\hat{\beta_{0}} + \hat{\beta_{1}}x)\\[3pt]
+Var(e) &= Var(Y) + Var(\hat{\beta_{0}} + \hat{\beta_{1}}x)\\[3pt]
+&= \sigma^{2} + \sigma^{2}\bigg(\frac{1}{n} + \frac{(x - \bar{x})^{2}}{(n-1)\sigma_{x}^{2}}\bigg)\\
+&= \sigma^{2}\bigg(1 + \frac{1}{n} + \frac{(x - \bar{x})^{2}}{(n-1)\sigma_{x}^{2}}\bigg)\\
+\end{aligned}$$
+
+Note that regardless of the size of $$n$$, the variance of $$e$$ will never be lower than $$\sigma^{2}$$ unlike the mean conditional function $$E(Y \mid X = x)$$ as it will tend to 0 when $$n$$ approaches $$\infty$$. This is intuitive as we are estimating a single $$Y \mid X = x$$ observation and not the mean of $$Y$$ given $$X$$.
+
+To get the standard error:
+
+$$\begin{aligned}
+SE(e) &= \hat{\sigma}\sqrt{1 + \frac{1}{n} + \frac{(x - \bar{x})^{2}}{(n-1)\sigma_{x}^{2}}}\\
+\end{aligned}$$
+
+To construct a prediction interval for $$Y \mid X = x$$:
+
+$$\begin{aligned}
+\hat{\beta_{0}} + \hat{\beta_{1}}x \pm t_{df, 1 - \frac{\alpha}{2}} SE(e)\\
 \end{aligned}$$
 
 
