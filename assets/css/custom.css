@@ -178,6 +178,14 @@ li {
     -ms-interpolation-mode: nearest-neighbor;  /* IE (non-standard property) */
 }
 
+.header-style-2 img {
+    image-rendering: -moz-crisp-edges;         /* Firefox */
+    image-rendering:   -o-crisp-edges;         /* Opera */
+    image-rendering: -webkit-optimize-contrast;/* Webkit (non-standard naming) */
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor;  /* IE (non-standard property) */
+}
+
 .side-bar img {
     width: auto;
 }
@@ -189,3 +197,4 @@ li {
 .blog code {
     font-size: 14px;
 }
+
