@@ -159,6 +159,63 @@ $$\begin{aligned}
 \mathcal{F}_{3} &:= \sigma(\{A, B, C\})\\
 \end{aligned}$$
 
+Let's take an example of 3 successive coin tosses.
+
+The sample space $$\Omega$$ is defined as:
+
+$$\begin{aligned}
+\Omega := \{HHH, HHT, HTH, HTT, THH, THT, TTH, TTT\}\\
+\end{aligned}$$
+
+And the $$\sigma$$-algebra:
+
+$$\begin{aligned}
+\mathcal{F} &:= \mathcal{P}(\Omega)\\
+\end{aligned}$$
+
+At time $$0$$, we define $$F_{0}$$:
+
+$$\begin{aligned}
+\mathcal{F}_{0} := \{\emptyset, \Omega\}\\
+\end{aligned}$$
+
+Given the following events at time 1:
+
+$$\begin{aligned}
+A_{H} &:= \{HHH, HHT, HTH, HTT\}\\
+A_{T} &:= \{THH, THT, TTH, TTT\}\\
+\end{aligned}$$
+
+We get the following $$\sigma$$-algebra:
+
+$$\begin{aligned}
+\mathcal{F}_{1} := &\sigma(&\{A_{H}, A_{T}\})\\
+&\mathcal{F}_{0} \subset \mathcal{F}_{1}\\
+\end{aligned}$$
+
+Given the following events at time 2:
+
+$$\begin{aligned}
+A_{HH} &:= \{HHH, HHT\}\\
+A_{HT} &:= \{HTH, HTT\}\\
+A_{TH} &:= \{THH, THT\}\\
+A_{TT} &:= \{TTH, TTT\}\\
+\end{aligned}$$
+
+We get the following $$\sigma$$-algebra:
+
+$$\begin{aligned}
+\mathcal{F}_{2} := \sigma(&\{A_{HH}, A_{HT}, A_{TH}, A_{TT}\})\\
+&\mathcal{F}_{0} \subset \mathcal{F}_{1} \subset \mathcal{F}_{2}\\
+\end{aligned}$$
+
+And finally at time 3:
+
+$$\begin{aligned}
+\mathcal{F}_{3} := \sigma(\{HHH, HHT&, HTH, HTT, THH, THT, TTH, TTT\}) = \mathcal{F}\\
+&\mathcal{F}_{0} \subset \mathcal{F}_{1} \subset \mathcal{F}_{2} \subset \mathcal{F}_{3}\\
+\end{aligned}$$
+
 ## <a name="independence"></a>Independence
 
 Two events $$A, B$$ are independent if
