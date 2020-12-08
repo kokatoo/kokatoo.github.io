@@ -143,13 +143,17 @@ P(A_{i} \mid B) &= \frac{P(B \mid A_{i})P(A_{i})}{\sum_{j = 1}^{\infty} P(B \mid
 
 Time order between events are taken into account in filtration. 
 
-A set of $$\{\mathcal{F}_{t}\}$$ of sub-$$\sigma$$-algebras $$\mathcal{F}_{t}$$ is called a filtration in $$\mathcal{F}$$ if 
+Let $$(\Omega, \mathcal{F}, P)$$ be a probability space and $$T > 0$$.
+
+Assume $$0 \leq t \leq T$$, $$\exist$$ a $$\sigma$$-algebra, $$\mathcal{F}_{t}$$ such that:
 
 $$\begin{aligned}
-\mathcal{F}_{s} &\subset \mathcal{F}_{t}\\
-\forall s, t &\in T\\
-s &\leq t
+\mathcal{F}_{t} &\subset \mathcal{F}\\
+\mathcal{F}_{s} &\subseteq \mathcal{F}_{t}\\
+\forall &s \leq t\\
 \end{aligned}$$
+
+Then $$\{\mathcal{F}_{t}\}_{0 \leq t \leq T}$$ is called a filtration associated with $$(\Omega, \mathcal{F}, P)$$.
 
 For example, if event A is prior to event B and event B is prior to event C, we can represent this as the following filtration:
 
@@ -189,7 +193,7 @@ A_{T} &:= \{THH, THT, TTH, TTT\}\\
 We get the following $$\sigma$$-algebra:
 
 $$\begin{aligned}
-\mathcal{F}_{1} := &\sigma(&\{A_{H}, A_{T}\})\\
+\mathcal{F}_{1} := &\sigma(\{A_{H}, A_{T}\})\\
 &\mathcal{F}_{0} \subset \mathcal{F}_{1}\\
 \end{aligned}$$
 
