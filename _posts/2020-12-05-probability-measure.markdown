@@ -6,8 +6,6 @@ img : probability.png
 tags: [probability, measure]
 ---
 
-## END
-
 A measure $$P$$ on $$(\Omega, \mathcal{F})$$ is a probability measure on $$\mathcal{F}$$ and is also known as a distribution on $$(\Omega, \mathcal{F})$$. Normally a distribution is used on random variables (which we will cover on future posts).
 
 <div class="toc" markdown="1">
