@@ -6,36 +6,35 @@ img : probability.png
 tags: [probability, measure]
 ---
 
+## END
+
 A measure $$P$$ on $$(\Omega, \mathcal{F})$$ is a probability measure on $$\mathcal{F}$$ and is also known as a distribution on $$(\Omega, \mathcal{F})$$. Normally a distribution is used on random variables (which we will cover on future posts).
 
 <div class="toc" markdown="1">
 # Contents:
 - [Probability Measure Space](#measure)
 - [Conditional Probability](#conditional)
+- [Absolute Continuity](#continuity)
 - [Bayes' Theorem](#bayes)
 - [Filtration](#filtration)
-- [Independence](#independence)
+- [Borel-Cantelli Lemmas](#cantelli)
 </div>
 
 ## <a name="measure"></a>Probability Measure Space
 
 Let $$(\Omega, \mathcal{F})$$ be a measurable space. A probability measure is a function $$P: \mathcal{F} \to [0, 1]$$ with the following conditions:
 
-(a) $$P(\Omega) = 1$$
+(a)<span style="margin-left: 30px;"></span>  $$P(\Omega) = 1$$
 
-(b) $$P(A) \geq 0, \forall A \in \mathcal{F}$$
+(b)<span style="margin-left: 30px;"></span>  $$P(A) \geq 0, \forall A \in \mathcal{F}$$
 
-(c) $$\sigma$$-additivity: If $$A_{1}, A_{2}, \cdots \in \mathcal{F}$$ are pairwise disjoint, then $$P(\cup_{i = 1}^{\infty} A_{i}) = \sum_{i = 1}^{\infty}P(A_{i})$$
+(c)<span style="margin-left: 30px;"></span>  $$\sigma$$-additivity: If $$A_{1}, A_{2}, \cdots \in \mathcal{F}$$ are pairwise disjoint, then $$P(\cup_{i = 1}^{\infty} A_{i}) = \sum_{i = 1}^{\infty}P(A_{i})$$
 
-Note that this is exactly the same definition of a measure function in the measure [post]({% post_url 2020-11-20-measure %}#measure) except the range $$[0, 1]$$ is a subset of $$\mathbb{R}$$.
+Note that this is exactly the same definition of a measure function in the measure [post]({% post_url 2020-11-20-measure %}#measure) except the range $$[0, 1]$$ is a subset of $$\mathbb{R}$$ and $$(\Omega, \mathcal{F}, P)$$ is known as a probability space.
 
-$$(\Omega, \mathcal{F}, P)$$ is called a probability space.
+$$A \in \mathcal{F}$$ is an event and a singleton $$\{\omega\} \in \mathcal{F}$$ is called an elementary event. Note that $$\omega \in \Omega$$ is an outcome while $$\{\omega\} \in \mathcal{F}$$ is an elementary event. Event is also known as a measurable set.
 
-$$A \in \mathcal{F}$$ is an event and a singletion $$\{\omega\} \in mathcal{F}$$ is called an elementary event. Note that $$\omega \in \Omega$$ is an outcome while $$\{\omega\} \in \mathcal{F}$$ is an elementary event. Event is also known as a measurable set.
-
-Let's define a continuous uniform distribution $$P$$ over $$\Omega$$. 
-
-$$\mathcal{B}^{2}$$ is a Borel set on $$\mathbb{R}^{2}$$, $$\lambda^{2}$$ is the Lebesgue measure on $$\mathbb{R}^{2}$$, and $$\mathcal{F} = \mathcal{B}^2 \mid _{\Omega} := \{\Omega \cap A: A \in \mathcal{B}^{2}\}$$. Then:
+For example, let's define a continuous uniform distribution $$P$$ over $$\Omega$$. $$\mathcal{B}^{2}$$ is a Borel set on $$\mathbb{R}^{2}$$, $$\lambda^{2}$$ is the Lebesgue measure on $$\mathbb{R}^{2}$$, and $$\mathcal{F} = \mathcal{B}^2 \mid _{\Omega} := \{\Omega \cap A: A \in \mathcal{B}^{2}\}$$. Then:
 
 $$\begin{aligned}
 P(A) &= \frac{\lambda^{2}(A)}{\lambda^{2}(\Omega)}\\
@@ -61,16 +60,25 @@ $$P(A_{1} \cap \cdots A_{n})$$ can be factorized into products of unconditional 
 $$\begin{aligned}
 P(A_{1} \cap A_{2}) &= P(A_{1})P(A_{2} \mid A_{1})\\
 P(A_{1} \cap A_{2} \cap A_{3}) &= P(A_{1})P(A_{2} \mid A_{1})P(A_{3} \mid P(A_{1} \cap A_{2}))\\
-P(\cap_{i = 1}^{n}) &= P(A_{1})\prod_{j = 1}^{n}P(A_{j} \mid \cap_{i = 1}^{j - 1} A_{i})\\
+P(\cap_{i = 1}^{n} A_{i}) &= P(A_{1})\prod_{j = 1}^{n}P(A_{j} \mid \cap_{i = 1}^{j - 1} A_{i})\\
+\end{aligned}$$
+
+And if $$\{A_{i}\}$$ are countably infinite, we can show using continuity of a measure:
+
+$$\begin{aligned}
+\lim\limits_{n \rightarrow \infty} P(\cap_{i = 1}^{n}A_{i}) &= \lim\limits_{n \rightarrow \infty} P(A_{1})\prod_{j = 1}^{n}P(A_{j} \mid \cap_{i = 1}^{j - 1} A_{i})\\
+&= P(\cap_{i = 1}^{\infty} A_{i})
 \end{aligned}$$
 
 
 ### Theorem of Total Probability
 
-If $$A_{1}, \cdots, A_{n}$$ are pairwise disjoint, $$A_{i} \cap A_{j} = \emptyset$$, $$\forall i, j = 1, \cdots n, i \ne j$$, then
+If $$A_{1}, \cdots, A_{n}$$ are pairwise disjoint, $$A_{i} \cap A_{j} = \emptyset$$, then:
 
 $$\begin{aligned}
 P(B) &= \sum_{i = 1}^{n}P(B \cap A_{i})\\
+\forall i, j &= 1,\: \cdots, n\\
+i &\ne j\\
 \end{aligned}$$
 
 And if $$\{A_{i}\}$$ are countably infinite:
@@ -106,6 +114,21 @@ P_{B}(A) &= P(A \mid B)\\
 
 is a probablity measure on $$(\Omega, \mathcal{F})$$ and $$(\Omega, \mathcal{F}, P_{B})$$ is a probability space.
 
+We can show that the following conditions are fulfilled given $$B \in \mathcal{F}$$ and $$P(B) > 0$$:
+
+(a)<span style="margin-left: 30px;"></span>  $$P(\Omega \mid B) = \frac{P(\Omega \cap B)}{P(B)} = \frac{P(B)}{P(B)} = 1$$
+
+(b)<span style="margin-left: 30px;"></span>  $$P(A \mid B) \geq 0, \forall A \in \mathcal{F}$$
+
+(c)<span style="margin-left: 30px;"></span>  If $$A_{1}, A_{2}, \cdots \in \mathcal{F}$$ are pairwise disjoint, then:
+
+$$\begin{aligned}
+P(\cup_{i = 1}^{\infty} A_{i} \mid B) &= \frac{P((\cup_{i = 1}^{\infty} A_{i}) \cap B)}{P(B)}\\
+&= \frac{P(\cup_{i = 1}^{\infty} (A_{i} \cap B))}{P(B)}\\
+&= \frac{\sum_{i = 1}^{\infty} P(A_{i} \cap B)}{P(B)}\\
+&= \sum_{i = 1}^{\infty}P(A_{i} \mid B)\\
+\end{aligned}$$
+
 We can also have conditional probabilities on a conditional measure:
 
 $$\begin{aligned}
@@ -118,6 +141,23 @@ $$\begin{aligned}
 P_{B}(A) &= P_{B}(A \mid C)P_{B}(C) + P_{B}(A \mid C^{c})P_{B}(C^{c})\\
 P(A \mid B) &= P(A \mid B \cap C)P(C \mid B) + P(A \mid B \cap C^{c})P(C^{c} \mid B)\\
 \end{aligned}$$
+
+## <a name="continuity"></a>Absolute Continuity
+
+We say that probability measure $$\mathcal{Q}$$ is absolutely continuous w.r.t probability measure $$\mathcal{P}$$ if:
+
+$$\begin{aligned}
+P(A) = 0 &\Rightarrow Q(A) = 0\\
+\forall A &\in \mathcal{F}
+\end{aligned}$$
+
+We will denote this as:
+
+$$\begin{aligned}
+P &\ll_{\mathcal{F}} Q\\
+\end{aligned}$$
+
+In particular, $$P_{B} \ll_{\mathcal{F}} P$$ but $$P \ll_{\mathcal{F}} P_{B}$$ does not necessarily hold.
 
 ## <a name="bayes"></a>Bayes' Theorem
 
@@ -220,16 +260,60 @@ $$\begin{aligned}
 &\mathcal{F}_{0} \subset \mathcal{F}_{1} \subset \mathcal{F}_{2} \subset \mathcal{F}_{3}\\
 \end{aligned}$$
 
-## <a name="independence"></a>Independence
+## <a name="cantelli"></a>Borel-Cantelli Lemmas
 
-Two events $$A, B$$ are independent if
+Given a measure space $$(\Omega, \mathcal{F}, P)$$, and defining the limit supremum of a sequence of events $$\{A_{i}\}$$ as the set of outcomes that occur infinitely many times:
 
 $$\begin{aligned}
-P(A \cap B) &= P(A)P(B)
+\limsup\limits_{i \rightarrow \infty} A_{i} &= \cap_{n = 1}^{\infty}\cup_{i = n}^{\infty}A_{i}\\
 \end{aligned}$$
 
-And if $$P(B) > 0$$ then:
+$$\cup_{i = n}^{\infty}A_{i}$$ also known as the "nth tail event" can be interpreted that at least one of $$\{A_{n + 1}, A_{n + 2}, \cdots\}$$ will occur.
+
+### First Borel-Cantelli Lemma
+
+If $$\{A_{1}, A_{2}, \: \cdots \}$$ are a sequence of events such that $$\sum_{i = 1}^{\infty}P(A_{i}) < \infty$$, then almost surely (with probability one) only finitely many $$\{A_{i}\}$$ will occur.
+
+What the first Borel-Cantelli lemma is effectively saying that beyond a certain $$i$$, all the rest of the $$\{A_{i}\}$$ will fail to occur.
+
+Using the limit supremum:
 
 $$\begin{aligned}
-P(A \mid B) &= P(A)\\
+P(\cap_{n = 1}^{\infty}\cup_{i = n}^{\infty}A_{i}) &= 0\\
+\end{aligned}$$
+
+Using the fact that $$\{A_{i}\}$$ are monotonically decreasing, continuity of a measure and union bound:
+
+$$\begin{aligned}
+P(\cap_{n = 1}^{\infty}\cup_{i = n}^{\infty}A_{i}) &= \lim\limits_{i \rightarrow \infty} P(\cup_{i = n}^{\infty}A_{i})\\
+&\leq \lim\limits_{i \rightarrow \infty} \sum_{i = n}^{\infty} P(A_{i})\\
+&= 0
+\end{aligned}$$
+
+### Second Borel-Cantelli Lemma
+
+If $$\{A_{1}, A_{2}, \: \cdots \}$$ are independent events such that $$\sum_{i = 1}^{\infty}P(A_{i}) = \infty$$, then almost surely infinitely many $$\{A_{i}\}$$ occurs.
+
+What the second Borel-Cantelli lemma is effectively saying that no matter how large $$i$$ is, at least one of $$\{A_{i + 1}, A_{i + 2}, \cdots\}$$ will occur.
+
+Using the limit supremum:
+
+$$\begin{aligned}
+P(\cap_{n = 1}^{\infty}\cup_{i = n}^{\infty}A_{i}) &= 1\\
+\end{aligned}$$
+
+Similarly we can show the above by proving the complement:
+
+$$\begin{aligned}
+1 - P(\cap_{n = 1}^{\infty}\cup_{i = n}^{\infty}A_{i}) &= P(\cup_{n = 1}^{\infty}\cap_{i = n}^{\infty}A_{i}^{c})\\
+&\leq \sum_{i = 1}^{\infty}P(\cap_{i = n}^{\infty}A_{i}^{c})\\
+&= \sum_{i = 1}^{\infty}\lim\limits_{m \rightarrow \infty}\prod_{i = n}^{m}(1 - P(A_{i}))\\
+&= \prod_{i = n}^{\infty}(1 - P(A_{i}))\\
+&= 0\\
+\end{aligned}$$
+
+Therefore,
+
+$$\begin{aligned}
+P(\cap_{n = 1}^{\infty}\cup_{i = n}^{\infty}A_{i}) &= 1\\
 \end{aligned}$$
