@@ -125,7 +125,7 @@ P_{Z}(z) &= \sum_{x}P_{X}(x)P_{Y}(z - x)\\
 &\forall z \in \mathbb{Z}^{+}\\
 \end{aligned}$$
 
-This is known as the convolution of $$P_{X}$$ and $$P_{Y}$$ or vice versa.
+This is known as the convolution of $$P_{X}$$ and $$P_{Y}$$ or vice versa. $$P_{X}(x)$$ can be thought of as the unit impulse function at $$X = x$$ and $$P_{Y}(y)$$ as the input function at $$z - x$$.
 
 Let $$X_{1}, X_{2}$$ be independent Poisson random variables with parameters $$\lambda_{1}, \lambda_{2}$$. Consider $$Z = X_{1} + X_{2}$$:
 
