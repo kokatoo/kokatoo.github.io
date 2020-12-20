@@ -369,11 +369,10 @@ J(y) :=
 \frac{\partial x_{1}}{\partial y_{2}} & \frac{\partial x_{2}}{\partial y_{2}} & \cdots & \frac{\partial x_{n}}{\partial y_{2}}\\
 \vdots & \vdots & \ddots & \vdots \\[3pt]
 \frac{\partial x_{1}}{\partial y_{n}} & \frac{\partial x_{2}}{\partial y_{n}} & \cdots & \frac{\partial x_{n}}{\partial y_{n}}\\
-\end{bmatrix}
-&= r\\
+\end{bmatrix}\\
 \end{aligned}$$
 
-### Cartesian to Polar
+### Rayleigh Fading
 
 Next we will look at transforming from the Cartesian coordinates to the polar coordinates.
 
@@ -388,10 +387,11 @@ y &= r sin(\theta)\\
 \begin{vmatrix}
 cos(\theta) & sin(\theta)\\
 -r sin(\theta) & r cos(\theta)\\
-\end{vmatrix}
+\end{vmatrix}\\
+&= r\\
 \end{aligned}$$
 
-For the joint density:
+For the joint density of the multiplication of the two random variables $$XY$$:
 
 $$\begin{aligned}
 f_{X, Y}(x, y) &= \frac{1}{2\pi}e^{-\frac{x^{2}y^{2}}{2}}\\
@@ -411,7 +411,7 @@ f_{\Theta}(\theta) &= \int_{0}^{\infty}f_{R, \Theta}dr\\
 \forall \theta &\in [0, 2\pi)\\
 \end{aligned}$$
 
-As we can see $$r, \theta$$ are also independent in the polar coordinates. $$f_{R}(r)$$ is known as the Rayleigh distribution and $$f_{\Theta}(\theta)$$ is just a uniform distribution.
+As we can see $$r, \theta$$ are also independent in the polar coordinates. $$f_{R}(r)$$ is known as the Rayleigh distribution and $$f_{\Theta}(\theta)$$ is just a uniform distribution. These distributions are used to model Rayleigh fading where a receiver is reciving a signal from a base station that is being bounced around by buildings and objects. The signal received will be a combination of delayed signals or different phases of the signal.
 
 We can also show that $$\rho = R^{2}$$ is exponentially distributed.
 
@@ -430,7 +430,7 @@ It can be shown that:
 $$\begin{aligned}
 \Theta &\sim Unif(0, 2\pi)\\
 Z &\sim Exp(0.5)\\
-R &\sim Rayleigh(\sqrt{Z})\\
+R &\sim Rayleigh(1)\\
 \end{aligned}$$
 
 Finally we get two i.i.d Gaussians by setting:
