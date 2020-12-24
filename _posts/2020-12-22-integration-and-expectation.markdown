@@ -354,30 +354,6 @@ g + h &= \sum_{i = 1}^{k}\sum_{j = 1}^{m}(a_{i} + b_{j})I_{A_{i} \cap B_{j}}\\
 
 Please refer to the Monotone Convergence Theorem [section](#linearity) for the proof of non-negative functions.
 
-## <a name="inclusion"></a>Inclusion Exclusion Principle
-
-$$\begin{aligned}
-P(\cup_{i = 1}^{n}A_{i}) &= \sum_{i = 1}^{n}P(A_{i}) - \sum_{i < j}P(A_{i}\cap A_{j}) + \sum_{i < j < k}P(A_{i}\cap A_{j} \cap A_{k}) - \: \cdots + (-1)^{n - 1}P(\cap_{i = 1}^{n}A_{i})\\
-\end{aligned}$$
-
-One can prove the above principle using mathematical induction but it is easier to prove using indicator and expectation:
-
-$$\begin{aligned}
-I_{\cup_{i = 1}^{n}A_{i}} &= 1 - I_{\cap_{i = 1}^{n}A_{i}^{c}}\\
-&= 1 - \prod_{i = 1}^{n}I_{A_{i}^{c}}\\
-&= 1 - \prod_{i = 1}^{n}(1 - I_{A_{i}})\\
-\end{aligned}$$
-
-By expanding the product and taking expectation of indicator functions to get probability:
-
-$$\begin{aligned}
-E[I_{\cup_{i = 1}^{n}A_{i}}] &= E[1 - \prod_{i = 1}^{n}(1 - I_{A_{i}})]\\
-&= E[1 - (1 - I_{A_{1}})\times (1 - I_{A_{2}}) \times \: \cdots (1 - I_{A_{n}})]\\
-&= E[1 - 1 + I_{A_{1}} - \sum_{i < j}I_{A_{i}}I_{A_{j}} + \sum_{i < j < k}I_{A_{i}}I_{A_{j}}I_{A_{k}} - \: \cdots + (-1)^{n - 1}\prod_{i = 1}^{n}I_{A_{i}}]\\
-&= E[I_{A_{1}}] - \sum_{i < j}E[I_{A_{i}}I_{A_{j}}] + \sum_{i < j < k}E[I_{A_{i}}I_{A_{j}}I_{A_{k}}] - \: \cdots + E[(-1)^{n - 1}\prod_{i = 1}^{n}I_{A_{i}}]\\
-P(\cup_{i = 1}^{n}A_{i}) &= \sum_{i = 1}^{n}P(A_{i}) - \sum_{i < j}P(A_{i}\cap A_{j}) + \sum_{i < j < k}P(A_{i}\cap A_{j} \cap A_{k}) - \: \cdots + (-1)^{n - 1}P(\cap_{i = 1}^{n}A_{i})\\
-\end{aligned}$$
-
 ### Property 8 (Scaling)
 
 $$\begin{aligned}
@@ -413,6 +389,30 @@ $$\begin{aligned}
 \end{aligned}$$
 
 Note that $$a$$ is non-negative, so it is ok to take it out of $$\sup$$.
+
+## <a name="inclusion"></a>Inclusion Exclusion Principle
+
+$$\begin{aligned}
+P(\cup_{i = 1}^{n}A_{i}) &= \sum_{i = 1}^{n}P(A_{i}) - \sum_{i < j}P(A_{i}\cap A_{j}) + \sum_{i < j < k}P(A_{i}\cap A_{j} \cap A_{k}) - \: \cdots + (-1)^{n - 1}P(\cap_{i = 1}^{n}A_{i})\\
+\end{aligned}$$
+
+One can prove the above principle using mathematical induction but it is easier to prove using indicator and expectation:
+
+$$\begin{aligned}
+I_{\cup_{i = 1}^{n}A_{i}} &= 1 - I_{\cap_{i = 1}^{n}A_{i}^{c}}\\
+&= 1 - \prod_{i = 1}^{n}I_{A_{i}^{c}}\\
+&= 1 - \prod_{i = 1}^{n}(1 - I_{A_{i}})\\
+\end{aligned}$$
+
+By expanding the product and taking expectation of indicator functions to get probability:
+
+$$\begin{aligned}
+E[I_{\cup_{i = 1}^{n}A_{i}}] &= E[1 - \prod_{i = 1}^{n}(1 - I_{A_{i}})]\\
+&= E[1 - (1 - I_{A_{1}})\times (1 - I_{A_{2}}) \times \: \cdots (1 - I_{A_{n}})]\\
+&= E[1 - 1 + I_{A_{1}} - \sum_{i < j}I_{A_{i}}I_{A_{j}} + \sum_{i < j < k}I_{A_{i}}I_{A_{j}}I_{A_{k}} - \: \cdots + (-1)^{n - 1}\prod_{i = 1}^{n}I_{A_{i}}]\\
+&= E[I_{A_{1}}] - \sum_{i < j}E[I_{A_{i}}I_{A_{j}}] + \sum_{i < j < k}E[I_{A_{i}}I_{A_{j}}I_{A_{k}}] - \: \cdots + E[(-1)^{n - 1}\prod_{i = 1}^{n}I_{A_{i}}]\\
+P(\cup_{i = 1}^{n}A_{i}) &= \sum_{i = 1}^{n}P(A_{i}) - \sum_{i < j}P(A_{i}\cap A_{j}) + \sum_{i < j < k}P(A_{i}\cap A_{j} \cap A_{k}) - \: \cdots + (-1)^{n - 1}P(\cap_{i = 1}^{n}A_{i})\\
+\end{aligned}$$
 
 ## <a name="mct"></a>Monotone Convergence Theorem
 
