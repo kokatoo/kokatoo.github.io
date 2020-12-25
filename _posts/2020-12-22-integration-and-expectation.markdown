@@ -18,6 +18,7 @@ In this post, we will talk about abstract integral such as Lebesgue integral tha
 - [Properties of Integral](#properties)
 - [Inclusion Exclusion Principle](#inclusion)
 - [Monotone Convergence Theorem](#mct)
+- [Expectation of a Discrete RV](#discrete)
 </div>
 
 ## <a name="riemann"></a>Riemann Integral
@@ -86,6 +87,8 @@ A_{i} &\in \mathcal{F}\\
 a_{i} &\geq 0\\
 i \in \{&1, 2,\: \cdots, n\}\\
 \end{aligned}$$
+
+Note that the representation of $$f$$ is not unique, but it is possible to put it in a canonical representation where the $$\{a_{i}\}$$ are distinct and $$\{A_{i}\}$$ are disjoint. The distinct $$a_{i}$$ will become important when we take the pre-image of the random variable later on.
 
 An integral over a simple function $$f$$ w.r.t a measure $$\mu$$ is defined as:
 
@@ -450,7 +453,7 @@ g_{n}(\omega) &\leq g_{n + 1}(\omega)\\
 &\mu \text{ a.e.}\\
 \end{aligned}$$
 
-Then:
+Then MCT states that:
 
 $$\begin{aligned}
 \lim\limits_{n \rightarrow \infty}\int_{\Omega}g_{n}(\omega)d\mu &= \int_{\Omega}\lim\limits_{n \rightarrow \infty}g_{n}(\omega)d\mu\\
@@ -525,3 +528,113 @@ $$\begin{aligned}
 \end{aligned}$$
 
 Essentially in layman terms, when comparing with the Riemann integral, instead of dividing the x-axis $$dx$$, we are instead splitting up the y-axis.
+
+## <a name="discrete"></a>Expectation of a Discrete RV
+
+Let:
+
+$$\begin{aligned}
+X(\omega) &= \sum_{i = 1}^{\infty}I_{A_{i}}\\
+\forall X &\geq 0
+\end{aligned}$$
+
+
+In the canonical representation, $$\{a_{i}\}$$ are non-negative and distinct and $$\{A_{i}\}$$ are disjoint. Hence we can see that $$\{A_{i}\}$$ partition the sample space $$\Omega$$.
+
+Let $$\{X_{n}\}$$ be a sequence of simple discrete random variables which approximate $$X$$ from below:
+
+$$\begin{aligned}
+X_{n}(\omega) &= \sum_{i = 1}^{n}a_{i}I_{A_{i}}(\omega)\\
+\end{aligned}$$
+
+From this definition, we can clearly see that:
+
+$$\begin{aligned}
+X_{n}(\omega) &\leq X_{n + 1}(\omega)\\
+\forall n &\geq 1\\
+\end{aligned}$$
+
+If we define:
+
+$$\begin{aligned}
+X_{n}(\omega) &= \begin{cases}
+a_{k}, &n \geq k,\\
+0, &n < k.\\
+\end{cases}
+\end{aligned}$$
+
+Then it can be shown that $$X_{n}(\omega)$$ converges monotonically to $$X(\omega)$$:
+
+$$\begin{aligned}
+\lim\limits_{n \rightarrow \infty}X_{n}(\omega) &= X(\omega)\\
+\forall \omega &\in \Omega\\
+\end{aligned}$$
+
+Then using MCT:
+
+$$\begin{aligned}
+E[X] &= E\bigg[\lim\limits_{n \rightarrow \infty} X_{n}\bigg]\\
+& = \lim\limits_{n \rightarrow \infty}E[X_{n}]\\
+& = \lim\limits_{n \rightarrow \infty}\sum_{i = 1}^{n}a_{i}P(A_{i})\\
+& = \lim\limits_{n \rightarrow \infty}\sum_{i = 1}^{n}a_{i}P(X = a_{i})\\
+& = \sum_{i = 1}^{\infty}a_{i}P(X = a_{i})\\
+\end{aligned}$$
+
+If $$X$$ can hold both positive and negative values:
+
+$$\begin{aligned}
+E[X] &= E[X_{+}] - E[X_{-}]\\
+X_{+} &= max(X, 0)\\
+X_{-} &= -min(X, 0)\\
+\end{aligned}$$
+
+And is undefined if both sides are infinity.
+
+Let $$X$$ be a geometric random variable with parameter $$p$$. Then:
+
+$$\begin{aligned}
+E[X] &= \sum_{i = 1}^{\infty}iP(X = i)\\
+&= \sum_{i = 1}^{\infty}i(1-p)^{i - 1}p\\
+&= p\sum_{i = 1}^{\infty}i(1-p)^{i - 1}\\
+&= p\frac{d}{dp}\bigg(-\sum_{i = 1}^{\infty}(1-p)^{i}\bigg)\\
+&= p\frac{d}{dp}\big(-\frac{1}{p}\big)\\
+&= p\big(-\frac{-1}{p^{2}}\big)\\
+&= \frac{1}{p}\\
+\end{aligned}$$
+
+### Transformation and Expectation
+
+Let $$(\Omega, \mathcal{F}, P)$$ be the sample measure space, $$(\mathbb{R}, \mathcal{B}(\mathbb{R}), P_{X})$$ be the measure space of random variable $$X$$, and the measure space $$(\mathbb{R}, \mathcal{B}(\mathbb{R}), P_{Y})$$ for random variable $$Y = f(X)$$. Then:
+
+$$\begin{aligned}
+\int_{\Omega}Y dP &= \int_{-\infty}^{\infty}f dP_{X}\\
+&= \int_{-\infty}^{\infty}y dP_{Y}\\
+\end{aligned}$$
+
+First let $$f$$ be a simple function with values $$y_{1},\: \cdots, y_{n}$$. Then:
+
+$$\begin{aligned}
+\int_{\Omega} Y dP &= \sum_{i = 1}^{n}y_{i}P(\omega \mid Y(\omega) = y_{i})\\
+&= \sum_{i = 1}^{n}y_{i}P(\omega \mid f(X(\omega)) = y_{i})\\
+&= \int_{-\infty}^{\infty}y dP_{Y}\\
+\end{aligned}$$
+
+And:
+
+$$\begin{aligned}
+\int_{-\infty}^{\infty} f dP_{X} &= \sum_{i = 1}^{n}y_{i}P_{X}(x \in \mathbb{R} \mid f(x) = y_{i})\\
+&= \sum_{i = 1}^{n}y_{i}P_{X}(f^{-1}(y_{i}))\\
+&= \sum_{i = 1}^{n}y_{i}P(\omega \mid X(\omega) \in f^{-1}(y_{i}))\\
+&= \sum_{i = 1}^{n}y_{i}P(\omega \mid f(X(\omega)) = y_{i})\\
+&= \int_{-\infty}^{\infty}y dP_{Y}\\
+\end{aligned}$$
+
+Now let f be a non-negative function. Let $$\{f_{n}\}$$ be a sequence of simple functions that approximate $$f$$ from below and by MCT:
+
+$$\begin{aligned}
+\int_{\Omega}Y dP &= \int_{\Omega}f(X(\omega)) dP\\
+&= \int_{\Omega}\lim\limits_{n \rightarrow \infty} f_{n}(X(\omega)) dP\\
+&= \lim\limits_{n \rightarrow \infty}\int_{\Omega} f_{n}(X(\omega)) dP\\
+&= \lim\limits_{n \rightarrow \infty}\int_{-\infty}^{\infty}f_{n}(X = x) dP_{X}\\
+&= \int_{-\infty}^{\infty}f(X = x) dP_{X}\\
+\end{aligned}$$
