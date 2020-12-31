@@ -8,7 +8,7 @@ tags: [probability, measure, expectation]
 
 In this post, we will talk about abstract integral such as Lebesgue integral that generalizes the Riemann integral and how it is related to the expectation of a random variable. 
 
-<div class="toc" markdown="1">
+<div class="toc" markdown="1" style="padding-left: 28px;">
 # Contents:
 - [Riemann Integral](#riemann)
 - [Abstract Integral](#abstract)
@@ -19,6 +19,9 @@ In this post, we will talk about abstract integral such as Lebesgue integral tha
 - [Inclusion Exclusion Principle](#inclusion)
 - [Monotone Convergence Theorem](#mct)
 - [Expectation of a Discrete RV](#discrete)
+- [Expectation of a Continuous RV](#continuous)
+- [Fatou's Lemma](#fatou)
+- [Dominated Convergence Theorem](#dominate)
 </div>
 
 ## <a name="riemann"></a>Riemann Integral
@@ -638,3 +641,181 @@ $$\begin{aligned}
 &= \lim\limits_{n \rightarrow \infty}\int_{-\infty}^{\infty}f_{n}(X = x) dP_{X}\\
 &= \int_{-\infty}^{\infty}f(X = x) dP_{X}\\
 \end{aligned}$$
+
+## <a name="continuous"></a>Expectation of a Continuous RV
+
+Recall in the Radon Nikodym Theorem [post]({% post_url 2020-12-11-density-distribution-function %}#radon) that we define $$P_{X}$$ as absolute continous w.r.t to Lebesgue measure $$\lambda$$ iff there exists a measurable function $$f_{X}: \mathbb{R} \rightarrow [0, \infty]$$ such that:
+
+$$\begin{aligned}
+P_{X}(B) = \int_{\Omega}f_{X}d\lambda\\
+\end{aligned}$$
+
+Now let $$X$$ be a continuous random variable on $$(\Omega, \mathcal{F}, P)$$ and $$g$$ be a measurable function which is either non-negative or satisfies $$\int_{\Omega} \vert g \vert dP_{X} < \infty$$. Then:
+
+$$\begin{aligned}
+E[g(X)] = \int_{\Omega}gf_{X}d\lambda\\
+\end{aligned}$$
+
+And if $$g$$ is the identity function:
+
+$$\begin{aligned}
+E[g(X)] = \int_{\Omega}xf_{X}d\lambda\\
+\end{aligned}$$
+
+Let us first consider $$g$$ as a simple function $$g = \sum_{i = 1}^{n}a_{i}I_{A_{i}}$$ and by invoking Radon Nikodym theorem:
+
+$$\begin{aligned}
+E[g(X)] &= \int_{\Omega}gdP_{X}\\
+&= \sum_{i = 1}^{n}a_{i}P_{X}(A_{i})\\
+&= \sum_{i = 1}^{n}a_{i}\int_{A_{i}}f_{X}d\lambda\\
+&= \sum_{i = 1}^{n}\int_{A_{i}}a_{i}f_{X}d\lambda\\
+&= \sum_{i = 1}^{n}\int_{\Omega}a_{i}I_{A_{i}}f_{X}d\lambda\\
+&= \int_{\Omega}(\sum_{i = 1}^{n}a_{i}I_{A_{i}})f_{X}d\lambda\\
+&= \int_{\Omega}gf_{X}d\lambda\\
+\end{aligned}$$
+
+Next let $$g$$ be non-negative measurable function and $$\lim\limits_{n \rightarrow \infty}g_{n} = g$$ and by invoking MCT and RN:
+
+$$\begin{aligned}
+E[g(X)] &= \lim\limits_{n \rightarrow \infty}\int_{\Omega}g_{n}dP_{X}\\
+&= \lim\limits_{n \rightarrow \infty}\int_{\Omega}g_{n}f_{X}d\lambda\\
+&= \int_{\Omega}\lim\limits_{n \rightarrow \infty}g_{n}f_{X}d\lambda\\
+&= \int_{\Omega}gf_{X}d\lambda\\
+\end{aligned}$$
+
+## <a name="fatou"></a>Fatou's Lemma
+
+If $$X, Y$$ are random variables, we have:
+
+$$\begin{aligned}
+E[min(X, Y)] &\leq min(E[X], E[Y])\\
+\end{aligned}$$
+
+This is the case because the below implies the above:
+
+$$\begin{aligned}
+E[min(X, Y)] &\leq E[X]\\
+E[min(X, Y)] &\leq E[Y]\\
+\end{aligned}$$
+
+Fatou's Lemma generalizes to infinite sequences of random variables. 
+
+Let $$\{X_{n}, n \geq 1 \}$$ be a sequence of random variables and $$E[\vert Y \vert] < \infty$$:
+
+(i) If $$X_{n} \geq Y$$:
+
+$$\begin{aligned}
+E[\liminf\limits_{n \rightarrow \infty} X_{n}] &\leq \liminf\limits_{n \rightarrow \infty} E[X_{n}]\\
+\forall n &\geq 1\\
+\end{aligned}$$
+
+(ii) If $$X_{n} \leq Y$$:
+
+$$\begin{aligned}
+E[\limsup\limits_{n \rightarrow \infty} X_{n}] &\geq \limsup\limits_{n \rightarrow \infty} E[X_{n}]\\
+\forall n &\geq 1\\
+\end{aligned}$$
+
+Recall the definition $$\limsup, \liminf$$ and that they always exist even though the limit might not exist for a bounded sequence;
+
+$$\begin{aligned}
+\liminf\limits_{n \rightarrow \infty} X_{n} &= \lim\limits_{n \rightarrow \infty} \inf_{m \geq n} X_{m}\\
+\limsup\limits_{n \rightarrow \infty} X_{n} &= \lim\limits_{n \rightarrow \infty} \sup_{m \geq n} X_{m}\\
+\end{aligned}$$
+
+From the definition of $$\liminf$$ we can see that:
+
+$$\begin{aligned}
+\inf_{k \geq n}X_{k} - Y &\leq X_{m} - Y\\
+\forall m &\geq n\\
+\end{aligned}$$
+
+And taking expectations and infimum w.r.t to $$m$$ on the RHS since LHS doesn't depend on $$m$$ and we know that the inequality holds $$\forall m \geq n$$:
+
+$$\begin{aligned}
+E[\inf_{k \geq n}X_{k} - Y] &\leq E[X_{m} - Y]\\
+&\leq \inf_{m \geq n}E[X_{m} - Y]\\
+\end{aligned}$$
+
+Let $$Z_{n} = \inf_{m \geq n}E[X_{m} - Y]$$. We know that $$Z_{n}$$ is non-negative and a non-decreasing sequence of random variables.
+
+By MCT:
+
+$$\begin{aligned}
+\lim\limits_{n \rightarrow \infty}E[\inf_{k \geq n}X_{k} - Y] &\leq \lim\limits_{n \rightarrow \infty}\inf_{m \geq n}E[X_{m} - Y]\\
+\lim\limits_{n \rightarrow \infty}E[\inf_{k \geq n}X_{k} - Y] &\leq \liminf_{m \geq n}E[X_{m} - Y]\\
+E[\liminf_{n \rightarrow \infty}X_{n} - Y] &\leq \liminf_{m \geq n}E[X_{k} - Y]\\
+E[\liminf_{n \rightarrow \infty}X_{n}] - E[Y] &\leq \liminf_{m \geq n}E[X_{k}] - E[Y]\\
+E[\liminf_{n \rightarrow \infty}X_{n}] &\leq \liminf_{m \geq n}E[X_{k}]\\
+\end{aligned}$$
+
+Similarly, for $$\limsup$$:
+
+$$\begin{aligned}
+\sup_{k \geq n}X_{k} - Y &\geq X_{m} - Y\\
+\forall m &\geq n\\
+\end{aligned}$$
+
+As the following identity holds:
+
+$$\begin{aligned}
+\limsup_{\lim\limits_{n \rightarrow \infty}}X_{n} &= -\liminf_{\lim\limits_{n \rightarrow \infty}}-X_{n}\\
+\liminf_{\lim\limits_{n \rightarrow \infty}}X_{n} &= -\limsup_{\lim\limits_{n \rightarrow \infty}}-X_{n}\\
+\end{aligned}$$
+
+And taking expectations and supremum w.r.t to $$m$$ on the RHS:
+
+$$\begin{aligned}
+E[\sup_{k \geq n}X_{k} - Y] &\geq E[X_{m} - Y]\\
+&\geq \sup_{m \geq n}E[X_{m} - Y]\\
+\end{aligned}$$
+
+And finally invoking MCT:
+
+$$\begin{aligned}
+\lim\limits_{n \rightarrow \infty}E[\sup_{k \geq n}X_{k} - Y] &\geq \lim\limits_{n \rightarrow \infty}\sup_{m \geq n}E[X_{m} - Y]\\
+\lim\limits_{n \rightarrow \infty}E[\sup_{k \geq n}X_{k} - Y] &\geq \limsup_{m \geq n}E[X_{m} - Y]\\
+E[\limsup_{n \rightarrow \infty}X_{n} - Y] &\geq \limsup_{m \geq n}E[X_{n} - Y]\\
+E[\limsup_{n \rightarrow \infty}X_{n}] - E[Y] &\geq \limsup_{m \geq n}E[X_{n}] - E[Y]\\
+E[\limsup_{n \rightarrow \infty}X_{n}] &\geq \limsup_{m \geq n}E[X_{n}]\\
+\end{aligned}$$
+
+## <a name="dominate"></a>Dominated Convergence Theorem
+
+Consider a sequence of random variables $$X_{n}$$ that converges almost surely to $$X$$.
+
+Suppose there exists a random variable $$Y$$ such that $$\vert X_{n} \vert \leq_{a.s.} Y, \forall n$$ and $$E[Y] < \infty$$. Then:
+
+$$\begin{aligned}
+\lim\limits_{n \rightarrow \infty}E[X_{n}] = E[X]\\
+\end{aligned}$$
+
+Given that:
+
+$$\begin{aligned}
+\vert X_{n} \vert &\leq Y\\
+-Y \leq X_{n} &\leq Y\\
+\end{aligned}$$
+
+We can invoke Fatou's Lemma:
+
+$$\begin{aligned}
+E[X] &= E[\liminf\limits_{n \rightarrow \infty}]\\
+&\leq \liminf\limits_{n \rightarrow \infty}E[X_{n}]\\
+&\leq \limsup\limits_{n \rightarrow \infty}E[X_{n}]\\
+&\leq E[\limsup\limits_{n \rightarrow \infty}X_{n}]\\
+&= E[X_{n}]\\
+\end{aligned}$$
+
+As both ends are equalities, all the inequalities will become equalities. 
+
+Hence:
+
+$$\begin{aligned}
+E[X] &= \liminf\limits_{n \rightarrow \infty}E[X_{n}]\\
+&= \limsup\limits_{n \rightarrow \infty}E[X_{n}]\\
+&= \lim\limits_{n \rightarrow \infty}E[X_{n}]\\
+&= E[X]\\
+\end{aligned}$$
+
+The difference between MCT and DCT is that we do not require $$\{X_{n}\}$$ to be monotonically increasing but bounded by some $$Y$$ almost surely $$\forall n$$.
