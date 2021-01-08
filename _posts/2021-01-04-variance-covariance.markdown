@@ -6,6 +6,8 @@ img : variance.png
 tags: [probability, measure, cauchy-schwarz, hilbert]
 ---
 
+In this post we will talk about variance and covariance of random variables.
+
 <div class="toc" markdown="1">
 # Contents:
 - [Variance](#variance)
