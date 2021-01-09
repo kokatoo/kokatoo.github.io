@@ -22,6 +22,9 @@ In this post, we will talk about abstract integral such as Lebesgue integral tha
 - [Expectation of a Continuous RV](#continuous)
 - [Fatou's Lemma](#fatou)
 - [Dominated Convergence Theorem](#dominate)
+- [Conditional Expectation](#conditonal)
+- [Law of Iterated Expectation](#iterated)
+- [References](#references)
 </div>
 
 ## <a name="riemann"></a>Riemann Integral
@@ -29,8 +32,8 @@ In this post, we will talk about abstract integral such as Lebesgue integral tha
 Consider a function $$f: \mathbb{R} \rightarrow \mathbb{R}$$ and the interval $$[a , b]$$ in the domain of $$f$$. The lower and upper Riemann sums are defined as:
 
 $$\begin{aligned}
-L_{n} := &\sum_{i = 1}^{n}\inf_{x \in [x_{i}, x_{i} + 1]}f(x)\Delta x_{i}\\
-U_{n} := &\sum_{i = 1}^{n}\sup_{x \in [x_{i}, x_{i} + 1]}f(x)\Delta x_{i}\\
+L_{n} :=\: &\sum_{i = 1}^{n}\inf_{x \in [x_{i}, x_{i} + 1]}f(x)\Delta x_{i}\\
+U_{n} :=\: &\sum_{i = 1}^{n}\sup_{x \in [x_{i}, x_{i} + 1]}f(x)\Delta x_{i}\\
 \end{aligned}$$
 
 As $$\lim\limits_{\Delta x_{i} \rightarrow 0}$$ and $$\lim\limits_{n \rightarrow \infty}$$, it can be shown that $$L_{n}$$ will be monotonically increasing and $$U_{n}$$ will be monotonically decreasing such that:
@@ -819,3 +822,210 @@ E[X] &= \liminf\limits_{n \rightarrow \infty}E[X_{n}]\\
 \end{aligned}$$
 
 The difference between MCT and DCT is that we do not require $$\{X_{n}\}$$ to be monotonically increasing but bounded by some $$Y$$ almost surely $$\forall n$$.
+
+## <a name="conditional"></a>Conditional Expectation
+
+### Discrete Random Variable
+
+Let $$X, Y$$ be discrete random variables with joint pmf $$P_{X, Y}(x, y)$$. Then the conditional pmf is defined as:
+
+$$\begin{aligned}
+P_{Y \mid X}(y \mid x)& := \frac{P_{X, Y}(x, y)}{P_{Y}(y)}\\
+P_{X}(x)& > 0\\
+\end{aligned}$$
+
+The expectation of $$Y$$ given $$X$$ is defined as:
+
+$$\begin{aligned}
+E[Y \mid X = y] &= \sum_{y}yP_{Y \mid X}(y \mid x)\\
+\end{aligned}$$
+
+The above definition should be thought of as a function of $$y$$, unlike the unconditional expectation which is a constant:
+
+$$\begin{aligned}
+\Psi(x) &= E[Y \mid X = y]\\
+\end{aligned}$$
+
+And the following is a random variable:
+
+$$\begin{aligned}
+\Psi(X) &= E[Y \mid X]\\
+\end{aligned}$$
+
+### Continuous Random Variable
+
+Let $$X, Y$$ be jointly continuous random variables with joint pdf $$f_{X, Y}(x, y)$$.
+
+The conditional pdf of $$Y$$ given $$X$$ is defined as:
+
+$$\begin{aligned}
+f_{Y \mid X}(y \mid x)& := \frac{f_{X, Y}(x, y)}{f_{Y}(y)}\\
+f_{X}(x)& > 0\\
+\end{aligned}$$
+
+The expectation of $$X$$ given $$Y$$ is defined as:
+
+$$\begin{aligned}
+E[Y \mid X = y] &= \int_{y}yf_{Y \mid X}(y \mid x)dy\\
+\end{aligned}$$
+
+Similarly, the random variable $$\Psi(X) = E[Y \mid X]$$ is the conditional expectation of $$Y$$ given $$X$$.
+
+### Example
+
+Given the following joing pdf:
+
+$$\begin{aligned}
+f_{X, Y}(x, y) &= \frac{1}{x}\\
+0 < y \leq x &\leq 1\\
+\end{aligned}$$
+
+First we calculate the marginal $$f_{X}$$:
+
+$$\begin{aligned}
+f_{X}(x) &= \int_{0}^{x}\frac{1}{x}dx\\
+&= 1\\
+0 &\leq x \leq 1\\
+\end{aligned}$$
+
+Which is uniform distribution. Next we compute the conditional pdf:
+
+$$\begin{aligned}
+f_{Y \mid X}(y \mid x) &= \frac{f_{X, Y}(x, y)}{f_{X}(x)}\\
+&= \frac{1}{x}\\
+0 &< y \leq x\\
+\end{aligned}$$
+
+And finally the conditional expectation:
+
+$$\begin{aligned}
+E[Y \mid X = x] &= \int_{0}^{x}yf_{Y \mid X}(y \mid x)dy\\
+&= \int_{0}^{x}\frac{y}{x}dy\\
+&= \frac{x}{2}\\[7pts]
+E[Y \mid X] &= \frac{X}{2}\\
+\end{aligned}$$
+
+## <a name="iterated"></a>Law of Iterated Expectation
+
+Let $$\Psi(X) = E[Y \mid X]$$. The Law of Iterated Expectation states that:
+
+$$\begin{aligned}
+E[\Psi(X)] &= E_{X}[E[Y \mid X]]\\
+&= E[Y]\\
+\end{aligned}$$
+
+To show this for discrete random variable:
+
+$$\begin{aligned}
+E_{X}[E[Y \mid X]] &= \sum_{x}P_{X}(x)E[Y \mid X = x]\\
+&= \sum_{x}P_{X}(x)\sum_{y}yP_{Y \mid X}(y \mid x)\\
+&= \sum_{x}P_{X}(x)\sum_{y}y\frac{P_{X, Y}(x, y)}{P_{X}(x)}\\
+&= \sum_{x, y}yP_{X, Y}(x, y)\\
+&= \sum_{y}\big(y\sum_{x}P_{X, Y}(x, y)\big)\\
+&= \sum_{y}p_{Y}(y)\\
+&= E[Y]
+\end{aligned}$$
+
+And similiarly for jointly continuous random variable:
+
+$$\begin{aligned}
+E_{X}[E[Y \mid X]] &= \int_{x}f_{X}(x)E[Y \mid X = x]dx\\
+&= \int_{x}f_{X}(x)dx\int_{y}yf_{Y \mid X}(y \mid x)dy\\
+&= \int_{x}f_{X}(x)dx\int_{y}y\frac{f_{X, Y}(x, y)}{f_{X}(x)}dy\\
+&= \int_{x, y}yf_{X, Y}(x, y)dxdy\\
+&= \int_{y}\big(y\int_{x}f_{X, Y}(x, y)dx\big)dy\\
+&= \int_{y}p_{Y}(y)dy\\
+&= E[Y]
+\end{aligned}$$
+
+### Example
+
+Let $$\{X_{1},\: \cdots, X_{N}\}$$ be i.i.d random variables, $$N$$ a nonnegative random variable independent from $$X_{i}$$ and $$S_{N} = \sum_{i = 1}^{N}X_{i}$$. Then:
+
+$$\begin{aligned}
+E[S_{N} \mid N = n] &= E \big[\sum_{i = 1}^{N}X_{i} \mid N = n\big]\\
+&= E \big[\sum_{i = 1}^{n}X_{i}\big]\\
+&= nE[X]\\
+\end{aligned}$$
+
+Hence:
+
+$$\begin{aligned}
+E[S_{N} \mid N] &= NE[X]\\
+E_{N}\big[E[S_{N} \mid N]\big] &= E[S_{N}]\\
+&= E_{N}\big[NE[X]\big]\\
+&= E[N]E[X]\\
+\end{aligned}$$
+
+### Generalized Law of Iterated Expectation
+
+Let $$g$$ be a measurable function such that $$E[\vert g(X) \vert] < \infty$$ and random variables $$X, Y$$. Then:
+
+$$\begin{aligned}
+E[Yg(X)] &= E\big[E[Y \mid X]g(X)\big]\\
+\end{aligned}$$
+
+This ties with the Law of Iterated Expectation where $$g(X) = 1$$.
+
+To show this for discrete random variables:
+
+$$\begin{aligned}
+E\big[E[Y \mid X]g(X)\big] &= \sum_{x}E[Y \mid X = x]g(x)\\
+&= \sum_{x}g(x)\sum_{y}yP_{Y \mid X}(y \mid x)\\
+&= \sum_{x}g(x)\sum_{y}y\frac{P_{X, Y}}{P_{X}(x)}\\
+&= \sum_{x, y}yg(x)P_{X, Y}(x, y)\\
+&= E[Yg(X)]\\
+\end{aligned}$$
+
+Similarly, for continuous random variables:
+
+$$\begin{aligned}
+E\big[E[Y \mid X]g(X)\big] &= \int_{x}E[Y \mid X = x]g(x)dx\\
+&= \int_{x}g(x)dx\int_{y}yf_{Y \mid X}(y \mid x)dy\\
+&= \int_{x}g(x)dx\int_{y}y\frac{f_{X, Y}}{f_{X}(x)}dy\\
+&= \int_{x, y}yg(x)f_{X, Y}(x, y)dxdy\\
+&= E[Yg(X)]\\
+\end{aligned}$$
+
+This implies that:
+
+$$\begin{aligned}
+E\big[(Y - E[Y \mid X])g(X)\big] &= 0\\
+\end{aligned}$$
+
+We can interpret $$E[Y \mid X]$$ as an estimator of $$Y$$ and from the equation above, we can see that the error of the estimation is uncorrelated with any function $$g$$ of $$X$$. In other words, $$Y$$ and $$E[Y \mid X]$$ are orthogonal w.r.t to the subspace of $$\sigma_{X}$$ in the $$\mathcal{L}_{2}$$ [Hilbert space]({% post_url 2021-01-04-variance-covariance %}#hilbert). And interestingly, the above equation uniquely determines $$E[Y \mid X]$$.
+
+### Minimum Mean Square Error Estimator
+
+And because of this orthogonality, $$E[Y \mid X]$$ is the minimum mean squared error (MMSE) estimator of Y. In other words, for any measurable function $$h$$:
+
+$$\begin{aligned}
+E\big[(Y - E[Y \mid X])^{2}\big] \leq E[(Y - h(X))^{2}]\\
+\end{aligned}$$
+
+To show this:
+
+$$\begin{aligned}
+E\big[(Y - h(X))^{2}\big] &= E\big[\big((Y - E[Y \mid X]) + (E[Y \mid X] - h(X))\big)^{2}\big]\\
+&= E\big[(Y - E[Y \mid X])^{2}] + 2E\big[(Y - E[Y \mid X])(E[Y \mid X] - h(X))\big] + E\big[(E[Y \mid X] - h(X))^{2}\big]\\
+\end{aligned}$$
+
+We can assign $$g(X) = E[Y \mid X] - h(X)$$ and according to the equation $$E\big[(Y - E[Y \mid X])g(X)\big] = 0$$:
+
+$$\begin{aligned}
+2E\big[(Y - E[Y \mid X])(E[Y \mid X] - h(X))] &= 2E\big[(Y - E[Y \mid X])g(X)\big]\\
+&= 0\\
+\end{aligned}$$
+
+Hence:
+
+$$\begin{aligned}
+E\big[(Y - h(X))^{2}\big] &= E\big[(Y - E[Y \mid X])^{2}] + 0 + E\big[(E[Y \mid X] - h(X))^{2}\big]\\
+&\geq E\big[(Y - E[Y \mid X])^{2}]\\
+\end{aligned}$$
+
+## <a name="references"></a>References
+
+[YouTube Mod-01 Lec-37 Conditional Expectation](https://www.youtube.com/watch?v=KEY8P4Rz4Ao&list=PLbMVogVj5nJQqGHrpAloTec_lOKsG-foc&index=37&ab_channel=nptelhrd)
+<br />
+[Krishna Jagannathan lecture23_conditional_expectation.pdf](http://www.ee.iitm.ac.in/~krishnaj/EE5110_files/notes/lecture23_conditional_expectation.pdf)
