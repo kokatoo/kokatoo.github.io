@@ -2,7 +2,7 @@
 layout: post
 title: "Integration and Expectation"
 date: 2020-12-22 01:30:06 +0800
-img : mct.png
+nimg : mct.png
 tags: [probability, measure, expectation]
 ---
 
@@ -22,7 +22,7 @@ In this post, we will talk about abstract integral such as Lebesgue integral tha
 - [Expectation of a Continuous RV](#continuous)
 - [Fatou's Lemma](#fatou)
 - [Dominated Convergence Theorem](#dominate)
-- [Conditional Expectation](#conditonal)
+- [Conditional Expectation](#conditional)
 - [Law of Iterated Expectation](#iterated)
 - [References](#references)
 </div>
