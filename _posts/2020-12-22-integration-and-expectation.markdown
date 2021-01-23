@@ -2,7 +2,7 @@
 layout: post
 title: "Integration and Expectation"
 date: 2020-12-22 01:30:06 +0800
-nimg : mct.png
+img : mct.png
 tags: [probability, measure, expectation]
 ---
 
