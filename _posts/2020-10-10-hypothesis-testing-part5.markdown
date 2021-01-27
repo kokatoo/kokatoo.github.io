@@ -2,7 +2,7 @@
 layout: post
 title: "Hypothesis Testing (Part 5) Fixed, Random and Mixed Effects"
 date: 2020-10-10 03:30:06 +0800
-img : interaction2.png
+img : 
 tags: [statistics, hypothesis testing]
 ---
 Today we will continue with part 5 of the Hypothesis Testing series on Fixed and Random Effects. If you haven't checked out part 4 please check it out [here]({% post_url 2020-10-07-hypothesis-testing-part4 %})

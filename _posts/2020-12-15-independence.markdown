@@ -2,11 +2,11 @@
 layout: post
 title: "Independence"
 date: 2020-12-15 01:30:06 +0800
-img : independence.png
+img : 
 tags: [probability, measure]
 ---
 
-Two events $$A, B$$ are independent under $$P$$ if
+Two events $$A, B$$ are independent under $$P$$ if:
 
 $$\begin{aligned}
 P(A \cap B) &= P(A)P(B)

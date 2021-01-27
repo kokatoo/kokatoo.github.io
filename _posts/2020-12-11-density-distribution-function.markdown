@@ -2,7 +2,7 @@
 layout: post
 title: "Density and Distribution Function"
 date: 2020-12-11 01:30:06 +0800
-img : density.png
+img : 
 tags: [probability, measure]
 ---
 

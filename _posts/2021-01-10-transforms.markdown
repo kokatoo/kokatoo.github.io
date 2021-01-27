@@ -2,7 +2,7 @@
 layout: post
 title: "Transforms"
 date: 2021-01-10 01:30:06 +0800
-img : characteristic.png
+img : 
 tags: [probability, measure, expectation]
 ---
 

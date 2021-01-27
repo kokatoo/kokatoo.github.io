@@ -2,7 +2,7 @@
 layout: post
 title: "Concentration Inequality"
 date: 2021-01-23 01:30:06 +0800
-img : chev.png
+img : 
 tags: [probability, measure]
 ---
 

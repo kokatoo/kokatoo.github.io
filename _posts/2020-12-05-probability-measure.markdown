@@ -2,7 +2,7 @@
 layout: post
 title: "Probability Measure"
 date: 2020-12-05 01:30:06 +0800
-img : probability.png
+img : 
 tags: [probability, measure]
 ---
 

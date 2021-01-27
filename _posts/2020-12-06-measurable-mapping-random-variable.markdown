@@ -2,7 +2,7 @@
 layout: post
 title: "Measurable Mapping And Random Variable"
 date: 2020-12-06 01:30:06 +0800
-img : mapping.png
+img : 
 tags: [probability, measure]
 ---
 

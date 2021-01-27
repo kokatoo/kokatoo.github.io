@@ -2,7 +2,7 @@
 layout: post
 title: "Transformation of Random Variables"
 date: 2020-12-15 01:30:06 +0800
-img : sumrand.png
+img : 
 tags: [probability, measure, erlang, chi-square, convolution, rayleigh, jacobian]
 ---
 

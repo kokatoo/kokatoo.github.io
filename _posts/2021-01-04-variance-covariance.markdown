@@ -2,7 +2,7 @@
 layout: post
 title: "Variance and Covariance"
 date: 2021-01-04 01:30:06 +0800
-img : variance.png
+img : 
 tags: [probability, measure, cauchy-schwarz, hilbert]
 ---
 
