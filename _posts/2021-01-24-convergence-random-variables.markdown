@@ -6,6 +6,38 @@ img :
 tags: [probability, measure]
 ---
 
+The study of convergence of random variables is important due to asymptotic behavior we find in limit theorems (that we will cover in the next post).
+
+<div class="toc" markdown="1">
+# Contents:
+- [Definition of Convergence](#definition)
+- [Types of Convergences](#types)
+    - [Pointwise Convergence](#pointwise)
+    - [Convergence in Probability](#prob)
+    - [Convergence in the $$r^\text{th}$$ Mean](#rthmean)
+    - [Convergence in Distribution (Weak Convergence)](#distribution)
+    - [Example](#example)
+- [Hierarchy of Convergences](#hierarchy)
+    - [$$X_{n} \overset{r}{\rightarrow} X \implies X_{n} \overset{i.p.}{\rightarrow} X$$](#hier1)
+    - [$$X_{n} \overset{r}{\rightarrow} X \kern.7em\not\kern -.7em \impliedby X_{n} \overset{i.p.}{\rightarrow} X$$](#hier2)
+    - [$$X_{n} \overset{r}{\rightarrow} X \implies X_{n} \overset{s}{\rightarrow} X$$](#hier8)
+    - [$$X_{n} \overset{r}{\rightarrow} X \kern.7em\not\kern -.7em \impliedby X_{n} \overset{s}{\rightarrow} X$$](#hier9)
+    - [$$X_{n} \overset{i.p.}{\rightarrow} X \implies X_{n} \overset{D}{\rightarrow} X$$](#hier3)
+    - [$$X_{n} \overset{i.p.}{\rightarrow} X \kern.7em\not\kern -.7em \impliedby X_{n} \overset{D}{\rightarrow} X$$](#hier4)
+    - [$$X_{n} \overset{a.s.}{\rightarrow} X \implies \overset{i.p.}{\rightarrow} X$$](#hier5)
+    - [$$X_{n} \overset{a.s.}{\rightarrow} X \kern.7em\not\kern -.7em \impliedby X_{n} \overset{i.p.}{\rightarrow} X$$](#hier6)
+    - [$$X_{n} \overset{a.s.}{\rightarrow} X \kern.7em\not\kern -.7em \impliedby X_{n} \overset{m.s.}{\rightarrow} X$$](#hier7)
+- [Skorokhod’s Representation Theorem](#skorokhod)
+- [Continuous Mapping Theorem](#continuous)
+- [Continuity Theorems](#continuity)
+- [Hölder's Inequality](#holder)
+- [Minkowski's Inequality](#minkowski)
+- [Lyapunov's Inequality](#lyapunov)
+- [References](#references)
+</div>
+
+## <a name="definition"></a>Definition of Convergence
+
 Let $$\{x_{n}, n \geq 1\}$$ be a sequence of random variables. We say that the sequence converges to some $$x \in \mathbb{R}$$ if:
 
 $$\begin{aligned}
@@ -32,33 +64,6 @@ x_{n} &< -M\\
 \forall n &\geq n_{0}\\
 M &> 0\\
 \end{aligned}$$
-
-<div class="toc" markdown="1">
-# Contents:
-- [Types of Convergences](#types)
-    - [Pointwise Convergence](#pointwise)
-    - [Convergence in Probability](#prob)
-    - [Convergence in the $$r^\text{th}$$ Mean](#rthmean)
-    - [Convergence in Distribution (Weak Convergence)](#distribution)
-    - [Example](#example)
-- [Hierarchy of Convergences](#hierarchy)
-    - [$$X_{n} \overset{r}{\rightarrow} X \implies X_{n} \overset{i.p.}{\rightarrow} X$$](#hier1)
-    - [$$X_{n} \overset{r}{\rightarrow} X \kern.7em\not\kern -.7em \impliedby X_{n} \overset{i.p.}{\rightarrow} X$$](#hier2)
-    - [$$X_{n} \overset{r}{\rightarrow} X \implies X_{n} \overset{s}{\rightarrow} X$$](#hier8)
-    - [$$X_{n} \overset{r}{\rightarrow} X \kern.7em\not\kern -.7em \impliedby X_{n} \overset{s}{\rightarrow} X$$](#hier9)
-    - [$$X_{n} \overset{i.p.}{\rightarrow} X \implies X_{n} \overset{D}{\rightarrow} X$$](#hier3)
-    - [$$X_{n} \overset{i.p.}{\rightarrow} X \kern.7em\not\kern -.7em \impliedby X_{n} \overset{D}{\rightarrow} X$$](#hier4)
-    - [$$X_{n} \overset{a.s.}{\rightarrow} X \implies \overset{i.p.}{\rightarrow} X$$](#hier5)
-    - [$$X_{n} \overset{a.s.}{\rightarrow} X \kern.7em\not\kern -.7em \impliedby X_{n} \overset{i.p.}{\rightarrow} X$$](#hier6)
-    - [$$X_{n} \overset{a.s.}{\rightarrow} X \kern.7em\not\kern -.7em \impliedby X_{n} \overset{m.s.}{\rightarrow} X$$](#hier7)
-- [Skorokhod’s Representation Theorem](#skorokhod)
-- [Continuous Mapping Theorem](#continuous)
-- [Continuity Theorems](#continuity)
-- [Hölder's Inequality](#holder)
-- [Minkowski's Inequality](#minkowski)
-- [Lyapunov's Inequality](#lyapunov)
-- [References](#references)
-</div>
 
 ## <a name="types"></a>Types of Convergences
 
