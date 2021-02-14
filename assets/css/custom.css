@@ -135,6 +135,13 @@ strong, h1, h2, h3 a {
     color: #4682b4 !important;
 }
 
+.blog h4 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #4682b4 !important;
+    font-size: 16px !important;
+}
+
 .blog-post h3 {
     font-size: 30px !important;
 }
@@ -191,7 +198,12 @@ li {
 }
 
 .blog li {
-    list-style: trad-chinese-formal
+    list-style: trad-chinese-formal;
+}
+
+.blog li li {
+    list-style: disc;
+    margin-left: 10px;
 }
 
 .blog code {
