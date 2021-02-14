@@ -13,6 +13,7 @@ The study of convergence of random variables is important due to asymptotic beha
 - [Definition of Convergence](#definition)
 - [Types of Convergences](#types)
     - [Pointwise Convergence](#pointwise)
+    - [Amost Sure Convergence (Strong Convergence)](#almost)
     - [Convergence in Probability](#prob)
     - [Convergence in the $$r^\text{th}$$ Mean](#rthmean)
     - [Convergence in Distribution (Weak Convergence)](#distribution)
